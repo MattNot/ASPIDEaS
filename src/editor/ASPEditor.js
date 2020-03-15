@@ -3,6 +3,13 @@ import AceEditor from "react-ace";
 import CustomAspMode from "./Asp-Mode";
 import "brace/theme/dracula"
 
+const styles = {
+    EDITOR: {
+        width: "100%",
+        height: "100vh"
+    }
+};
+
 class ASPEditor extends React.Component {
 
     constructor(props) {
@@ -25,6 +32,8 @@ class ASPEditor extends React.Component {
                        name="Unico"
                        editorProps={{$blockScrolling: true}}
                        ref={this.aceEditor}
+                       style={styles.EDITOR}
+                       showPrintMargin={false}
             />
         );
     }
