@@ -29,7 +29,7 @@ class ASPEditor extends React.Component {
             <AceEditor theme="dracula"
                        mode="text"
                        onChange={val => console.log(val)}
-                       name="Unico"
+                       name="unique"
                        editorProps={{$blockScrolling: true}}
                        ref={this.aceEditor}
                        style={styles.EDITOR}
