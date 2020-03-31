@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca9a36b-a46e-4451-bf14-a2f6712ab13a" name="Default Changelist" comment="Okay, a lot of things.&#10;Added AceErrorListener.js, ASPCore2_0c*.js, added ASPSnippets.js (must add others)">
-      <change afterPath="$PROJECT_DIR$/src/editor/ASPSnippets.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/editor/parser/ASPCore2_0cLexer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/editor/parser/ASPCore2_0cListener.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/editor/parser/ASPCore2_0cParser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/editor/parser/AceErrorListener.js" afterDir="false" />
+    <list default="true" id="aca9a36b-a46e-4451-bf14-a2f6712ab13a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UI/ASPFileTree.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/ASPFileTree.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/editor/ASPEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/editor/ASPEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/editor/Asp-Mode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/editor/Asp-Mode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/editor/parser/AceErrorListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/editor/parser/AceErrorListener.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +145,7 @@
       <workItem from="1585326316582" duration="5429000" />
       <workItem from="1585392042373" duration="5664000" />
       <workItem from="1585647892939" duration="11384000" />
-      <workItem from="1585676586113" duration="7657000" />
+      <workItem from="1585676586113" duration="9144000" />
     </task>
     <task id="LOCAL-00001" summary="Added Editor and Mode">
       <created>1584269636796</created>
@@ -179,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584785321663</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Okay, a lot of things.&#10;Added AceErrorListener.js, ASPCore2_0c*.js, added ASPSnippets.js (must add others)">
+      <created>1585684932330</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585684932330</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,11 +216,11 @@
     </state>
     <state x="574" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1583085701394" />
     <state x="718" y="162" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1585067173013" />
-    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1585684806556">
+    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1585684931608">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584269635408" />
-    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585684806556" />
+    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585684931608" />
     <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1585322113366">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -302,11 +298,11 @@
     </state>
     <state x="277" y="54" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1583692562191" />
     <state x="346" y="68" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1585658420564" />
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1584785341097">
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1585684934771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="361" y="134" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1584269673996" />
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584785341097" />
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1585684934771" />
     <state x="715" y="364" key="cloudConfig.PluginsDialog" timestamp="1584288803953">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
