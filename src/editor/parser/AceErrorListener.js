@@ -9,11 +9,13 @@ export default class AceErrorListener extends antlr4.error.ErrorListener {
 	}
 
 	setMessage(offendingSymbol, msg, exceptionDetails) {
+		//console.log(exceptionDetails);
 		if (exceptionDetails instanceof NoViableAltException)
 			if (!offendingSymbol.source[1].strdata.includes("\."))
 				return "Missing DOT at end of statement";
-			else
-				return "Generic syntax error";
+			else {
+				//console.log(offendingSymbol)
+			}
 		return msg;
 	}
 

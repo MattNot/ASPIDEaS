@@ -9,10 +9,10 @@ import antlr4 from "antlr4/index"
 import AceErrorListener from "./parser/AceErrorListener";
 import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
+import ASPCore2_0cListener from "./parser/ASPCore2_0cListener";
 
 let Lexer = require("./parser/ASPCore2_0cLexer").ASPCore2_0cLexer;
 let Parser = require("./parser/ASPCore2_0cParser").ASPCore2_0cParser;
-let Listener = require("./parser/ASPCore2_0cListener").ASPCore2_0cListener;
 
 window.ace.acequire("ace/snippets/text").snippetText = snippets;
 
@@ -69,8 +69,10 @@ class ASPEditor extends React.Component {
 		let annotations = [];
 		let errorListener = new AceErrorListener(annotations);
 		parser.removeErrorListeners();
+		parser.buildParseTrees = true;
 		parser.addErrorListener(errorListener);
-		parser.program();
+		let tree = parser.program();
+		antlr4.tree.ParseTreeWalker.DEFAULT.walk(new ASPCore2_0cListener(annotations), tree);
 		this.aceEditor.current.editor.getSession().setAnnotations(annotations);
 	}
 

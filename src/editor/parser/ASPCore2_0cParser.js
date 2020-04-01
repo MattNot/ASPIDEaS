@@ -1,7 +1,7 @@
 // Generated from .\ASPCore2_0c.g4 by ANTLR 4.8
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
-var ASPCore2_0cListener = require('./ASPCore2_0cListener').ASPCore2_0cListener;
+var ASPCore2_0cListener = require('./ASPCore2_0cEMPTYListener').ASPCore2_0cEMPTYListener;
 var grammarFileName = "ASPCore2_0c.g4";
 
 
