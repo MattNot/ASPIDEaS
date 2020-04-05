@@ -25,7 +25,7 @@ const styles = {
 
 class ASPEditor extends React.Component {
 
-	getCircularReplacer = () => {
+	/*getCircularReplacer = () => {
 		const seen = new WeakSet();
 		return (key, value) => {
 			if (typeof value === "object" && value !== null) {
@@ -36,14 +36,13 @@ class ASPEditor extends React.Component {
 			}
 			return value;
 		};
-	};
+	};*/
 
 	constructor(props) {
 		super(props);
 		this.aceEditor = React.createRef();
 		this.state = {
 			currentValue: '',
-			annotations: []
 		};
 		/*this.parser = new Worker("parserWorker.js");
 		this.parser.onmessage = e => {
@@ -67,7 +66,8 @@ class ASPEditor extends React.Component {
 		let tokens = new antlr4.CommonTokenStream(lexer);
 		let parser = new Parser(tokens);
 		let annotations = [];
-		let errorListener = new AceErrorListener(annotations);
+		let markers = [];
+		let errorListener = new AceErrorListener(annotations, markers);
 		parser.removeErrorListeners();
 		parser.buildParseTrees = true;
 		parser.addErrorListener(errorListener);
