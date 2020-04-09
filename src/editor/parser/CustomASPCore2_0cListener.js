@@ -13,6 +13,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	}
 
 	exitStatement(ctx) {
+		console.log(ctx);
 		if (this.safetyHandler.set.size !== 0 && this.safetyHandler.haveBody) {
 			this.annotations.push({
 				row: ctx.start.line - 1,

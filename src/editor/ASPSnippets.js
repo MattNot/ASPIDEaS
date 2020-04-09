@@ -13,6 +13,13 @@ snippet hb3\n\
 #               Disjunctions\n\
 snippet dj0\n\
 	${1:a} | ${2:b}\n\
+snippet dj1\n\
+	${1:a}(${2:X}) | ${3:b}(${4:X})\n\
+snippet dj2\n\
+	${1:a}(${2:X}, ${3:Y}) | ${4:b}(${5:X},${6:Y})\n\
+#               Aggregatates\n\
+snippet max\n\
+	#max{${1:A}:${2:atom}}\n\
 ';
 
 export default snippet;

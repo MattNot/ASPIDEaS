@@ -34,6 +34,10 @@ export class AspHighLightsRules extends window.ace.acequire("ace/mode/text_highl
 				{
 					token: "keyword.operator",
 					regex: "}"
+				},
+				{
+					token: "comment",
+					regex: "%.+"
 				}
 			],
 			"atomDef": [
@@ -87,5 +91,6 @@ export default class CustomAspMode extends Mode {
 	constructor() {
 		super();
 		this.HighlightRules = AspHighLightsRules;
+		this.lineCommentStart = "%";
 	}
 }

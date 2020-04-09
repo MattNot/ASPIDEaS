@@ -11,6 +11,7 @@ import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
 import CustomASPCore2_0cListener from "./parser/CustomASPCore2_0cListener";
 
+
 let Lexer = require("./parser/ASPCore2_0cLexer").ASPCore2_0cLexer;
 let Parser = require("./parser/ASPCore2_0cParser").ASPCore2_0cParser;
 
@@ -66,8 +67,7 @@ class ASPEditor extends React.Component {
 		let tokens = new antlr4.CommonTokenStream(lexer);
 		let parser = new Parser(tokens);
 		let annotations = [];
-		let markers = [];
-		let errorListener = new AceErrorListener(annotations, markers);
+		let errorListener = new AceErrorListener(annotations);
 		parser.removeErrorListeners();
 		parser.buildParseTrees = true;
 		parser.addErrorListener(errorListener);

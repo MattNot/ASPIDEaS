@@ -2,11 +2,10 @@ import antlr4 from "antlr4/index"
 import {NoViableAltException} from "antlr4/error/Errors"
 
 export default class AceErrorListener extends antlr4.error.ErrorListener {
-	constructor(annotations, markers) {
+	constructor(annotations) {
 		super();
 		antlr4.error.ErrorListener.call(this);
 		this.annotations = annotations;
-		this.markers = markers;
 	}
 
 	setMessage(offendingSymbol, msg, exceptionDetails) {
@@ -27,6 +26,6 @@ export default class AceErrorListener extends antlr4.error.ErrorListener {
 			column: column,
 			text: this.setMessage(offendingSymbol, msg, e),
 			type: "error"
-		})
+		});
 	}
 }
