@@ -20,7 +20,7 @@ window.ace.acequire("ace/snippets/text").snippetText = snippets;
 const styles = {
 	EDITOR: {
 		width: "100%",
-		height: "100vh"
+		height: "80vh"
 	}
 };
 

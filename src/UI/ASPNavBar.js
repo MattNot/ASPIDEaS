@@ -30,11 +30,16 @@ function ASPNavBar(props) {
 			<MenuItem as={"a"} header href={"/"}>
 				ASP IDEaS
 			</MenuItem>
-			<Dropdown item simple text={'File'}>
+			<Dropdown item simple text={props.locale.__("File")}>
 				<DropdownMenu>
-					<Button as={DropdownItem} onClick={handleSave}>Salva</Button>
+					<Button as={DropdownItem} onClick={handleSave}>{props.locale.__("Save")}</Button>
 					<DropdownDivider/>
 					<DropdownItem>Non Lo so</DropdownItem>
+				</DropdownMenu>
+			</Dropdown>
+			<Dropdown item simple text={props.locale.__("Edit")}>
+				<DropdownMenu>
+					<Button as={DropdownItem} onClick={props.setLanguage}>{props.locale.__("changeLang")}</Button>
 				</DropdownMenu>
 			</Dropdown>
 		</Menu>
