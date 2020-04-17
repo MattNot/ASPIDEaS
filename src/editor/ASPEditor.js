@@ -12,8 +12,8 @@ import CustomAspMode from "./Asp-Mode";
 import CustomASPCore2_0cListener from "./parser/CustomASPCore2_0cListener";
 
 
-let Lexer = require("./parser/ASPCore2_0cLexer").ASPCore2_0cLexer;
-let Parser = require("./parser/ASPCore2_0cParser").ASPCore2_0cParser;
+const Lexer = require("./parser/ASPCore2_0cLexer").ASPCore2_0cLexer;
+const Parser = require("./parser/ASPCore2_0cParser").ASPCore2_0cParser;
 
 window.ace.acequire("ace/snippets/text").snippetText = snippets;
 
@@ -26,29 +26,12 @@ const styles = {
 
 class ASPEditor extends React.Component {
 
-	/*getCircularReplacer = () => {
-		const seen = new WeakSet();
-		return (key, value) => {
-			if (typeof value === "object" && value !== null) {
-				if (seen.has(value)) {
-					return;
-				}
-				seen.add(value);
-			}
-			return value;
-		};
-	};*/
-
 	constructor(props) {
 		super(props);
 		this.aceEditor = React.createRef();
 		this.state = {
 			currentValue: '',
 		};
-		/*this.parser = new Worker("parserWorker.js");
-		this.parser.onmessage = e => {
-			//this.aceEditor.current.editor.getSession().setAnnotations([e.data])
-		};*/
 	}
 
 	componentDidMount() {
@@ -60,9 +43,10 @@ class ASPEditor extends React.Component {
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but i didn't manage to find a way to do it.
 	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder
 	//FIXME: Matteo Notaro, 28/03/2020
-	parse(val: string) {
+	parse(val: string, event: any) {
 		this.setState({currentValue: val});
-		let stream = new antlr4.InputStream(val);
+		let delta = this.aceEditor.current.editor.getSession().getLine(event.start.row);
+		let stream = new antlr4.InputStream(delta);
 		let lexer = new Lexer(stream);
 		let tokens = new antlr4.CommonTokenStream(lexer);
 		let parser = new Parser(tokens);
@@ -73,6 +57,10 @@ class ASPEditor extends React.Component {
 		parser.addErrorListener(errorListener);
 		let tree = parser.program();
 		antlr4.tree.ParseTreeWalker.DEFAULT.walk(new CustomASPCore2_0cListener(annotations), tree);
+		annotations = annotations.map(ann => {
+			ann.row = event.start.row;
+			return ann;
+		});
 		this.aceEditor.current.editor.getSession().setAnnotations(annotations);
 	}
 
@@ -81,7 +69,7 @@ class ASPEditor extends React.Component {
 		return (
 			<AceEditor theme="dracula"
 			           mode="text"
-			           onChange={val => this.parse(val)}
+			           onChange={(val, event) => this.parse(val, event)}
 			           name="unique"
 			           editorProps={{$blockScrolling: true}}
 			           ref={this.aceEditor}

@@ -8,7 +8,7 @@ import ASPEditor from "./editor/ASPEditor";
 import AspOutput from "./UI/ASPOutput";
 
 const styles = {
-	MAIN: {height: "100vh", width: "100vw", position: "relative"},
+	MAIN: {height: "100%", width: "100vw", position: "relative"},
 	SECONDARY: {margin: "0", padding: "0"},
 	PUSHABLE: {margin: 0},
 };
