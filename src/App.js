@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import ASPSideBar from "./UI/ASPSideBar";
 import "semantic-ui-css/semantic.min.css"
+import "./App.css"
 import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
 import ASPNavBar from "./UI/ASPNavBar";
 import locales from "./i18n";
@@ -38,7 +39,8 @@ function App() {
 			           setLanguage={handleLanguage}/>
 			<SidebarPushable as={Segment} style={styles.PUSHABLE}>
 				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}/>
-				<SidebarPusher style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
+				<SidebarPusher
+					style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
 					<ASPEditor/>
 					<AspOutput text={outPut}/>
 				</SidebarPusher>

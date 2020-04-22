@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Generated from .\ASPCore2_0c.g4 by ANTLR 4.8
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
