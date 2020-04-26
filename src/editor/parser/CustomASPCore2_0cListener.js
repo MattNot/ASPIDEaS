@@ -54,7 +54,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			if (ctx.children[0].symbol.text.charAt(0).match("[A-Z]"))
 				this.safetyHandler.set.add(ctx.children[0].symbol.text);
 		} else if (this.safetyHandler.inBody) {
-			this.safetyHandler.set.delete(ctx.children[0].symbol.text);
+			this.safetyHandler.set.delete(ctx.children[0].symbol.text);// no-effect if symbol isn't in the set
 		}
 	}
 

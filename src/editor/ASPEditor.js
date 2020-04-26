@@ -61,11 +61,10 @@ class ASPEditor extends React.Component {
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but i didn't manage to find a way to do it.
-	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder
+	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
 	//FIXME: Matteo Notaro, 28/03/2020
 	parse(val: string) {
 		this.setState({currentValue: val});
-		console.log(this.state.annotations)
 		let actualRow = this.aceEditor.current.editor.getCursorPosition().row;
 		let delta = this.aceEditor.current.editor.getSession().getLine(actualRow);
 		let stream = new antlr4.InputStream(delta);
@@ -86,17 +85,17 @@ class ASPEditor extends React.Component {
 		if (annotations.length === 0) {
 			let old = this.state.annotations;
 			let newAnn = old.filter(ann => ann.row !== actualRow)
-			this.setState({annotations: [...newAnn]});
+			this.setState({annotations: newAnn});
+			this.aceEditor.current.editor.getSession().setAnnotations(this.state.annotations);
 		} else {
-			// TODO: risolvi il fatto che viene pushato sempre qualcosa
+			let old = this.state.annotations;
+			annotations.forEach(a => old.push(a));
+			old.filter(ann => ann.row !== actualRow)
+			this.setState({annotations: old});
+			this.aceEditor.current.editor.getSession().setAnnotations(this.state.annotations);
 		}
-		this.aceEditor.current.editor.getSession().setAnnotations(this.state.annotations);
 	}
 
-	addDot = () => {
-		this.aceEditor.current.editor.navigateLineEnd();
-		this.aceEditor.current.editor.getSession().replace(this.aceEditor.current.editor.getSelectionRange(), ".");
-	}
 
 	setContextMenu = () => {
 		this.errorOnThisLine();
@@ -138,7 +137,7 @@ class ASPEditor extends React.Component {
 				<ContextMenu id="contextMenu">
 						<ContextMenuHandler errorInLine={this.state.errorOnThisLine}
 						                    functions={{
-							                    copy: this.copy,
+							                    copy: this.props.ext,
 							                    paste: this.paste,
 							                    cut: this.cut,
 							                    addDot: this.addDot
