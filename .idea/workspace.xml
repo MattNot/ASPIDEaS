@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aca9a36b-a46e-4451-bf14-a2f6712ab13a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/editor/EditorHandler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/editor/ASPEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/editor/ASPEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/editor/parser/CustomASPCore2_0cListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/editor/parser/CustomASPCore2_0cListener.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,6 +202,9 @@
       <workItem from="1587541048120" duration="209000" />
       <workItem from="1587812777637" duration="601000" />
       <workItem from="1587825359524" duration="7032000" />
+      <workItem from="1587917751445" duration="1931000" />
+      <workItem from="1587932262477" duration="600000" />
+      <workItem from="1587973674435" duration="1892000" />
     </task>
     <task id="LOCAL-00001" summary="Added Editor and Mode">
       <created>1584269636796</created>
@@ -280,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587541235516</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="computer vecchio">
+      <created>1587917802475</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1587917802475</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,13 +352,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586092747216" />
-    <state x="262" y="0" key="CommitChangelistDialog2" timestamp="1587541217357">
-      <screen x="0" y="0" width="1024" height="728" />
+    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1587917801721">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="491" y="8" key="CommitChangelistDialog2/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587136253643" />
     <state x="262" y="0" key="CommitChangelistDialog2/0.0.1024.728@0.0.1024.728" timestamp="1587541217357" />
     <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584269635408" />
-    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586431680364" />
+    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587917801721" />
     <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1585322113366">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

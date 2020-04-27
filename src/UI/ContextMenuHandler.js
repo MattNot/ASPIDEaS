@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {MenuItem, SubMenu} from "react-contextmenu";
 
-const ContextMenuHandler = props => {
+const ContextMenuHandler = ({errorInLine, handler}) => {
 	return (
 		<span>
-			<MenuItem onClick={props.functions.copy}>Copy</MenuItem>
-			<MenuItem onClick={props.functions.paste}>Paste</MenuItem>
-			<MenuItem onClick={props.functions.cut}>Cut</MenuItem>
-			{props.errorInLine.value && <SubMenu title={"Fix the error..."}>
-				{props.errorInLine.name === "MissingDot" &&
-				<MenuItem onClick={props.functions.addDot}>Add a dot at the end</MenuItem>}
+			<MenuItem onClick={handler.copy}>Copy</MenuItem>
+			<MenuItem onClick={handler.paste}>Paste</MenuItem>
+			<MenuItem onClick={handler.cut}>Cut</MenuItem>
+			{errorInLine.value && <SubMenu title={"Fix the error..."}>
+				{errorInLine.name === "MissingDot" &&
+				<MenuItem onClick={handler.addDot}>Add a dot at the end</MenuItem>}
 			</SubMenu>}
 		</span>
 	);
