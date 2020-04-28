@@ -52,4 +52,14 @@ export default class EditorHandler {
 		this.aceEditor.current.editor.getSession().replace(this.aceEditor.current.editor.getSelectionRange(), "");
 	}
 
+	_addDot = () => {
+		this.aceEditor.current.editor.navigateLineEnd();
+		this.aceEditor.current.editor.getSession().replace(this.aceEditor.current.editor.getSelectionRange(), ".");
+	}
+
+	addPositive = () => {
+	}
+	removeVarInHead = () => {
+	}
+
 }

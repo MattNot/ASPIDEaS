@@ -31,6 +31,7 @@ class ASPEditor extends React.Component {
 			annotations: [],
 			errorOnThisLine: {}
 		};
+		this.editorHandler = new EditorHandler(this.aceEditor);
 	}
 
 
@@ -38,7 +39,6 @@ class ASPEditor extends React.Component {
 		this.aceEditor.current.editor.getSession().setMode(new CustomAspMode());
 		this.aceEditor.current.editor.setBehavioursEnabled(true);
 		this.aceEditor.current.editor.setWrapBehavioursEnabled(true);
-		this.editorHandler = new EditorHandler(this.aceEditor);
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but i didn't manage to find a way to do it.
