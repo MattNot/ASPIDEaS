@@ -1,7 +1,7 @@
 import {ASPCore2_0cListener} from "./ASPCore2_0cListener"
 
 export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
-	constructor(annotations) {
+	constructor(annotations, lineContext) {
 		super();
 		this.safetyHandler = {
 			inHead: false,
@@ -9,19 +9,25 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			haveBody: false,
 			set: new Set(),
 		};
+		this.lineContext = lineContext;
 		this.annotations = annotations;
 	}
 
+	getLastContext() {
+		return this.lineContext;
+	}
+
 	exitStatement(ctx) {
-		console.log(ctx);
 		if (this.safetyHandler.set.size !== 0 && this.safetyHandler.haveBody) {
 			this.annotations.push({
 				row: ctx.start.line - 1,
 				column: ctx.start.column,
 				type: "error",
-				text: `Safety error, missing '${[...this.safetyHandler.set].join(",")}' in positive body members`
+				text: `Safety error, missing '${[...this.safetyHandler.set].join(",")}' in positive body members`,
+				name: "safety"
 			})
 		}
+		this.lineContext = ctx;
 	}
 
 	enterHead(ctx) {

@@ -6,13 +6,15 @@ const Lexer = require("./parser/ASPCore2_0cLexer").ASPCore2_0cLexer;
 const Parser = require("./parser/ASPCore2_0cParser").ASPCore2_0cParser;
 
 export default class EditorHandler {
-	constructor(aceEditor) {
+	constructor(aceEditor, plugins) {
 		this.aceEditor = aceEditor;
+		this.plugins = plugins;
 	}
 
-	parse = (actualAnnotations) => {
+	parse = (actualAnnotations, lineContext) => {
 		let actualRow = this.aceEditor.current.editor.getCursorPosition().row;
 		let delta = this.aceEditor.current.editor.getSession().getLine(actualRow);
+		lineContext[actualRow] = undefined;
 		let stream = new antlr4.InputStream(delta);
 		let lexer = new Lexer(stream);
 		let tokens = new antlr4.CommonTokenStream(lexer);
@@ -23,7 +25,9 @@ export default class EditorHandler {
 		parser.buildParseTrees = true;
 		parser.addErrorListener(errorListener);
 		let tree = parser.program();
-		antlr4.tree.ParseTreeWalker.DEFAULT.walk(new CustomASPCore2_0cListener(annotations), tree);
+		let walker = new CustomASPCore2_0cListener(annotations, lineContext[actualRow]);
+		antlr4.tree.ParseTreeWalker.DEFAULT.walk(walker, tree);
+		lineContext[actualRow] = walker.getLastContext();
 		annotations = annotations.map(ann => {
 			ann.row = actualRow;
 			return ann;
@@ -50,11 +54,6 @@ export default class EditorHandler {
 	cut = () => {
 		this.copy();
 		this.aceEditor.current.editor.getSession().replace(this.aceEditor.current.editor.getSelectionRange(), "");
-	}
-
-	_addDot = () => {
-		this.aceEditor.current.editor.navigateLineEnd();
-		this.aceEditor.current.editor.getSession().replace(this.aceEditor.current.editor.getSelectionRange(), ".");
 	}
 
 	addPositive = () => {

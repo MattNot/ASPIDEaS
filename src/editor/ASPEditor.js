@@ -29,9 +29,11 @@ class ASPEditor extends React.Component {
 		this.state = {
 			currentValue: '',
 			annotations: [],
-			errorOnThisLine: {}
+			lineContext: [],
+			errorOnThisLine: {},
+			activeLine: 0
 		};
-		this.editorHandler = new EditorHandler(this.aceEditor);
+		this.editorHandler = new EditorHandler(this.aceEditor, props.plugins);
 	}
 
 
@@ -47,14 +49,16 @@ class ASPEditor extends React.Component {
 	//TODO: Refactor using deconstruction:  const {name} = object
 	parse(val: string) {
 		this.setState({currentValue: val});
-		const newAnnotations = this.editorHandler.parse(this.state.annotations);
-		this.setState({annotations: newAnnotations});
+		let {lineContext} = this.state;
+		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext);
+		this.setState({annotations: newAnnotations, lineContext: lineContext});
 		this.aceEditor.current.editor.getSession().setAnnotations(newAnnotations);
 	}
 
 
 	setContextMenu = () => {
 		this.errorOnThisLine();
+		this.setState({activeLine: this.aceEditor.current.editor.getSelection().getCursor().row});
 	}
 
 	errorOnThisLine = () => {
@@ -92,7 +96,9 @@ class ASPEditor extends React.Component {
 				</ContextMenuTrigger>
 				<ContextMenu id="contextMenu">
 						<ContextMenuHandler errorInLine={this.state.errorOnThisLine}
-						                    handler={this.editorHandler}/>
+						                    handler={this.editorHandler}
+						                    context={this.state.lineContext[this.state.activeLine]}
+						/>
 				</ContextMenu>
 			</span>
 		);

@@ -1,16 +1,22 @@
 import React from 'react';
-import {MenuItem, SubMenu} from "react-contextmenu";
+import {MenuItem} from "react-contextmenu";
 
-function SubMenuPrinter({annotation, handler}) {
+function SubMenuPrinter({annotation, handler, errorMenu = true}) {
 	return (
 		<span>
-			{annotation.name === "MissingDot" && <MenuItem onClick={handler._addDot}>Add a dot at the end</MenuItem>}
-			{annotation.name === "Safety" && <SubMenu title={"Rewrite..."}>
-				<MenuItem onClick={handler.addPositive}>Add a positive member</MenuItem>
-				<MenuItem onClick={handler.removeVarInHead}>Remove the unsafe var in head</MenuItem>
-			</SubMenu>}
+			{errorMenu &&
+			<MenuItem onClick={handler[annotation.name]}></MenuItem>
+			}
 		</span>
 	);
 }
 
 export default SubMenuPrinter;
+
+
+/*
+
+{handler.plugins.map(plugin => {
+	return <MenuItem onClick={plugin.function} key={plugin.name}
+	                 data={{editor: handler.aceEditor.current.editor}}> {plugin.description} </MenuItem>
+})}*/

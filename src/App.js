@@ -7,6 +7,7 @@ import ASPNavBar from "./UI/ASPNavBar";
 import locales from "./i18n";
 import ASPEditor from "./editor/ASPEditor";
 import AspOutput from "./UI/ASPOutput";
+import {plugins} from "./plugins";
 
 const styles = {
 	MAIN: {height: "100%", width: "100vw", position: "relative"},
@@ -41,7 +42,7 @@ function App() {
 				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}/>
 				<SidebarPusher
 					style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
-					<ASPEditor/>
+					<ASPEditor plugins={plugins}/>
 					<AspOutput text={outPut}/>
 				</SidebarPusher>
 			</SidebarPushable>

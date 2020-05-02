@@ -26,7 +26,7 @@ export default class AceErrorListener extends antlr4.error.ErrorListener {
 			column: column,
 			text: this.setMessage(offendingSymbol, msg, e),
 			type: "error",
-			name: "MissingDot"
+			name: "missingDot"
 		});
 	}
 }
