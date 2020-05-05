@@ -24,6 +24,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 				column: ctx.start.column,
 				type: "error",
 				text: `Safety error, missing '${[...this.safetyHandler.set].join(",")}' in positive body members`,
+				unsafeVariables: [...this.safetyHandler.set],
 				name: "safety"
 			})
 		}

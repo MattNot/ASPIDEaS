@@ -14,13 +14,14 @@ export default class EditorHandler {
 	parse = (actualAnnotations, lineContext) => {
 		let actualRow = this.aceEditor.current.editor.getCursorPosition().row;
 		let delta = this.aceEditor.current.editor.getSession().getLine(actualRow);
-		lineContext[actualRow] = undefined;
 		let stream = new antlr4.InputStream(delta);
 		let lexer = new Lexer(stream);
 		let tokens = new antlr4.CommonTokenStream(lexer);
 		let parser = new Parser(tokens);
 		let annotations = [];
 		let errorListener = new AceErrorListener(annotations);
+
+		lineContext[actualRow] = undefined;
 		parser.removeErrorListeners();
 		parser.buildParseTrees = true;
 		parser.addErrorListener(errorListener);
@@ -28,6 +29,7 @@ export default class EditorHandler {
 		let walker = new CustomASPCore2_0cListener(annotations, lineContext[actualRow]);
 		antlr4.tree.ParseTreeWalker.DEFAULT.walk(walker, tree);
 		lineContext[actualRow] = walker.getLastContext();
+
 		annotations = annotations.map(ann => {
 			ann.row = actualRow;
 			return ann;
@@ -35,7 +37,7 @@ export default class EditorHandler {
 		if (annotations.length === 0) {
 			return actualAnnotations.filter(ann => ann.row !== actualRow);
 		} else {
-			let old = actualAnnotations;
+			let old = actualAnnotations.filter(ann => ann.row !== actualRow);
 			annotations.forEach(a => old.push(a));
 			return old;
 		}
@@ -44,21 +46,13 @@ export default class EditorHandler {
 		let x = this.aceEditor.current.editor.getSelectedText();
 		navigator.clipboard.writeText(x).then(r => console.log(`${x} copied in the clipboard`));
 	}
-
 	paste = () => {
 		navigator.clipboard.readText().then(r => {
 			this.aceEditor.current.editor.getSession().replace(this.aceEditor.current.editor.getSelectionRange(), r);
 		});
 	}
-
 	cut = () => {
 		this.copy();
 		this.aceEditor.current.editor.getSession().replace(this.aceEditor.current.editor.getSelectionRange(), "");
 	}
-
-	addPositive = () => {
-	}
-	removeVarInHead = () => {
-	}
-
 }

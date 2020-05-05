@@ -5,7 +5,7 @@ function SubMenuPrinter({annotation, handler, errorMenu = true}) {
 	return (
 		<span>
 			{errorMenu &&
-			<MenuItem onClick={handler[annotation.name]}></MenuItem>
+			<MenuItem onClick={handler[annotation.name]}>{}</MenuItem>
 			}
 		</span>
 	);
