@@ -15,7 +15,6 @@ let removeHead = {
 					return first + ",";
 				}
 			});
-			console.log(head);
 			head = head.replace(/([A-Z]\w*)\)/g, (global, first) => {
 				if (first === variable) {
 					return ")";
