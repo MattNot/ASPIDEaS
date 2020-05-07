@@ -73,6 +73,14 @@ class ASPEditor extends React.Component {
 					unsafeVariables: isError[0].unsafeVariables
 				}
 			});
+		} else {
+			this.setState({
+				errorOnThisLine: {
+					value: false,
+					name: undefined,
+					unsafeVariables: undefined
+				}
+			})
 		}
 	}
 

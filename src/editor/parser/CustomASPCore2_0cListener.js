@@ -7,6 +7,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			inHead: false,
 			inBody: false,
 			haveBody: false,
+			negativeTerms: false,
 			set: new Set(),
 		};
 		this.lineContext = lineContext;
@@ -52,12 +53,17 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		if (ctx.children[0].children === undefined) {
 			if (ctx.children[0].symbol.text === "not") {
 				this.safetyHandler.inBody = false;
+				this.safetyHandler.negativeTerms = true;
 			}
 		}
 	}
 
+	exitNaf_literal(ctx) {
+		this.safetyHandler.negativeTerms = false;
+	}
+
 	exitTerm(ctx) {
-		if (this.safetyHandler.inHead) {
+		if (this.safetyHandler.inHead || this.safetyHandler.negativeTerms) {
 			if (ctx.children[0].symbol.text.charAt(0).match("[A-Z]"))
 				this.safetyHandler.set.add(ctx.children[0].symbol.text);
 		} else if (this.safetyHandler.inBody) {
