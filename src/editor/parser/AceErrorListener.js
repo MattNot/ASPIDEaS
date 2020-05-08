@@ -20,7 +20,6 @@ export default class AceErrorListener extends antlr4.error.ErrorListener {
 	}
 
 	syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
-		console.log(...recognizer.getRuleInvocationStack().reverse());
 		this.annotations.push({
 			row: line - 1,
 			column: column,

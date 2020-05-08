@@ -43,7 +43,7 @@ class ASPEditor extends React.Component {
 		this.aceEditor.current.editor.setWrapBehavioursEnabled(true);
 	}
 
-	//FIXME: This is **NOT** the way it should be. You should use ace workers but i didn't manage to find a way to do it.
+	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
 	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
 	//FIXME: Matteo Notaro, 28/03/2020
 	parse(val: string) {

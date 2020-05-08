@@ -21,13 +21,13 @@ const ContextMenuHandler = ({errorInLine, handler, context}) => {
 			{handler.plugins.length > 0 &&
 			<SubMenu title={"Apply plugin..."} hoverDelay={0.02}>
 				{handler.plugins.map(plugin => {
-					return plugin.type === "simple" && <MenuItem onClick={plugin.function} key={plugin.name} data={{
-						editor: handler.aceEditor.current,
-						lineContext: context
-					}}>{plugin.description}</MenuItem>
+					return plugin.type === "simple" && plugin.applicability(context) &&
+						<MenuItem onClick={plugin.function} key={plugin.name} data={{
+							editor: handler.aceEditor.current,
+							lineContext: context
+						}}>{plugin.description}</MenuItem>
 				})}
 			</SubMenu>
-
 			}
 		</span>
 	);
