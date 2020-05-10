@@ -42,6 +42,8 @@ function ASPNavBar(props) {
 					<Button as={DropdownItem} onClick={props.setLanguage}>{props.locale.__("changeLang")}</Button>
 				</DropdownMenu>
 			</Dropdown>
+			<MenuItem as={Button} onClick={props.sendProgram} position={"right"}><Icon name="play"
+			                                                                           color="green"/></MenuItem>
 		</Menu>
 	);
 }

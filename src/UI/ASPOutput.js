@@ -15,8 +15,7 @@ const styles = {
 const AspOutput = (props) => {
 	return (
 		<Form inverted>
-			<TextArea placeholder='Output: ' style={styles.textArea}>
-				{props.text || ""}
+			<TextArea placeholder='Output: ' style={styles.textArea} readOnly value={props.text || ""}>
 			</TextArea>
 		</Form>
 	);

@@ -11,7 +11,7 @@ export default class AceErrorListener extends antlr4.error.ErrorListener {
 	setMessage(offendingSymbol, msg, exceptionDetails) {
 		//console.log(exceptionDetails);
 		if (exceptionDetails instanceof NoViableAltException)
-			if (!offendingSymbol.source[1].strdata.includes("\."))
+			if (!offendingSymbol.source[1].strdata.includes("."))
 				return "Missing DOT at end of statement";
 			else {
 				console.log(exceptionDetails)
@@ -20,12 +20,12 @@ export default class AceErrorListener extends antlr4.error.ErrorListener {
 	}
 
 	syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
-		console.log(...recognizer.getRuleInvocationStack().reverse());
 		this.annotations.push({
 			row: line - 1,
 			column: column,
 			text: this.setMessage(offendingSymbol, msg, e),
-			type: "error"
+			type: "error",
+			name: "missingDot"
 		});
 	}
 }
