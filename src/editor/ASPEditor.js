@@ -33,6 +33,7 @@ class ASPEditor extends React.Component {
 			errorOnThisLine: {},
 			activeLine: 0
 		};
+		this.setFather = props.setFather;
 		this.editorHandler = new EditorHandler(this.aceEditor, props.plugins);
 	}
 
@@ -48,6 +49,7 @@ class ASPEditor extends React.Component {
 	//FIXME: Matteo Notaro, 28/03/2020
 	parse(val: string) {
 		this.setState({currentValue: val});
+		this.setFather(val);
 		let {lineContext} = this.state;
 		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext);
 		this.setState({annotations: newAnnotations, lineContext: lineContext});
