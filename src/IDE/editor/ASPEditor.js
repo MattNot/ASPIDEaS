@@ -1,18 +1,17 @@
 import React from "react";
 import AceEditor from "react-ace";
 import "ace-builds"
+import "ace-builds/webpack-resolver"
 import "ace-builds/src-noconflict/theme-dracula"
 import "ace-builds/src-min-noconflict/snippets/text"
 import "ace-builds/src-min-noconflict/ext-language_tools"
-import "ace-builds/webpack-resolver"
 import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
 import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
 
-
-window.ace.acequire("ace/snippets/text").snippetText = snippets;
+let TextSnippets = window.ace.acequire("ace/snippets/text");
 
 const styles = {
 	EDITOR: {
@@ -25,6 +24,8 @@ class ASPEditor extends React.Component {
 
 	constructor(props) {
 		super(props);
+		if (TextSnippets !== undefined)
+			TextSnippets.snippetText = snippets;
 		this.aceEditor = React.createRef();
 		this.state = {
 			currentValue: '',
