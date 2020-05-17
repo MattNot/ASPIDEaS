@@ -2,7 +2,7 @@ import React from "react";
 import {Sidebar} from "semantic-ui-react";
 import ASPFileTree from "./ASPFileTree"
 
-function ASPSideBar({animation, direction, visible, width, files}) {
+function ASPSideBar({animation, direction, visible, width, setEditorValue}) {
 	return (
 		<Sidebar
 			animation={animation}
@@ -14,7 +14,7 @@ function ASPSideBar({animation, direction, visible, width, files}) {
 			width='wide'
 			style={{width: `${width}px`}}
 		>
-			<ASPFileTree/>
+			<ASPFileTree setEditorValue={setEditorValue}/>
 		</Sidebar>
 	)
 }

@@ -28,7 +28,7 @@ class ASPEditor extends React.Component {
 			TextSnippets.snippetText = snippets;
 		this.aceEditor = React.createRef();
 		this.state = {
-			currentValue: '',
+			currentValue: props.value || "",
 			annotations: [],
 			lineContext: [],
 			errorOnThisLine: {},
@@ -43,6 +43,10 @@ class ASPEditor extends React.Component {
 		this.aceEditor.current.editor.getSession().setMode(new CustomAspMode());
 		this.aceEditor.current.editor.setBehavioursEnabled(true);
 		this.aceEditor.current.editor.setWrapBehavioursEnabled(true);
+	}
+
+	componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+		console.log(this.props.plugins)
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.

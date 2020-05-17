@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ASPSideBar from "./UI/ASPSideBar";
 import "semantic-ui-css/semantic.min.css"
 import "../App.css"
@@ -7,7 +7,6 @@ import ASPNavBar from "./UI/ASPNavBar";
 import locales from "../i18n";
 import ASPEditor from "./editor/ASPEditor";
 import AspOutput from "./UI/ASPOutput";
-import {plugins} from "./plugins";
 
 const styles = {
 	MAIN: {height: "100%", width: "100vw", position: "relative"},
@@ -21,7 +20,10 @@ function Ide() {
 	const [sideBarWidth, setSideBarWidth] = useState(350);
 	const [language, setLanguage] = useState(locales.it);
 	const [editorValue, setEditorValue] = useState("");
+	const [plugins, setPlugins] = useState([])
 	const [outPut, setOutput] = useState("");
+	const [loaderActive, setLoaderActive] = useState(true)
+	const [listOfPlugins, setListPlugins] = useState([])
 	const sendProgram = () => {
 		fetch("/evaluateProgram", {
 				method: "POST",
@@ -49,15 +51,22 @@ function Ide() {
 			setLanguage(locales.en);
 		}
 	};
+	useEffect(() => {
+		let pl = plugins
+		import("./plugins/errors/addDot").then(e => pl.push(e.default))
+		setPlugins(pl);
+		setLoaderActive(false)
+	}, [plugins])
 	return (
 		<div style={styles.MAIN}>
+
 			<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
 			           setLanguage={handleLanguage} sendProgram={sendProgram}/>
 			<SidebarPushable as={Segment} style={styles.PUSHABLE}>
-				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}/>
-				<SidebarPusher
-					style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
-					<ASPEditor plugins={plugins} setFather={setEditorValue}/>
+				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
+				            setEditorValue={setEditorValue}/>
+				<SidebarPusher style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
+					<ASPEditor value={editorValue} plugins={plugins} setFather={setEditorValue}/>
 					<AspOutput text={outPut}/>
 				</SidebarPusher>
 			</SidebarPushable>
