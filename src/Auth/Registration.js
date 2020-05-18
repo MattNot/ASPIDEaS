@@ -46,7 +46,7 @@ const Registration = () => {
 		<Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
 			<Grid.Column style={{maxWidth: 450}}>
 				<Header as='h2' color='teal' textAlign='center'>
-					<Image src='/logo.png'/> Log-in to your account
+					<Image src='/logo.png'/> Register a new user
 				</Header>
 				<Form size='large' onSubmit={handleRegistration} error={error}>
 					<Message

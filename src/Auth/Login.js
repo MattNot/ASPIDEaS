@@ -11,7 +11,7 @@ const LoginForm = () => {
 	const [error, setError] = useState(false)
 	const history = useHistory();
 	const handleLogin = () => {
-		fetch("/newUser", {
+		fetch("/login", {
 			method: "POST",
 			headers: {
 				'Accept': 'application/json',
@@ -51,7 +51,7 @@ const LoginForm = () => {
 					<Message
 						error
 						header='Action Forbidden'
-						content='You can only sign up for an account once with a given e-mail address.'
+						content='Username or password are wrong'
 					/>
 					<Segment stacked>
 						<Form.Input fluid icon='user' iconPosition='left' name={"username"} placeholder='Username'

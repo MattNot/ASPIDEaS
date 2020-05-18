@@ -4,6 +4,8 @@ class English {
 			"save": "Save",
 			"edit": "Edit",
 			"file": "File",
+			"newproj": "Add a new project",
+			"projname": "Project name",
 			"changelang": "Cambia lingua a Italiano"
 		}
 	}
@@ -19,7 +21,9 @@ class Italian extends English {
 		super();
 		this.words["save"] = "Salva";
 		this.words["edit"] = "Modifica";
-		this.words["changelang"] = "Change language in English"
+		this.words["changelang"] = "Change language in English";
+		this.words["newproj"] = "Crea un nuovo progetto";
+		this.words["projname"] = "Nome del progetto";
 	}
 }
 

@@ -1,21 +1,39 @@
 import React, {useEffect, useState} from "react";
-import Tree from "@naisutech/react-tree"
+import {Treebeard} from 'react-treebeard';
 
 
-const ASPFileTree = ({size, setEditorValue}) => {
+const ASPFileTree = ({size, setEditorValue, notifyTree}) => {
 	const [projects, setProjects] = useState([])
+	const [cursor, setCursor] = useState(false)
 	useEffect(() => {
-		fetch("/api/projects").then(data => data.json()).then(data => setProjects(data))
-	})
+		setProjects(obj)
+		fetch("/api/projects").then(data => data.json()).then(data => {
+			setProjects(data);
+		})
+	}, [notifyTree])
 
-	function onSelect(file) {
-		if (file.items === null || file.items === undefined) {
-			setEditorValue(file.content)
+	function onSelect(node, toggled) {
+		console.log(cursor)
+		console.log(node)
+		if (cursor) {
+			cursor.active = false;
 		}
+		node.active = true;
+		if (node.children) {
+			node.toggled = toggled;
+		}
+		setCursor(node)
+		setProjects(Object.assign({}, projects));
 	}
 
 	return (
-		<Tree nodes={projects} onSelect={onSelect} size={size === undefined ? "full" : size}/>
+		<Treebeard data={projects} onToggle={onSelect} style={{
+			tree: {
+				base: {
+					height: "100%"
+				}
+			}
+		}}/>
 	)
 };
 

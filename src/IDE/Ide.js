@@ -6,6 +6,7 @@ import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
 import ASPNavBar from "./UI/ASPNavBar";
 import locales from "../i18n";
 import ASPEditor from "./editor/ASPEditor";
+
 import AspOutput from "./UI/ASPOutput";
 
 const styles = {
@@ -22,8 +23,10 @@ function Ide() {
 	const [editorValue, setEditorValue] = useState("");
 	const [plugins, setPlugins] = useState([])
 	const [outPut, setOutput] = useState("");
+	const [activeProject, setActiveProject] = useState("")
 	const [loaderActive, setLoaderActive] = useState(true)
 	const [listOfPlugins, setListPlugins] = useState([])
+	const [notifyTree, setNotifyTree] = useState(false)
 	const sendProgram = () => {
 		fetch("/evaluateProgram", {
 				method: "POST",
@@ -56,15 +59,14 @@ function Ide() {
 		import("./plugins/errors/addDot").then(e => pl.push(e.default))
 		setPlugins(pl);
 		setLoaderActive(false)
-	}, [plugins])
+	}, [])
 	return (
 		<div style={styles.MAIN}>
-
 			<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
-			           setLanguage={handleLanguage} sendProgram={sendProgram}/>
+			           setLanguage={handleLanguage} sendProgram={sendProgram} notifyTree={{notifyTree, setNotifyTree}}/>
 			<SidebarPushable as={Segment} style={styles.PUSHABLE}>
 				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
-				            setEditorValue={setEditorValue}/>
+				            setEditorValue={setEditorValue} notifyTree={notifyTree}/>
 				<SidebarPusher style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
 					<ASPEditor value={editorValue} plugins={plugins} setFather={setEditorValue}/>
 					<AspOutput text={outPut}/>
