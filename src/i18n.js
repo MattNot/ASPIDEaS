@@ -6,7 +6,8 @@ class English {
 			"file": "File",
 			"newproj": "Add a new project",
 			"projname": "Project name",
-			"changelang": "Cambia lingua a Italiano"
+			"changelang": "Cambia lingua a Italiano",
+			"newfile": "Add a new file in the active project"
 		}
 	}
 
@@ -24,6 +25,8 @@ class Italian extends English {
 		this.words["changelang"] = "Change language in English";
 		this.words["newproj"] = "Crea un nuovo progetto";
 		this.words["projname"] = "Nome del progetto";
+		this.words["newfile"] = "Crea nuovo file";
+
 	}
 }
 

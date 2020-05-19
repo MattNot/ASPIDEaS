@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
 import {Button, DropdownItem, Icon, Input, Modal, ModalActions, ModalContent, ModalHeader} from "semantic-ui-react";
 
-const ModalNewProject = ({locale, notifyTree}) => {
+const ModalNewProject = ({locale, notifyTree, setActiveProject}) => {
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("");
 	const inputChange = (event, {value}) => {
 		setValue(value);
 	}
 	const createProject = () => {
-		fetch("api/projects/newProject/" + value).then(r => r.text()).then(r => notifyTree.setNotifyTree(!notifyTree.notifyTree));
+		fetch("api/projects/newProject/" + value).then(r => r.text()).then(r => {
+			notifyTree.setNotifyTree(!notifyTree.notifyTree)
+			setActiveProject(r);
+		});
 		setOpen(false);
 	}
 	return (

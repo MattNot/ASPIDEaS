@@ -63,10 +63,12 @@ function Ide() {
 	return (
 		<div style={styles.MAIN}>
 			<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
+			           setActiveProject={setActiveProject} activeProject={activeProject}
 			           setLanguage={handleLanguage} sendProgram={sendProgram} notifyTree={{notifyTree, setNotifyTree}}/>
 			<SidebarPushable as={Segment} style={styles.PUSHABLE}>
 				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
-				            setEditorValue={setEditorValue} notifyTree={notifyTree}/>
+				            setEditorValue={setEditorValue} notifyTree={notifyTree}
+				            setActiveProject={setActiveProject}/>
 				<SidebarPusher style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
 					<ASPEditor value={editorValue} plugins={plugins} setFather={setEditorValue}/>
 					<AspOutput text={outPut}/>

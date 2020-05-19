@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Dropdown, DropdownDivider, DropdownItem, DropdownMenu, Icon, Menu, MenuItem} from "semantic-ui-react";
-import ModalNewProject from "./ModalNewProject";
+import ModalNewProject from "./modals/ModalNewProject";
+import ModalNewFile from "./modals/ModalNewFile";
 
 const styles = {
 	HAMBURGER: {
@@ -33,7 +34,10 @@ function ASPNavBar(props) {
 			</MenuItem>
 			<Dropdown item simple text={props.locale.__("File")}>
 				<DropdownMenu>
-					<ModalNewProject locale={props.locale} notifyTree={props.notifyTree}/>
+					<ModalNewProject locale={props.locale} notifyTree={props.notifyTree}
+					                 setActiveProject={props.setActiveProject}/>
+					<ModalNewFile locale={props.locale} notifyTree={props.notifyTree}
+					              activeProject={props.activeProject}/>
 					<Button as={DropdownItem} onClick={handleSave}>{props.locale.__("Save")}</Button>
 					<DropdownDivider/>
 					<DropdownItem>Non Lo so</DropdownItem>
