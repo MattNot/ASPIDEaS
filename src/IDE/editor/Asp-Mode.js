@@ -1,4 +1,4 @@
-import {Mode} from "ace-builds/src-noconflict/mode-text"
+const TextMode = window.ace.acequire("ace/mode/text").Mode;
 
 export class AspHighLightsRules extends window.ace.acequire("ace/mode/text_highlight_rules").TextHighlightRules {
 	constructor() {
@@ -87,7 +87,7 @@ export class AspHighLightsRules extends window.ace.acequire("ace/mode/text_highl
 	}
 }
 
-export default class CustomAspMode extends Mode {
+export default class CustomAspMode extends TextMode {
 	constructor() {
 		super();
 		this.HighlightRules = AspHighLightsRules;

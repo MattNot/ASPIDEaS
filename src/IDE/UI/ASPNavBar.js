@@ -1,5 +1,7 @@
 import React from 'react';
 import {Button, Dropdown, DropdownDivider, DropdownItem, DropdownMenu, Icon, Menu, MenuItem} from "semantic-ui-react";
+import ModalNewProject from "./modals/ModalNewProject";
+import ModalNewFile from "./modals/ModalNewFile";
 
 const styles = {
 	HAMBURGER: {
@@ -17,7 +19,16 @@ const styles = {
 
 function ASPNavBar(props) {
 	function handleSave() {
-		console.log("Save!");
+		fetch("api/projects/" + props.activeProject.id + "/save", {
+			method: "POST",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				"programs": props.activeProject.children
+			})
+		})
 	}
 
 	return (
@@ -32,6 +43,10 @@ function ASPNavBar(props) {
 			</MenuItem>
 			<Dropdown item simple text={props.locale.__("File")}>
 				<DropdownMenu>
+					<ModalNewProject locale={props.locale} notifyTree={props.notifyTree}
+					                 setActiveProject={props.setActiveProject}/>
+					<ModalNewFile locale={props.locale} notifyTree={props.notifyTree}
+					              activeProject={props.activeProject}/>
 					<Button as={DropdownItem} onClick={handleSave}>{props.locale.__("Save")}</Button>
 					<DropdownDivider/>
 					<DropdownItem>Non Lo so</DropdownItem>

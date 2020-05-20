@@ -1,18 +1,17 @@
 import React from "react";
 import AceEditor from "react-ace";
 import "ace-builds"
+import "ace-builds/webpack-resolver"
 import "ace-builds/src-noconflict/theme-dracula"
 import "ace-builds/src-min-noconflict/snippets/text"
 import "ace-builds/src-min-noconflict/ext-language_tools"
-import "ace-builds/webpack-resolver"
 import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
 import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
 
-
-window.ace.acequire("ace/snippets/text").snippetText = snippets;
+let TextSnippets = window.ace.acequire("ace/snippets/text");
 
 const styles = {
 	EDITOR: {
@@ -25,16 +24,17 @@ class ASPEditor extends React.Component {
 
 	constructor(props) {
 		super(props);
+		if (TextSnippets !== undefined)
+			TextSnippets.snippetText = snippets;
 		this.aceEditor = React.createRef();
 		this.state = {
-			currentValue: '',
+			currentValue: props.value || "",
 			annotations: [],
 			lineContext: [],
 			errorOnThisLine: {},
 			activeLine: 0
 		};
 		this.setFather = props.setFather;
-		this.editorHandler = new EditorHandler(this.aceEditor, props.plugins);
 	}
 
 
@@ -42,6 +42,10 @@ class ASPEditor extends React.Component {
 		this.aceEditor.current.editor.getSession().setMode(new CustomAspMode());
 		this.aceEditor.current.editor.setBehavioursEnabled(true);
 		this.aceEditor.current.editor.setWrapBehavioursEnabled(true);
+	}
+
+	componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
+		this.editorHandler = new EditorHandler(this.aceEditor, prevProps.plugins);
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
@@ -107,10 +111,10 @@ class ASPEditor extends React.Component {
 					/>
 				</ContextMenuTrigger>
 				<ContextMenu id="contextMenu">
-						<ContextMenuHandler errorInLine={this.state.errorOnThisLine}
-						                    handler={this.editorHandler}
-						                    context={this.state.lineContext[this.state.activeLine]}
-						/>
+					{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}
+					                                                         handler={this.editorHandler}
+					                                                         context={this.state.lineContext[this.state.activeLine]}
+					/>}
 				</ContextMenu>
 			</span>
 		);
