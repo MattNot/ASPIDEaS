@@ -8,7 +8,7 @@ const ModalNewFile = ({locale, notifyTree, activeProject}) => {
 		setValue(value);
 	}
 	const createFile = () => {
-		fetch("api/projects/" + activeProject + "/newFile/" + value).then(r => r.text()).then(r => notifyTree.setNotifyTree(!notifyTree.notifyTree));
+		fetch("api/projects/" + activeProject.id + "/newFile/" + value).then(r => r.text()).then(r => notifyTree.setNotifyTree(!notifyTree.notifyTree));
 		setOpen(false);
 	}
 	return (

@@ -56,8 +56,10 @@ function Ide() {
 	};
 	useEffect(() => {
 		let pl = plugins
-		import("./plugins/errors/addDot").then(e => pl.push(e.default))
-		setPlugins(pl);
+		import("./plugins/").then(m => {
+			pl = m.default
+			setPlugins(pl);
+		})
 		setLoaderActive(false)
 	}, [])
 	return (

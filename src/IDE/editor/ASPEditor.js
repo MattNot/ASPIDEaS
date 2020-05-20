@@ -35,7 +35,6 @@ class ASPEditor extends React.Component {
 			activeLine: 0
 		};
 		this.setFather = props.setFather;
-		this.editorHandler = new EditorHandler(this.aceEditor, props.plugins);
 	}
 
 
@@ -46,7 +45,7 @@ class ASPEditor extends React.Component {
 	}
 
 	componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
-		console.log(this.props.plugins)
+		this.editorHandler = new EditorHandler(this.aceEditor, prevProps.plugins);
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
@@ -112,10 +111,10 @@ class ASPEditor extends React.Component {
 					/>
 				</ContextMenuTrigger>
 				<ContextMenu id="contextMenu">
-						<ContextMenuHandler errorInLine={this.state.errorOnThisLine}
-						                    handler={this.editorHandler}
-						                    context={this.state.lineContext[this.state.activeLine]}
-						/>
+					{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}
+					                                                         handler={this.editorHandler}
+					                                                         context={this.state.lineContext[this.state.activeLine]}
+					/>}
 				</ContextMenu>
 			</span>
 		);

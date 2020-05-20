@@ -19,7 +19,16 @@ const styles = {
 
 function ASPNavBar(props) {
 	function handleSave() {
-		console.log("Save!");
+		fetch("api/projects/" + props.activeProject.id + "/save", {
+			method: "POST",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				"programs": props.activeProject.children
+			})
+		})
 	}
 
 	return (

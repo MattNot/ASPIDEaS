@@ -28,7 +28,7 @@ const ASPFileTree = ({size, setEditorValue, notifyTree, setActiveProject}) => {
 		node.active = true;
 		if (node.children) {
 			node.toggled = toggled;
-			setActiveProject(node.id)
+			setActiveProject(node)
 		} else {
 			setEditorValue(node.inputProgram)
 		}
