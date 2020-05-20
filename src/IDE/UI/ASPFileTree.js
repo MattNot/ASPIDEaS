@@ -1,24 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {Treebeard} from 'react-treebeard';
+import {useDispatch, useSelector} from "react-redux";
+import {reloadProjects, setActiveFile, setActiveProject, setNewProjects} from "../../redux/actions/projects";
+import {editorValue} from "../../redux/actions/editorValue";
 
 
-const ASPFileTree = ({size, setEditorValue, notifyTree, setActiveProject}) => {
-	const [projects, setProjects] = useState([])
+const ASPFileTree = ({size, notifyTree}) => {
+	// const [projects, setProjects] = useState([])
+	const projects = useSelector(state => state.projects);
+	const dispatch = useDispatch();
 	const [cursor, setCursor] = useState({})
 	useEffect(() => {
-		fetch("/api/projects").then(data => data.json()).then(data => {
-			let newProjects = [];
-			data.map(p => {
-				newProjects.push({
-					id: p.id,
-					name: p.name,
-					toggled: true,
-					children: p.programs,
-					active: false
-				});
-			});
-			setProjects(newProjects);
-		});
+		dispatch(reloadProjects())
 	}, [notifyTree])
 
 	function onSelect(node, toggled) {
@@ -28,12 +21,13 @@ const ASPFileTree = ({size, setEditorValue, notifyTree, setActiveProject}) => {
 		node.active = true;
 		if (node.children) {
 			node.toggled = toggled;
-			setActiveProject(node)
+			dispatch(setActiveProject(node))
 		} else {
-			setEditorValue(node.inputProgram)
+			dispatch(setActiveFile(node))
+			dispatch(editorValue(node.inputProgram))
 		}
 		setCursor(node);
-		setProjects(Object.assign([], projects));
+		dispatch(setNewProjects(projects))
 	}
 
 	return (

@@ -10,6 +10,7 @@ import CustomAspMode from "./Asp-Mode";
 import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
+import {editorValue} from "../../redux/actions/editorValue";
 
 let TextSnippets = window.ace.acequire("ace/snippets/text");
 
@@ -53,7 +54,7 @@ class ASPEditor extends React.Component {
 	//FIXME: Matteo Notaro, 28/03/2020
 	parse(val: string) {
 		this.setState({currentValue: val});
-		this.setFather(val);
+		this.setFather(editorValue(val));
 		let {lineContext} = this.state;
 		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext);
 		this.setState({annotations: newAnnotations, lineContext: lineContext});

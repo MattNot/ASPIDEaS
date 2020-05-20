@@ -5,9 +5,12 @@ import "../App.css"
 import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
 import ASPNavBar from "./UI/ASPNavBar";
 import locales from "../i18n";
-import ASPEditor from "./editor/ASPEditor";
 
 import AspOutput from "./UI/ASPOutput";
+import {useDispatch, useSelector} from "react-redux";
+import {english, italian} from "../redux/actions/language";
+import {setPlugins} from "../redux/actions/plugins";
+import EditorWrapper from "./editor/EditorWrapper";
 
 const styles = {
 	MAIN: {height: "100%", width: "100vw", position: "relative"},
@@ -19,13 +22,12 @@ function Ide() {
 	const [sidebarVisible, setSidebarVisible] = useState(true);
 	const [hamburgerName, setHamburgerName] = useState("close");
 	const [sideBarWidth, setSideBarWidth] = useState(350);
-	const [language, setLanguage] = useState(locales.it);
-	const [editorValue, setEditorValue] = useState("");
-	const [plugins, setPlugins] = useState([])
+
+	const language = useSelector(state => state.language);
+	const dispatch = useDispatch();
+	const editorValue = useSelector(state => state.editorValue);
+	const plugins = useSelector(state => state.plugins)
 	const [outPut, setOutput] = useState("");
-	const [activeProject, setActiveProject] = useState("")
-	const [loaderActive, setLoaderActive] = useState(true)
-	const [listOfPlugins, setListPlugins] = useState([])
 	const [notifyTree, setNotifyTree] = useState(false)
 	const sendProgram = () => {
 		fetch("/evaluateProgram", {
@@ -49,30 +51,27 @@ function Ide() {
 	const handleLanguage = () => {
 		//TODO: To extend using indexes perhaps
 		if (language === locales.en) {
-			setLanguage(locales.it);
+			dispatch(italian())
 		} else {
-			setLanguage(locales.en);
+			dispatch(english())
 		}
 	};
 	useEffect(() => {
 		let pl = plugins
 		import("./plugins/").then(m => {
 			pl = m.default
-			setPlugins(pl);
+			dispatch(setPlugins(pl))
 		})
-		setLoaderActive(false)
 	}, [])
 	return (
 		<div style={styles.MAIN}>
 			<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
-			           setActiveProject={setActiveProject} activeProject={activeProject}
 			           setLanguage={handleLanguage} sendProgram={sendProgram} notifyTree={{notifyTree, setNotifyTree}}/>
 			<SidebarPushable as={Segment} style={styles.PUSHABLE}>
 				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
-				            setEditorValue={setEditorValue} notifyTree={notifyTree}
-				            setActiveProject={setActiveProject}/>
+				            notifyTree={notifyTree}/>
 				<SidebarPusher style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
-					<ASPEditor value={editorValue} plugins={plugins} setFather={setEditorValue}/>
+					<EditorWrapper/>
 					<AspOutput text={outPut}/>
 				</SidebarPusher>
 			</SidebarPushable>
