@@ -5,11 +5,10 @@ import "../App.css"
 import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
 import ASPNavBar from "./UI/ASPNavBar";
 import locales from "../i18n";
-
+import {default as pl} from "./plugins"
 import AspOutput from "./UI/ASPOutput";
 import {useDispatch, useSelector} from "react-redux";
-import {english, italian} from "../redux/actions/language";
-import {setPlugins} from "../redux/actions/plugins";
+import {english, italian, setPlugins} from "../redux/actions";
 import EditorWrapper from "./editor/EditorWrapper";
 
 const styles = {
@@ -26,11 +25,11 @@ function Ide() {
 	const language = useSelector(state => state.language);
 	const dispatch = useDispatch();
 	const editorValue = useSelector(state => state.editorValue);
-	const plugins = useSelector(state => state.plugins)
+	const engine = useSelector(state => state.engine)
 	const [outPut, setOutput] = useState("");
 	const [notifyTree, setNotifyTree] = useState(false)
 	const sendProgram = () => {
-		fetch("/evaluateProgram", {
+		fetch(`api/${engine}/evaluateProgram`, {
 				method: "POST",
 				headers: {
 					'Accept': 'application/json',
@@ -41,7 +40,10 @@ function Ide() {
 					testCases: ["a.", "b."]
 				})
 			}
-		).then(r => r.text()).then(t => setOutput(t));
+		).then(r => r.json()).then(t => {
+			let out = t.map(a => a.answerSet);
+			setOutput(out.join("\n"))
+		});
 	}
 	const toggleMenu = () => {
 		setSidebarVisible(!sidebarVisible);
@@ -57,11 +59,7 @@ function Ide() {
 		}
 	};
 	useEffect(() => {
-		let pl = plugins
-		import("./plugins/").then(m => {
-			pl = m.default
-			dispatch(setPlugins(pl))
-		})
+		dispatch(setPlugins(pl))
 	}, [])
 	return (
 		<div style={styles.MAIN}>

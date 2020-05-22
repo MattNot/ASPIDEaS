@@ -1,4 +1,4 @@
-export const activeProjectCombiner = (state = {}, action) => {
+export const activeProjectReducer = (state = {}, action) => {
 	switch (action.type) {
 		case "SET_ACTIVE":
 			return action.project

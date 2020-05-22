@@ -4,22 +4,31 @@ import Ide from "./IDE/Ide";
 import LoginForm from "./Auth/Login";
 import Registration from "./Auth/Registration";
 import {Provider} from "react-redux";
-import {combineReducers, createStore} from "redux";
-import {changeLanguageReducer} from "./redux/reducers/changeLanguageReducer";
-import {changeEditorValueReducer} from "./redux/reducers/editorValueReducer";
-import {activeFileCombiner} from "./redux/reducers/activeFileCombiner";
-import {activeProjectCombiner} from "./redux/reducers/activeProjectCombiner";
-import {projectsCombiner} from "./redux/reducers/projectsCombiner";
-import {pluginsCombiner} from "./redux/reducers/pluginsCombiner";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {
+	activeFileReducer,
+	activeProjectReducer,
+	changeEditorValueReducer,
+	changeLanguageReducer,
+	engineReducer,
+	outputReducer,
+	pluginsReducer,
+	projectsReducer
+} from "./redux/reducers";
+import thunk from "redux-thunk";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true, traceLimit: 15}) || compose;
 
 let store = createStore(combineReducers({
 	language: changeLanguageReducer,
 	editorValue: changeEditorValueReducer,
-	activeFile: activeFileCombiner,
-	activeProject: activeProjectCombiner,
-	projects: projectsCombiner,
-	plugins: pluginsCombiner
-}))
+	activeFile: activeFileReducer,
+	activeProject: activeProjectReducer,
+	projects: projectsReducer,
+	plugins: pluginsReducer,
+	output: outputReducer,
+	engine: engineReducer
+}), composeEnhancers(applyMiddleware(thunk)))
 
 function App() {
 	return (

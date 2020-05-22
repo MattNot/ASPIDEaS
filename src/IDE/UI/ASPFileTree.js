@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {Treebeard} from 'react-treebeard';
 import {useDispatch, useSelector} from "react-redux";
-import {reloadProjects, setActiveFile, setActiveProject, setNewProjects} from "../../redux/actions/projects";
-import {editorValue} from "../../redux/actions/editorValue";
+import {editorValue, reloadAsync, setActiveFile, setActiveProject, setNewProjects} from "../../redux/actions";
 
 
 const ASPFileTree = ({size, notifyTree}) => {
-	// const [projects, setProjects] = useState([])
 	const projects = useSelector(state => state.projects);
 	const dispatch = useDispatch();
 	const [cursor, setCursor] = useState({})
+	const [, reRenderMe] = useState(0)
 	useEffect(() => {
-		dispatch(reloadProjects())
+		dispatch(reloadAsync())
 	}, [notifyTree])
 
 	function onSelect(node, toggled) {
@@ -23,11 +22,14 @@ const ASPFileTree = ({size, notifyTree}) => {
 			node.toggled = toggled;
 			dispatch(setActiveProject(node))
 		} else {
+			let father = projects.filter(f => f.id === node.father);
+			dispatch(setActiveProject(father[0]))
 			dispatch(setActiveFile(node))
 			dispatch(editorValue(node.inputProgram))
 		}
 		setCursor(node);
 		dispatch(setNewProjects(projects))
+		reRenderMe(n => !n)
 	}
 
 	return (

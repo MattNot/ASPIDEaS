@@ -2,6 +2,8 @@ import React from 'react';
 import {Button, Dropdown, DropdownDivider, DropdownItem, DropdownMenu, Icon, Menu, MenuItem} from "semantic-ui-react";
 import ModalNewProject from "./modals/ModalNewProject";
 import ModalNewFile from "./modals/ModalNewFile";
+import {useDispatch, useSelector} from "react-redux";
+import {reloadAsync} from "../../redux/actions";
 
 const styles = {
 	HAMBURGER: {
@@ -18,17 +20,25 @@ const styles = {
 
 
 function ASPNavBar(props) {
+	const activeProject = useSelector(state => state.activeProject)
+	const activeFile = useSelector(state => state.activeFile)
+	const dispatch = useDispatch()
+
 	function handleSave() {
-		fetch("api/projects/" + props.activeProject.id + "/save", {
+		let children = activeProject.children.map(child => {
+			if (child.name === activeFile.name)
+				child = activeFile
+			return child;
+		});
+		fetch("api/projects/" + activeProject.id + "/save", {
 			method: "POST",
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({
-				"programs": props.activeProject.children
-			})
+			body: JSON.stringify(children)
 		})
+		dispatch(reloadAsync());
 	}
 
 	return (

@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {Button, DropdownItem, Icon, Input, Modal, ModalActions, ModalContent, ModalHeader} from "semantic-ui-react";
+import {useSelector} from "react-redux";
 
-const ModalNewFile = ({locale, notifyTree, activeProject}) => {
+const ModalNewFile = ({locale, notifyTree}) => {
+	const activeProject = useSelector(state => state.activeProject)
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("");
 	const inputChange = (event, {value}) => {

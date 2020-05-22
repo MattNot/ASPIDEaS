@@ -5,12 +5,13 @@ import "ace-builds/webpack-resolver"
 import "ace-builds/src-noconflict/theme-dracula"
 import "ace-builds/src-min-noconflict/snippets/text"
 import "ace-builds/src-min-noconflict/ext-language_tools"
+import "ace-builds/src-min-noconflict/keybinding-vscode"
 import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
 import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
-import {editorValue} from "../../redux/actions/editorValue";
+import {editorValue, setActiveFileInput} from "../../redux/actions";
 
 let TextSnippets = window.ace.acequire("ace/snippets/text");
 
@@ -29,13 +30,16 @@ class ASPEditor extends React.Component {
 			TextSnippets.snippetText = snippets;
 		this.aceEditor = React.createRef();
 		this.state = {
-			currentValue: props.value || "",
+			currentValue: props.value,
 			annotations: [],
 			lineContext: [],
 			errorOnThisLine: {},
 			activeLine: 0
 		};
 		this.setFather = props.setFather;
+		this.activeProject = props.activeProject;
+		this.activeFile = props.activeFile
+		this.editorHandler = new EditorHandler(this.aceEditor, props.plugins);
 	}
 
 
@@ -46,15 +50,22 @@ class ASPEditor extends React.Component {
 	}
 
 	componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
-		this.editorHandler = new EditorHandler(this.aceEditor, prevProps.plugins);
+		if (prevProps.value !== this.props.value) {
+			this.setState({
+				currentValue: this.props.value
+			})
+		}
+		if (prevProps.plugins !== this.props.plugins) {
+			this.editorHandler = new EditorHandler(this.aceEditor, this.props.plugins);
+		}
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
 	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
 	//FIXME: Matteo Notaro, 28/03/2020
 	parse(val: string) {
-		this.setState({currentValue: val});
 		this.setFather(editorValue(val));
+		this.setFather(setActiveFileInput(val))
 		let {lineContext} = this.state;
 		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext);
 		this.setState({annotations: newAnnotations, lineContext: lineContext});
@@ -109,6 +120,13 @@ class ASPEditor extends React.Component {
 					           setOptions={{useWorker: true}}
 					           value={this.state.currentValue}
 					           onCursorChange={this.setContextMenu}
+					           commands={[{
+						           name: "Save",
+						           bindKey: {win: "Ctrl-S", mac: "Command-M"},
+						           exec: () => {
+							           console.log("ciao");
+						           }
+					           }]}
 					/>
 				</ContextMenuTrigger>
 				<ContextMenu id="contextMenu">
