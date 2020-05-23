@@ -21,7 +21,7 @@ function Ide() {
 	const [sidebarVisible, setSidebarVisible] = useState(true);
 	const [hamburgerName, setHamburgerName] = useState("close");
 	const [sideBarWidth, setSideBarWidth] = useState(350);
-
+	const isLogged = useSelector(state => state.isLogged)
 	const language = useSelector(state => state.language);
 	const dispatch = useDispatch();
 	const editorValue = useSelector(state => state.editorValue);
@@ -62,18 +62,25 @@ function Ide() {
 		dispatch(setPlugins(pl))
 	}, [])
 	return (
-		<div style={styles.MAIN}>
-			<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
-			           setLanguage={handleLanguage} sendProgram={sendProgram} notifyTree={{notifyTree, setNotifyTree}}/>
-			<SidebarPushable as={Segment} style={styles.PUSHABLE}>
-				<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
-				            notifyTree={notifyTree}/>
-				<SidebarPusher style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
-					<EditorWrapper/>
-					<AspOutput text={outPut}/>
-				</SidebarPusher>
-			</SidebarPushable>
-		</div>
+		<span>
+			{isLogged && <div style={styles.MAIN}>
+				<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
+				           setLanguage={handleLanguage} sendProgram={sendProgram}
+				           notifyTree={{notifyTree, setNotifyTree}}/>
+				<SidebarPushable as={Segment} style={styles.PUSHABLE}>
+					<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
+					            notifyTree={notifyTree}/>
+					<SidebarPusher
+						style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
+						<EditorWrapper/>
+						<AspOutput text={outPut}/>
+					</SidebarPusher>
+				</SidebarPushable>
+			</div>}
+			{!isLogged && <div>
+				You must log-in
+			</div>}
+		</span>
 	);
 }
 

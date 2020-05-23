@@ -16,6 +16,7 @@ import {
 	projectsReducer
 } from "./redux/reducers";
 import thunk from "redux-thunk";
+import {loginReducer} from "./redux/reducers/loginReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true, traceLimit: 15}) || compose;
 
@@ -27,7 +28,8 @@ let store = createStore(combineReducers({
 	projects: projectsReducer,
 	plugins: pluginsReducer,
 	output: outputReducer,
-	engine: engineReducer
+	engine: engineReducer,
+	isLogged: loginReducer
 }), composeEnhancers(applyMiddleware(thunk)))
 
 function App() {
@@ -39,11 +41,11 @@ function App() {
 						<Route exact path={"/"}>
 							<LoginForm/>
 						</Route>
-						<Route path={"/ide"}>
-							<Ide/>
-						</Route>
 						<Route path={"/register"}>
 							<Registration/>
+						</Route>
+						<Route path={"/ide"}>
+							<Ide/>
 						</Route>
 					</Switch>
 				</Router>

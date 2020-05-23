@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 import {Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react'
 import {Link, useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setLogin} from "../redux/actions/login";
 
 const LoginForm = () => {
-	const [login, setLogin] = useState({
+	const [form, setForm] = useState({
 		username: null,
 		password: null,
 		confirmPassword: null
 	});
+	const dispatch = useDispatch()
 	const [error, setError] = useState(false)
 	const history = useHistory();
 	const handleLogin = () => {
@@ -18,27 +21,28 @@ const LoginForm = () => {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				username: login.username,
-				password: login.password
+				username: form.username,
+				password: form.password
 			})
 		}).then(r => r.json())
 			.then(user => {
 				if (user) {
+					dispatch(setLogin(true))
 					history.push("/ide")
 				} else {
 					setError(true);
 				}
-			});
+			}).catch(r => setError(true));
 	}
 
 	const handleChange = (event, {name, value}) => {
 		const newL = {
-			username: login.username,
-			password: login.password,
+			username: form.username,
+			password: form.password,
 
 		};
 		newL[name] = value;
-		setLogin(newL);
+		setForm(newL);
 	}
 
 	return (

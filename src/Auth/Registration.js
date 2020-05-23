@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {Button, Form, Grid, Header, Image, Message, Segment} from "semantic-ui-react";
 import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setLogin} from "../redux/actions/login";
 
 const Registration = () => {
 	const [registration, setRegistration] = useState({})
 	const history = useHistory()
+	const dispatch = useDispatch()
 	const [message, setMessage] = useState("")
 	const [error, setError] = useState(false)
 	const handleChange = (event, {name, value}) => {
@@ -34,6 +37,7 @@ const Registration = () => {
 			})
 		}).then(r => {
 			if (r.ok) {
+				dispatch(setLogin(true))
 				history.push("/ide")
 			} else {
 				setMessage("Something went wrong with the server")
