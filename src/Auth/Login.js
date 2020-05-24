@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react'
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setLogin} from "../redux/actions/login";
+import Cookies from "js-cookie"
 
 const LoginForm = () => {
 	const [form, setForm] = useState({
@@ -27,7 +27,7 @@ const LoginForm = () => {
 		}).then(r => r.json())
 			.then(user => {
 				if (user) {
-					dispatch(setLogin(true))
+					Cookies.set("logged", true, {expires: 1, path: "/"})
 					history.push("/ide")
 				} else {
 					setError(true);

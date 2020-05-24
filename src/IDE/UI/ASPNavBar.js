@@ -2,8 +2,9 @@ import React from 'react';
 import {Button, Dropdown, DropdownDivider, DropdownItem, DropdownMenu, Icon, Menu, MenuItem} from "semantic-ui-react";
 import ModalNewProject from "./modals/ModalNewProject";
 import ModalNewFile from "./modals/ModalNewFile";
-import {useDispatch, useSelector} from "react-redux";
-import {reloadAsync} from "../../redux/actions";
+import Cookies from "js-cookie"
+import {useHistory} from "react-router-dom"
+import ModalImportFacts from "./modals/ModalImportFacts";
 
 const styles = {
 	HAMBURGER: {
@@ -20,27 +21,7 @@ const styles = {
 
 
 function ASPNavBar(props) {
-	const activeProject = useSelector(state => state.activeProject)
-	const activeFile = useSelector(state => state.activeFile)
-	const dispatch = useDispatch()
-
-	function handleSave() {
-		let children = activeProject.children.map(child => {
-			if (child.name === activeFile.name)
-				child = activeFile
-			return child;
-		});
-		fetch("api/projects/" + activeProject.id + "/save", {
-			method: "POST",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(children)
-		})
-		dispatch(reloadAsync());
-	}
-
+	const history = useHistory()
 	return (
 		<Menu inverted style={styles.MENU}>
 			<MenuItem>
@@ -57,9 +38,9 @@ function ASPNavBar(props) {
 					                 setActiveProject={props.setActiveProject}/>
 					<ModalNewFile locale={props.locale} notifyTree={props.notifyTree}
 					              activeProject={props.activeProject}/>
-					<Button as={DropdownItem} onClick={handleSave}>{props.locale.__("Save")}</Button>
+					<Button as={DropdownItem} onClick={props.handleSave}>{props.locale.__("Save")}</Button>
 					<DropdownDivider/>
-					<DropdownItem>Non Lo so</DropdownItem>
+					<ModalImportFacts/>
 				</DropdownMenu>
 			</Dropdown>
 			<Dropdown item simple text={props.locale.__("Edit")}>
@@ -67,6 +48,10 @@ function ASPNavBar(props) {
 					<Button as={DropdownItem} onClick={props.setLanguage}>{props.locale.__("changeLang")}</Button>
 				</DropdownMenu>
 			</Dropdown>
+			<Button as={MenuItem} onClick={() => {
+				Cookies.remove("logged");
+				history.push("/")
+			}}>Logout</Button>
 			<MenuItem as={Button} onClick={props.sendProgram} position={"right"}><Icon name="play"
 			                                                                           color="green"/></MenuItem>
 		</Menu>

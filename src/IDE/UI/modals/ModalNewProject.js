@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, DropdownItem, Icon, Input, Modal, ModalActions, ModalContent, ModalHeader} from "semantic-ui-react";
 import {useDispatch} from "react-redux";
-import {setActiveProject} from "../../../redux/actions/projects";
+import {setActiveProject} from "../../../redux/actions";
 
 const ModalNewProject = ({locale, notifyTree}) => {
 	const dispatch = useDispatch()

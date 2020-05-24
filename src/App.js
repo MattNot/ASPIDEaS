@@ -1,5 +1,6 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import Cookies from "js-cookie"
 import Ide from "./IDE/Ide";
 import LoginForm from "./Auth/Login";
 import Registration from "./Auth/Registration";
@@ -39,7 +40,8 @@ function App() {
 				<Router>
 					<Switch>
 						<Route exact path={"/"}>
-							<LoginForm/>
+							{!Cookies.get("logged") && <LoginForm/>}
+							{Cookies.get("logged") && <Redirect to={"/ide"}/>}
 						</Route>
 						<Route path={"/register"}>
 							<Registration/>

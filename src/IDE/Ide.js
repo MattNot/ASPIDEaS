@@ -8,8 +8,9 @@ import locales from "../i18n";
 import {default as pl} from "./plugins"
 import AspOutput from "./UI/ASPOutput";
 import {useDispatch, useSelector} from "react-redux";
-import {english, italian, setPlugins} from "../redux/actions";
+import {english, italian, reloadAsync, setPlugins} from "../redux/actions";
 import EditorWrapper from "./editor/EditorWrapper";
+import Cookies from "js-cookie"
 
 const styles = {
 	MAIN: {height: "100%", width: "100vw", position: "relative"},
@@ -21,11 +22,12 @@ function Ide() {
 	const [sidebarVisible, setSidebarVisible] = useState(true);
 	const [hamburgerName, setHamburgerName] = useState("close");
 	const [sideBarWidth, setSideBarWidth] = useState(350);
-	const isLogged = useSelector(state => state.isLogged)
 	const language = useSelector(state => state.language);
 	const dispatch = useDispatch();
 	const editorValue = useSelector(state => state.editorValue);
 	const engine = useSelector(state => state.engine)
+	const activeProject = useSelector(state => state.activeProject)
+	const activeFile = useSelector(state => state.activeFile)
 	const [outPut, setOutput] = useState("");
 	const [notifyTree, setNotifyTree] = useState(false)
 	const sendProgram = () => {
@@ -58,26 +60,42 @@ function Ide() {
 			dispatch(english())
 		}
 	};
+	const handleSave = () => {
+		let children = activeProject.children.map(child => {
+			if (child.name === activeFile.name)
+				child = activeFile
+			return child;
+		});
+		fetch("api/projects/" + activeProject.id + "/save", {
+			method: "POST",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(children)
+		}).then(r => dispatch(reloadAsync()))
+	}
+
 	useEffect(() => {
 		dispatch(setPlugins(pl))
 	}, [])
 	return (
 		<span>
-			{isLogged && <div style={styles.MAIN}>
+			{Cookies.get("logged") && <div style={styles.MAIN}>
 				<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
 				           setLanguage={handleLanguage} sendProgram={sendProgram}
-				           notifyTree={{notifyTree, setNotifyTree}}/>
+				           notifyTree={{notifyTree, setNotifyTree}} handleSave={handleSave}/>
 				<SidebarPushable as={Segment} style={styles.PUSHABLE}>
 					<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
 					            notifyTree={notifyTree}/>
 					<SidebarPusher
 						style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
-						<EditorWrapper/>
+						<EditorWrapper handleSave={handleSave}/>
 						<AspOutput text={outPut}/>
 					</SidebarPusher>
 				</SidebarPushable>
 			</div>}
-			{!isLogged && <div>
+			{!Cookies.get("logged") && <div>
 				You must log-in
 			</div>}
 		</span>

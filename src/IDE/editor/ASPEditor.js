@@ -36,7 +36,7 @@ class ASPEditor extends React.Component {
 			errorOnThisLine: {},
 			activeLine: 0
 		};
-		this.setFather = props.setFather;
+		this.dispatch = props.dispatch;
 		this.activeProject = props.activeProject;
 		this.activeFile = props.activeFile
 		this.editorHandler = new EditorHandler(this.aceEditor, props.plugins);
@@ -58,14 +58,22 @@ class ASPEditor extends React.Component {
 		if (prevProps.plugins !== this.props.plugins) {
 			this.editorHandler = new EditorHandler(this.aceEditor, this.props.plugins);
 		}
+		if (prevProps.activeFile !== this.props.activeFile) {
+			let splittedInput = this.props.value.split("\n");
+			splittedInput.forEach(row => {
+				this.parse(row, true)
+			})
+		}
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
 	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
 	//FIXME: Matteo Notaro, 28/03/2020
-	parse(val: string) {
-		this.setFather(editorValue(val));
-		this.setFather(setActiveFileInput(val))
+	parse(val: string, global) {
+		if (!global) {
+			this.dispatch(editorValue(val));
+			this.dispatch(setActiveFileInput(val))
+		}
 		let {lineContext} = this.state;
 		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext);
 		this.setState({annotations: newAnnotations, lineContext: lineContext});
@@ -108,7 +116,7 @@ class ASPEditor extends React.Component {
 				<ContextMenuTrigger id="contextMenu">
 					<AceEditor theme="dracula"
 					           mode="text"
-					           onChange={(val, event) => this.parse(val, event)}
+					           onChange={(val, event) => this.parse(val, false)}
 					           name="unique"
 					           editorProps={{$blockScrolling: true}}
 					           ref={this.aceEditor}
@@ -118,13 +126,13 @@ class ASPEditor extends React.Component {
 					           style={styles.EDITOR}
 					           showPrintMargin={false}
 					           setOptions={{useWorker: true}}
-					           value={this.state.currentValue}
+					           value={this.props.value}
 					           onCursorChange={this.setContextMenu}
 					           commands={[{
 						           name: "Save",
 						           bindKey: {win: "Ctrl-S", mac: "Command-M"},
 						           exec: () => {
-							           console.log("ciao");
+							           this.props.handleSave();
 						           }
 					           }]}
 					/>
