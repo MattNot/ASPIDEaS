@@ -58,10 +58,11 @@ class ASPEditor extends React.Component {
 		if (prevProps.plugins !== this.props.plugins) {
 			this.editorHandler = new EditorHandler(this.aceEditor, this.props.plugins);
 		}
-		if (prevProps.activeFile !== this.props.activeFile) {
+		if (prevProps.activeFile.name !== this.props.activeFile.name) {
 			let splittedInput = this.props.value.split("\n");
-			splittedInput.forEach(row => {
-				this.parse(row, true)
+			splittedInput.forEach((row, index) => {
+				this.parse(row, true, index + 1)
+				// console.log(this.state.annotations)
 			})
 		}
 	}
@@ -69,15 +70,15 @@ class ASPEditor extends React.Component {
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
 	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
 	//FIXME: Matteo Notaro, 28/03/2020
-	parse(val: string, global) {
+	parse(val: string, global, line) {
 		if (!global) {
 			this.dispatch(editorValue(val));
 			this.dispatch(setActiveFileInput(val))
 		}
 		let {lineContext} = this.state;
-		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext);
+		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext, line);
 		this.setState({annotations: newAnnotations, lineContext: lineContext});
-		this.aceEditor.current.editor.getSession().setAnnotations(newAnnotations);
+		this.aceEditor.current.editor.getSession().setAnnotations(this.state.annotations);
 	}
 
 
@@ -130,7 +131,7 @@ class ASPEditor extends React.Component {
 					           onCursorChange={this.setContextMenu}
 					           commands={[{
 						           name: "Save",
-						           bindKey: {win: "Ctrl-S", mac: "Command-M"},
+						           bindKey: {win: "Ctrl-S", mac: "Command-S"},
 						           exec: () => {
 							           this.props.handleSave();
 						           }
