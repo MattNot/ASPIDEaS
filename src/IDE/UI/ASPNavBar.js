@@ -38,7 +38,8 @@ function ASPNavBar(props) {
 					                 setActiveProject={props.setActiveProject}/>
 					<ModalNewFile locale={props.locale} notifyTree={props.notifyTree}
 					              activeProject={props.activeProject}/>
-					<Button as={DropdownItem} onClick={props.handleSave}>{props.locale.__("Save")}</Button>
+					<Button as={DropdownItem} onClick={props.handleSave}><Icon name={"save"}/> {props.locale.__("Save")}
+					</Button>
 					<DropdownDivider/>
 					<ModalImportFacts/>
 				</DropdownMenu>

@@ -31,7 +31,6 @@ class ASPEditor extends React.Component {
 		this.aceEditor = React.createRef();
 		this.state = {
 			currentValue: props.value,
-			annotations: [],
 			lineContext: [],
 			errorOnThisLine: {},
 			activeLine: 0
@@ -61,8 +60,7 @@ class ASPEditor extends React.Component {
 		if (prevProps.activeFile.name !== this.props.activeFile.name) {
 			let splittedInput = this.props.value.split("\n");
 			splittedInput.forEach((row, index) => {
-				this.parse(row, true, index + 1)
-				// console.log(this.state.annotations)
+				this.parse(row, true, index)
 			})
 		}
 	}
@@ -76,9 +74,9 @@ class ASPEditor extends React.Component {
 			this.dispatch(setActiveFileInput(val))
 		}
 		let {lineContext} = this.state;
-		const newAnnotations = this.editorHandler.parse(this.state.annotations, lineContext, line);
-		this.setState({annotations: newAnnotations, lineContext: lineContext});
-		this.aceEditor.current.editor.getSession().setAnnotations(this.state.annotations);
+		const newAnnotations = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext, line);
+		this.setState({lineContext: lineContext});
+		this.aceEditor.current.editor.getSession().setAnnotations(newAnnotations);
 	}
 
 
