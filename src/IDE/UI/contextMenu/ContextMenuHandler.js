@@ -9,7 +9,7 @@ const ContextMenuHandler = ({errorInLine, handler, context}) => {
 			<MenuItem onClick={handler.paste}>Paste</MenuItem>
 			<MenuItem onClick={handler.cut}>Cut</MenuItem>
 			{errorInLine.value && <SubMenu title={"Fix the error..."} hoverDelay={0.02}>
-				{handler.plugins.map(plugin => {
+				{handler.plugins && handler.plugins.map(plugin => {
 					return plugin.type === "error" && plugin.errorName === errorInLine.name &&
 						<MenuItem onClick={plugin.function} key={plugin.name} data={{
 							editor: handler.aceEditor.current,
@@ -18,7 +18,7 @@ const ContextMenuHandler = ({errorInLine, handler, context}) => {
 						}}>{plugin.description}</MenuItem>
 				})}
 			</SubMenu>}
-			{handler.plugins.length > 0 &&
+			{handler.plugins && handler.plugins.length > 0 &&
 			<SubMenu title={"Apply plugin..."} hoverDelay={0.02}>
 				{handler.plugins.map(plugin => {
 					return plugin.type === "simple" && plugin.applicability(context) &&

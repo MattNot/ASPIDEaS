@@ -11,8 +11,8 @@ export default class EditorHandler {
 		this.plugins = plugins;
 	}
 
-	parse = (actualAnnotations, lineContext) => {
-		let actualRow = this.aceEditor.current.editor.getCursorPosition().row;
+	parse = (actualAnnotations, lineContext, line) => {
+		let actualRow = line || this.aceEditor.current.editor.getCursorPosition().row;
 		let delta = this.aceEditor.current.editor.getSession().getLine(actualRow);
 		let stream = new antlr4.InputStream(delta);
 		let lexer = new Lexer(stream);
@@ -29,7 +29,6 @@ export default class EditorHandler {
 		let walker = new CustomASPCore2_0cListener(annotations, lineContext[actualRow]);
 		antlr4.tree.ParseTreeWalker.DEFAULT.walk(walker, tree);
 		lineContext[actualRow] = walker.getLastContext();
-
 		annotations = annotations.map(ann => {
 			ann.row = actualRow;
 			return ann;

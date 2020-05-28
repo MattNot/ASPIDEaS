@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {Button, Form, Grid, Header, Image, Message, Segment} from "semantic-ui-react";
 import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import Cookies from "js-cookie"
 
 const Registration = () => {
 	const [registration, setRegistration] = useState({})
 	const history = useHistory()
+	const dispatch = useDispatch()
 	const [message, setMessage] = useState("")
 	const [error, setError] = useState(false)
 	const handleChange = (event, {name, value}) => {
@@ -34,6 +37,8 @@ const Registration = () => {
 			})
 		}).then(r => {
 			if (r.ok) {
+				// dispatch(setLogin(true))
+				Cookies.set("logged", true, {expires: 1, path: "/"})
 				history.push("/ide")
 			} else {
 				setMessage("Something went wrong with the server")

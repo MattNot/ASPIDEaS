@@ -50,6 +50,11 @@ export class AspHighLightsRules extends window.ace.acequire("ace/mode/text_highl
 					token: "variable",
 					regex: "\\w+",
 					next: "termList"
+				},
+				{
+					token: "variable",
+					regex: "\"\\w+\"",
+					next: "termList"
 				}
 			],
 			"termList": [

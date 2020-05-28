@@ -23,6 +23,7 @@ let removeHead = {
 			});
 			head = head.replace(/,\)/, ")");
 		});
+		head = head.replace(/(\w+)\(\)/, (global, first) => first);
 		spliced[0] = head;
 		let newRow = spliced.join(" :- ");
 		let selection = new Range(editor.editor.getCursorPosition().row, 0, editor.editor.getCursorPosition().row, editor.editor.getSession().getLine(editor.editor.getCursorPosition().row).length);
