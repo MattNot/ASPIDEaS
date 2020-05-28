@@ -12,12 +12,14 @@ import {
 	changeEditorValueReducer,
 	changeLanguageReducer,
 	engineReducer,
+	execTestsReducer,
+	loginReducer,
+	modelsNumberReducer,
 	outputReducer,
 	pluginsReducer,
 	projectsReducer
 } from "./redux/reducers";
 import thunk from "redux-thunk";
-import {loginReducer} from "./redux/reducers/loginReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true, traceLimit: 15}) || compose;
 
@@ -30,7 +32,9 @@ let store = createStore(combineReducers({
 	plugins: pluginsReducer,
 	output: outputReducer,
 	engine: engineReducer,
-	isLogged: loginReducer
+	isLogged: loginReducer,
+	modelsNumber: modelsNumberReducer,
+	execTests: execTestsReducer
 }), composeEnhancers(applyMiddleware(thunk)))
 
 function App() {

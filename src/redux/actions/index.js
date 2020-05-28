@@ -13,3 +13,5 @@ export {
 	addNewFile,
 	addNewProject,
 } from "./projects"
+export {setModels} from "./models"
+export {changeExecTest} from "./tests"

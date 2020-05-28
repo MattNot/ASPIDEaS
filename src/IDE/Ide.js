@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import ASPSideBar from "./UI/ASPSideBar";
+import ASPSideBar from "./UI/sidebar/ASPSideBar";
 import "semantic-ui-css/semantic.min.css"
 import "../App.css"
 import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
@@ -28,23 +28,34 @@ function Ide() {
 	const engine = useSelector(state => state.engine)
 	const activeProject = useSelector(state => state.activeProject)
 	const activeFile = useSelector(state => state.activeFile)
+	const execTests = useSelector(state => state.execTests)
+	const modelsNumber = useSelector(state => state.modelsNumber)
 	const [outPut, setOutput] = useState("");
 	const [notifyTree, setNotifyTree] = useState(false)
 	const sendProgram = () => {
-		fetch(`api/${engine}/evaluateProgram`, {
+		fetch(`api/evaluate`, {
 				method: "POST",
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					inputProgram: editorValue,
-					testCases: ["a.", "b."]
+					input: {
+						inputProgram: editorValue,
+						name: activeFile.name,
+						father: activeFile.father
+					},
+					testCases: ["a.", "b."],
+					options: {
+						test: execTests,
+						n: modelsNumber,
+						executor: engine
+					}
 				})
 			}
 		).then(r => r.json()).then(t => {
-			let out = t.map(a => a.answerSet);
-			setOutput(out.join("\n"))
+			t = t.map((f, index) => `MODEL N. ${index + 1} \n` + f)
+			setOutput(t.join("\n"))
 		});
 	}
 	const toggleMenu = () => {
@@ -61,6 +72,8 @@ function Ide() {
 		}
 	};
 	const handleSave = () => {
+		if (!activeFile || !activeProject)
+			return false;
 		let children = activeProject.children.map(child => {
 			if (child.name === activeFile.name)
 				child = activeFile

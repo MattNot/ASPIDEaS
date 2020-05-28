@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Treebeard} from 'react-treebeard';
 import {useDispatch, useSelector} from "react-redux";
-import {editorValue, reloadAsync, setActiveFile, setActiveProject, setNewProjects} from "../../redux/actions";
+import {editorValue, reloadAsync, setActiveFile, setActiveProject, setNewProjects} from "../../../redux/actions";
 
 
 const ASPFileTree = ({size, notifyTree}) => {
@@ -36,8 +36,9 @@ const ASPFileTree = ({size, notifyTree}) => {
 		<Treebeard data={projects} onToggle={onSelect} style={{
 			tree: {
 				base: {
-					height: "100%",
-					width: "100%"
+					height: "77.6%",
+					width: "100%",
+					position: "relative"
 				}
 			}
 		}}/>
