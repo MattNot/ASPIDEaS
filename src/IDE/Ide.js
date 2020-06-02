@@ -71,7 +71,10 @@ function Ide() {
 							scope: [
 								{
 									name: "ProvaBlock",
-									rules: ["\n a|b.", "\n c. :- not a. :- not b. :- not c."]
+									rules: [
+										"\n a|b.",
+										"\n c. :- not a. :- not b. :- not c."
+									]
 								}
 							],
 							programFiles: [],
