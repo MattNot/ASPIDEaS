@@ -12,6 +12,7 @@ import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
 import {editorValue, setActiveFileInput} from "../../redux/actions";
+import {resetBlock} from "../../redux/actions/tests";
 
 let TextSnippets = window.ace.acequire("ace/snippets/text");
 
@@ -58,25 +59,21 @@ class ASPEditor extends React.Component {
 			this.editorHandler = new EditorHandler(this.aceEditor, this.props.plugins);
 		}
 		if (prevProps.activeFile.name !== this.props.activeFile.name) {
-			let splittedInput = this.props.value.split("\n");
-			splittedInput.forEach((row, index) => {
-				this.parse(row, true, index)
-			})
+			this.parse(this.props.value)
 		}
 	}
 
 	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
 	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
 	//FIXME: Matteo Notaro, 28/03/2020
-	parse(val: string, global, line) {
-		if (!global) {
-			this.dispatch(editorValue(val));
-			this.dispatch(setActiveFileInput(val))
-		}
+	parse(val: string) {
+		this.dispatch(editorValue(val));
+		this.dispatch(setActiveFileInput(val))
+		this.dispatch(resetBlock())
 		let {lineContext} = this.state;
-		const newAnnotations = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext, line);
-		this.setState({lineContext: lineContext});
-		this.aceEditor.current.editor.getSession().setAnnotations(newAnnotations);
+		const newObj = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext);
+		this.setState({lineContext: newObj.lineContext});
+		this.aceEditor.current.editor.getSession().setAnnotations(newObj.annotations);
 	}
 
 
@@ -115,7 +112,7 @@ class ASPEditor extends React.Component {
 				<ContextMenuTrigger id="contextMenu">
 					<AceEditor theme="dracula"
 					           mode="text"
-					           onChange={(val, event) => this.parse(val, false)}
+					           onChange={(val, event) => this.parse(val)}
 					           name="unique"
 					           editorProps={{$blockScrolling: true}}
 					           ref={this.aceEditor}

@@ -16,9 +16,12 @@ statementsForTest: statementForTest statementsForTest?;
 
 entireBlockTest: startBlock statementsForTest endBlock;
 
-startBlock: AT 'start-block' PAREN_OPEN 'name' EQUAL STRING PAREN_CLOSE;
+nameEqual: 'name' EQUAL STRING;
+listOfString: CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE;
 
-endBlock: AT 'end-block';
+startBlock: DIRECTIVE_START AT 'start-block' PAREN_OPEN nameEqual PAREN_CLOSE DIRECTIVE_END;
+
+endBlock: DIRECTIVE_START AT 'end-block' DIRECTIVE_END;
 
 statementForTest:
 	CONS body? DOT
@@ -28,14 +31,20 @@ statementForTest:
 	| optimize DOT;
 
 
-testDirective: DIRECTIVE_START annotation DIRECTIVE_END;
-annotation: AT (ruleTest | blockTest | testTest);
-ruleTest: 'rule' PAREN_OPEN 'name' EQUAL STRING (COMMA 'block' EQUAL STRING)? PAREN_CLOSE;
-blockTest: 'block' PAREN_OPEN 'name' EQUAL STRING (COMMA 'rules' EQUAL CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE)? PAREN_CLOSE;
-testTest: 'test' PAREN_OPEN 'name' EQUAL STRING COMMA 'scope' EQUAL CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE (COMMA programFilesTest)? (COMMA inputTest)? (COMMA inputFilesTest)? COMMA assertTest PAREN_CLOSE;
-programFilesTest: 'programFiles' EQUAL CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE;
+testDirective: DIRECTIVE_START inLineAnnotation DIRECTIVE_END
+| entireBlockTest
+| ruleTest
+;
+
+
+inLineAnnotation: AT (ruleTest | blockTest | testTest );
+ruleTest: DIRECTIVE_START AT 'rule' PAREN_OPEN nameEqual (COMMA 'block' EQUAL STRING)? PAREN_CLOSE DIRECTIVE_END statementForTest
+          | DIRECTIVE_START AT 'rule' PAREN_OPEN nameEqual (COMMA 'block' EQUAL STRING)? PAREN_CLOSE DIRECTIVE_END {this.notifyErrorListeners("Missing rule after @rule");};
+blockTest: 'block' PAREN_OPEN nameEqual (COMMA 'rules' EQUAL listOfString)? PAREN_CLOSE;
+testTest: 'test' PAREN_OPEN nameEqual COMMA 'scope' EQUAL listOfString (COMMA programFilesTest)? (COMMA inputTest)? (COMMA inputFilesTest)? COMMA assertTest PAREN_CLOSE;
+programFilesTest: 'programFiles' EQUAL listOfString;
 inputTest: 'input' EQUAL SINGLE_QUOTE statementsForTest SINGLE_QUOTE;
-inputFilesTest: 'inputFiles' EQUAL CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE;
+inputFilesTest: 'inputFiles' EQUAL listOfString;
 
 assertTest: 'assert' EQUAL CURLY_OPEN assertions CURLY_CLOSE;
 assertions: assertion (COMMA assertions)?;

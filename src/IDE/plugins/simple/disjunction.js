@@ -1,10 +1,13 @@
+import {ASPCore2_0cParser} from "../../editor/parser/ASPCore2_0cParser"
+
 let counted = 0;
 
 function findDis(lineContext) {
 	if (lineContext.children !== undefined) {
 		for (let x = 0; x < lineContext.children.length; x++) {
-			if (lineContext.children[x].ruleIndex === 6 || lineContext.children[x].ruleIndex === 8)
+			if (lineContext.children[x] instanceof ASPCore2_0cParser.DisjunctionContext) {
 				counted++;
+			}
 			if (counted >= 2)
 				return true;
 			findDis(lineContext.children[x]);

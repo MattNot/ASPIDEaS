@@ -74,6 +74,24 @@ ASPCore2_0cListener.prototype.exitEntireBlockTest = function (ctx) {
 };
 
 
+// Enter a parse tree produced by ASPCore2_0cParser#nameEqual.
+ASPCore2_0cListener.prototype.enterNameEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#nameEqual.
+ASPCore2_0cListener.prototype.exitNameEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#listOfString.
+ASPCore2_0cListener.prototype.enterListOfString = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#listOfString.
+ASPCore2_0cListener.prototype.exitListOfString = function (ctx) {
+};
+
+
 // Enter a parse tree produced by ASPCore2_0cParser#startBlock.
 ASPCore2_0cListener.prototype.enterStartBlock = function (ctx) {
 };
@@ -110,12 +128,12 @@ ASPCore2_0cListener.prototype.exitTestDirective = function (ctx) {
 };
 
 
-// Enter a parse tree produced by ASPCore2_0cParser#annotation.
-ASPCore2_0cListener.prototype.enterAnnotation = function (ctx) {
+// Enter a parse tree produced by ASPCore2_0cParser#inLineAnnotation.
+ASPCore2_0cListener.prototype.enterInLineAnnotation = function (ctx) {
 };
 
-// Exit a parse tree produced by ASPCore2_0cParser#annotation.
-ASPCore2_0cListener.prototype.exitAnnotation = function (ctx) {
+// Exit a parse tree produced by ASPCore2_0cParser#inLineAnnotation.
+ASPCore2_0cListener.prototype.exitInLineAnnotation = function (ctx) {
 };
 
 

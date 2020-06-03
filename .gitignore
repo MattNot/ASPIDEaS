@@ -21,5 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+parsersGrammar/ASPCore2_0c.interp
+parsersGrammar/ASPCore2_0c.tokens
+parsersGrammar/ASPCore2_0cLexer.interp
+parsersGrammar/ASPCore2_0cLexer.tokens
 .idea/

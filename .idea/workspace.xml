@@ -20,14 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aca9a36b-a46e-4451-bf14-a2f6712ab13a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/redux/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/reducers/blockReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.g4" beforeDir="false" afterPath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/Ide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/Ide.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cLexer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/oldParser/ASPCore2_0cLexer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/oldParser/ASPCore2_0cListener.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cParser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/oldParser/ASPCore2_0cParser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.interp" beforeDir="false" afterPath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0cLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0cLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0cLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0cLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/editor/ASPEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/ASPEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/editor/EditorHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/EditorHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cLexer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cLexer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cListener.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cParser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/ASPCore2_0cParser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/CustomASPCore2_0cListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/CustomASPCore2_0cListener.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/modelsNumberReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/modelsNumberReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/plugins/simple/disjunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/plugins/simple/disjunction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/actions/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/tests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,12 +73,15 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1YUlO13a3t1IzzENjVjbYwoK9ca" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -88,17 +102,17 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\parsersGrammar" />
+      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\editor\parser" />
+      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\public\parser" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE\editor\parser" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE\editor\parser\oldParser" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE\UI\modals" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\parsersGrammar" />
-      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\editor\parser" />
-      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\public\parser" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
@@ -252,6 +266,8 @@
       <workItem from="1591084772864" duration="2873000" />
       <workItem from="1591112479644" duration="1878000" />
       <workItem from="1591117225920" duration="5635000" />
+      <workItem from="1591131600168" duration="195000" />
+      <workItem from="1591184941801" duration="19699000" />
     </task>
     <task id="LOCAL-00001" summary="Added Editor and Mode">
       <created>1584269636796</created>
@@ -365,7 +381,21 @@
       <option name="project" value="LOCAL" />
       <updated>1590964456524</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Have to change to whole file parsing or similar, old parser still in oldParser directory. Going crazy.">
+      <created>1591131682691</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1591131682691</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Have to change to whole file parsing or similar, old parser still in oldParser directory. Going crazy.">
+      <created>1591131733122</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1591131733122</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,6 +414,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added Editor and Mode" />
     <MESSAGE value="It's born" />
     <MESSAGE value="Okay, a lot of things.&#10;Added AceErrorListener.js, ASPCore2_0c*.js, added ASPSnippets.js (must add others)" />
@@ -396,7 +427,8 @@
     <MESSAGE value="Create branch, starting testcases" />
     <MESSAGE value="Tests API seems to work.&#10;Must do the parser." />
     <MESSAGE value="Parser done, must test it." />
-    <option name="LAST_COMMIT_MESSAGE" value="Parser done, must test it." />
+    <MESSAGE value="Have to change to whole file parsing or similar, old parser still in oldParser directory. Going crazy." />
+    <option name="LAST_COMMIT_MESSAGE" value="Have to change to whole file parsing or similar, old parser still in oldParser directory. Going crazy." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -413,10 +445,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#JavaScript/0.0.1920.1040@0.0.1920.1040" timestamp="1585683768161" />
-    <state x="552" y="178" key="#Plugins" timestamp="1585143294301">
+    <state x="552" y="178" key="#Plugins" timestamp="1591131793959">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="178" key="#Plugins/0.0.1920.1040@0.0.1920.1040" timestamp="1585143294301" />
+    <state x="552" y="178" key="#Plugins/0.0.1920.1040@0.0.1920.1040" timestamp="1591131793959" />
     <state x="496" y="98" key="#ProvaComponente.js" timestamp="1583006655156">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -435,47 +467,47 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586092747216" />
-    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1590964455753">
+    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1591209611522">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584269635408" />
-    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590964455753" />
+    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1591209611522" />
     <state x="739" y="275" key="FileChooserDialogImpl" timestamp="1585322113366">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="739" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585322113366" />
-    <state width="1899" height="150" key="GridCell.Tab.0.bottom" timestamp="1591125769041">
+    <state width="949" height="150" key="GridCell.Tab.0.bottom" timestamp="1591208762411">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.bottom/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.bottom/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.bottom/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="150" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591125769041" />
-    <state width="1899" height="150" key="GridCell.Tab.0.center" timestamp="1591125769041">
+    <state width="949" height="150" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591208762411" />
+    <state width="949" height="150" key="GridCell.Tab.0.center" timestamp="1591208762411">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.center/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.center/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.center/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="150" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591125769041" />
-    <state width="1899" height="150" key="GridCell.Tab.0.left" timestamp="1591125769041">
+    <state width="949" height="150" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591208762411" />
+    <state width="949" height="150" key="GridCell.Tab.0.left" timestamp="1591208762411">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.left/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.left/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.left/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="150" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591125769041" />
-    <state width="1899" height="150" key="GridCell.Tab.0.right" timestamp="1591125769041">
+    <state width="949" height="150" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591208762411" />
+    <state width="949" height="150" key="GridCell.Tab.0.right" timestamp="1591208762411">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.right/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.right/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.right/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="150" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591125769041" />
+    <state width="949" height="150" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591208762411" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1585333065939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -537,11 +569,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="747" y="236" key="VCS.ChangeListViewerDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590767065100" />
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1590964458443">
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1591131737948">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="361" y="134" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1584269673996" />
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590964458443" />
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1591131737948" />
     <state x="715" y="364" key="cloudConfig.PluginsDialog" timestamp="1584288803953">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -568,10 +600,10 @@
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1583323456999" />
     <state x="531" y="236" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589897183387" />
-    <state x="539" y="183" width="840" height="856" key="search.everywhere.popup" timestamp="1589728812753">
+    <state x="539" y="183" width="840" height="856" key="search.everywhere.popup" timestamp="1591131749057">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1583276610492" />
-    <state x="539" y="183" width="840" height="856" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589728812753" />
+    <state x="539" y="183" width="840" height="856" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591131749057" />
   </component>
 </project>
