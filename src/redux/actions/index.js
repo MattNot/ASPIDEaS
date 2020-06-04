@@ -14,4 +14,4 @@ export {
 	addNewProject,
 } from "./projects"
 export {setModels} from "./models"
-export {changeExecTest} from "./tests"
+export {changeExecTest, addBlock, resetBlock, addRule, resetRules, addTest, resetTests} from "./tests"

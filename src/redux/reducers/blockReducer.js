@@ -19,7 +19,7 @@ export const blockReducer = (state = [], action) => {
 				if (state[i].name && state[i].name === action.name) {
 					t = true;
 					if (action.rules)
-						state[i].rules.push(action.rules)
+						state[i].rules.push(...action.rules)
 				}
 			}
 			if (!t)

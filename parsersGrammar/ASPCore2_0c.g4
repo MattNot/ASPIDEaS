@@ -10,18 +10,13 @@ statement : CONS  body? DOT
           | WCONS  body? DOT SQUARE_OPEN weight_at_level SQUARE_CLOSE
 	      | WCONS body? SQUARE_OPEN weight_at_level SQUARE_CLOSE DOT {this.notifyErrorListeners("Syntax error: DOT must be before [weight@level]");}
 	      | optimize DOT
-| testDirective;
+          | testDirective;
 
 statementsForTest: statementForTest statementsForTest?;
 
 entireBlockTest: startBlock statementsForTest endBlock;
 
-nameEqual: 'name' EQUAL STRING;
-listOfString: CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE;
 
-startBlock: DIRECTIVE_START AT 'start-block' PAREN_OPEN nameEqual PAREN_CLOSE DIRECTIVE_END;
-
-endBlock: DIRECTIVE_START AT 'end-block' DIRECTIVE_END;
 
 statementForTest:
 	CONS body? DOT
@@ -36,11 +31,20 @@ testDirective: DIRECTIVE_START inLineAnnotation DIRECTIVE_END
 | ruleTest
 ;
 
+nameEqual: 'name' EQUAL STRING;
+blockEqual: 'block' EQUAL STRING;
+listOfString: CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE;
 
-inLineAnnotation: AT (ruleTest | blockTest | testTest );
-ruleTest: DIRECTIVE_START AT 'rule' PAREN_OPEN nameEqual (COMMA 'block' EQUAL STRING)? PAREN_CLOSE DIRECTIVE_END statementForTest
-          | DIRECTIVE_START AT 'rule' PAREN_OPEN nameEqual (COMMA 'block' EQUAL STRING)? PAREN_CLOSE DIRECTIVE_END {this.notifyErrorListeners("Missing rule after @rule");};
+startBlock: DIRECTIVE_START AT 'start-block' PAREN_OPEN nameEqual PAREN_CLOSE DIRECTIVE_END;
+
+endBlock: DIRECTIVE_START AT 'end-block' DIRECTIVE_END;
+
+inLineAnnotation: AT ( blockTest | testTest );
+ruleTest: DIRECTIVE_START AT 'rule' PAREN_OPEN nameEqual (COMMA blockEqual)? PAREN_CLOSE DIRECTIVE_END statementForTest
+          | DIRECTIVE_START AT 'rule' PAREN_OPEN nameEqual (COMMA blockEqual)? PAREN_CLOSE DIRECTIVE_END {this.notifyErrorListeners("Missing rule after @rule");};
+
 blockTest: 'block' PAREN_OPEN nameEqual (COMMA 'rules' EQUAL listOfString)? PAREN_CLOSE;
+
 testTest: 'test' PAREN_OPEN nameEqual COMMA 'scope' EQUAL listOfString (COMMA programFilesTest)? (COMMA inputTest)? (COMMA inputFilesTest)? COMMA assertTest PAREN_CLOSE;
 programFilesTest: 'programFiles' EQUAL listOfString;
 inputTest: 'input' EQUAL SINGLE_QUOTE statementsForTest SINGLE_QUOTE;
@@ -69,8 +73,8 @@ constraintInExactly:
 
 bestModelCost: 'bestModelCost' PAREN_OPEN 'cost' EQUAL NUMBER COMMA 'level' EQUAL NUMBER PAREN_CLOSE;
 
-head : disjunction | choice;
 
+head : disjunction | choice;
 body : (naf_literal |  NAF? aggregate)  (COMMA body)?;
 disjunction :  classical_literal (OR disjunction)?;
 choice :  (term binop)? CURLY_OPEN  choice_elements? CURLY_CLOSE  (binop term)?;

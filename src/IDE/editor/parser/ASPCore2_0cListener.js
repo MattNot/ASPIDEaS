@@ -74,12 +74,39 @@ ASPCore2_0cListener.prototype.exitEntireBlockTest = function (ctx) {
 };
 
 
+// Enter a parse tree produced by ASPCore2_0cParser#statementForTest.
+ASPCore2_0cListener.prototype.enterStatementForTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#statementForTest.
+ASPCore2_0cListener.prototype.exitStatementForTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#testDirective.
+ASPCore2_0cListener.prototype.enterTestDirective = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#testDirective.
+ASPCore2_0cListener.prototype.exitTestDirective = function (ctx) {
+};
+
+
 // Enter a parse tree produced by ASPCore2_0cParser#nameEqual.
 ASPCore2_0cListener.prototype.enterNameEqual = function (ctx) {
 };
 
 // Exit a parse tree produced by ASPCore2_0cParser#nameEqual.
 ASPCore2_0cListener.prototype.exitNameEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#blockEqual.
+ASPCore2_0cListener.prototype.enterBlockEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#blockEqual.
+ASPCore2_0cListener.prototype.exitBlockEqual = function (ctx) {
 };
 
 
@@ -107,24 +134,6 @@ ASPCore2_0cListener.prototype.enterEndBlock = function (ctx) {
 
 // Exit a parse tree produced by ASPCore2_0cParser#endBlock.
 ASPCore2_0cListener.prototype.exitEndBlock = function (ctx) {
-};
-
-
-// Enter a parse tree produced by ASPCore2_0cParser#statementForTest.
-ASPCore2_0cListener.prototype.enterStatementForTest = function (ctx) {
-};
-
-// Exit a parse tree produced by ASPCore2_0cParser#statementForTest.
-ASPCore2_0cListener.prototype.exitStatementForTest = function (ctx) {
-};
-
-
-// Enter a parse tree produced by ASPCore2_0cParser#testDirective.
-ASPCore2_0cListener.prototype.enterTestDirective = function (ctx) {
-};
-
-// Exit a parse tree produced by ASPCore2_0cParser#testDirective.
-ASPCore2_0cListener.prototype.exitTestDirective = function (ctx) {
 };
 
 

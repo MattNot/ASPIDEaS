@@ -1,7 +1,7 @@
 import {ASPCore2_0cListener} from "./ASPCore2_0cListener"
 import {ASPCore2_0cParser} from "./ASPCore2_0cParser";
 import {store} from "../../../redux";
-import {addBlock} from "../../../redux/actions/tests";
+import {addBlock, addRule} from "../../../redux/actions";
 
 export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	constructor(annotations, lineContext) {
@@ -17,6 +17,26 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			name: "",
 			rules: []
 		}
+		this.ruleConstructor = {
+			name: "",
+			rule: {
+				start: 0,
+				end: 0
+			}
+		}
+
+		this.testConstructor = {
+			name: "",
+			scope: [],
+			programFiles: [],
+			input: "",
+			inputFiles: [],
+			assert: []
+		}
+
+		this.assertConstructor = {
+			"@type": ""
+		}
 		this.lineContext = lineContext;
 		this.annotations = annotations;
 	}
@@ -25,10 +45,38 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		return this.lineContext;
 	}
 
+	exitBlockEqual(ctx) {
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.RuleTestContext) {
+			this.blockConstructor.name = ctx.children[2].symbol.text.replace(/"/g, "");
+			this.blockConstructor.rules.push(this.ruleConstructor.name);
+		}
+	}
+
+	exitStatementForTest(ctx) {
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.RuleTestContext) {
+			let start = ctx.start.line;
+			let end = ctx.stop.line;
+			this.ruleConstructor.rule = {start, end}
+		}
+	}
+
+	exitRuleTest(ctx) {
+		store.dispatch(addRule(this.ruleConstructor.name, this.ruleConstructor.rule));
+		if (this.blockConstructor.name)
+			this.exitBlockTest();
+		this.ruleConstructor.name = "";
+		this.ruleConstructor.rule = {}
+	}
+
 	exitNameEqual(ctx) {
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.BlockTestContext) {
 			this.blockConstructor.name = ctx.children[2].symbol.text.replace(/"/g, "");
-			store.dispatch(addBlock(this.blockConstructor.name, []))
+		}
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.RuleTestContext) {
+			this.ruleConstructor.name = ctx.children[2].symbol.text.replace(/"/g, "");
+		}
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.TestTestContext) {
+			this.testConstructor.name = ctx.children[2].symbol.text.replace(/"/g, "");
 		}
 	}
 
@@ -41,6 +89,9 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			let rules = listOfRules.join().split(",");
 			rules = rules.filter(r => !regExp.test(r)).filter(r => r !== '').map(r => r.replace(/"/g, ""))
 			this.blockConstructor.rules.push(...rules);
+		}
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.TestTestContext) {
+			
 		}
 	}
 

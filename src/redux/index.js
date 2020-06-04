@@ -11,7 +11,9 @@ import {
 	modelsNumberReducer,
 	outputReducer,
 	pluginsReducer,
-	projectsReducer
+	projectsReducer,
+	ruleReducer,
+	testReducer
 } from "./reducers";
 import thunk from "redux-thunk";
 
@@ -29,5 +31,7 @@ export let store = createStore(combineReducers({
 	isLogged: loginReducer,
 	modelsNumber: modelsNumberReducer,
 	execTests: execTestsReducer,
-	blocks: blockReducer
+	blocks: blockReducer,
+	rules: ruleReducer,
+	tests: testReducer
 }), composeEnhancers(applyMiddleware(thunk)))

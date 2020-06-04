@@ -11,7 +11,7 @@ import CustomAspMode from "./Asp-Mode";
 import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
-import {editorValue, setActiveFileInput} from "../../redux/actions";
+import {editorValue, resetRules, resetTests, setActiveFileInput} from "../../redux/actions";
 import {resetBlock} from "../../redux/actions/tests";
 
 let TextSnippets = window.ace.acequire("ace/snippets/text");
@@ -70,6 +70,8 @@ class ASPEditor extends React.Component {
 		this.dispatch(editorValue(val));
 		this.dispatch(setActiveFileInput(val))
 		this.dispatch(resetBlock())
+		this.dispatch(resetRules())
+		this.dispatch(resetTests())
 		let {lineContext} = this.state;
 		const newObj = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext);
 		this.setState({lineContext: newObj.lineContext});
