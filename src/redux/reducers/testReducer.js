@@ -23,7 +23,7 @@ export const testReducer = (state = [], action) => {
 			state = state.filter(r => false);
 			return state;
 		case "ADD_TEST":
-			state.push(new Test(action.name, action.scope, action.input, action.inputFiles, action.assert))
+			state.push(new Test(action.test.name, action.test.scope, action.test.programFiles, action.test.input, action.test.inputFiles, action.test.assert))
 			return state;
 		default:
 			return state;

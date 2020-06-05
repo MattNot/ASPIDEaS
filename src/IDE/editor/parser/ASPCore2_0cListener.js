@@ -119,6 +119,24 @@ ASPCore2_0cListener.prototype.exitListOfString = function (ctx) {
 };
 
 
+// Enter a parse tree produced by ASPCore2_0cParser#numberEqual.
+ASPCore2_0cListener.prototype.enterNumberEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#numberEqual.
+ASPCore2_0cListener.prototype.exitNumberEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#atomsEqual.
+ASPCore2_0cListener.prototype.enterAtomsEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#atomsEqual.
+ASPCore2_0cListener.prototype.exitAtomsEqual = function (ctx) {
+};
+
+
 // Enter a parse tree produced by ASPCore2_0cParser#startBlock.
 ASPCore2_0cListener.prototype.enterStartBlock = function (ctx) {
 };
@@ -224,6 +242,15 @@ ASPCore2_0cListener.prototype.enterAssertion = function (ctx) {
 
 // Exit a parse tree produced by ASPCore2_0cParser#assertion.
 ASPCore2_0cListener.prototype.exitAssertion = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#noAnswerSet.
+ASPCore2_0cListener.prototype.enterNoAnswerSet = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#noAnswerSet.
+ASPCore2_0cListener.prototype.exitNoAnswerSet = function (ctx) {
 };
 
 

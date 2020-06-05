@@ -1,7 +1,7 @@
 import {ASPCore2_0cListener} from "./ASPCore2_0cListener"
 import {ASPCore2_0cParser} from "./ASPCore2_0cParser";
 import {store} from "../../../redux";
-import {addBlock, addRule} from "../../../redux/actions";
+import {addBlock, addRule, addTest} from "../../../redux/actions";
 
 export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	constructor(annotations, lineContext) {
@@ -35,7 +35,13 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		}
 
 		this.assertConstructor = {
-			"@type": ""
+			"@type": "",
+			clear: () => {
+				for (let x in this.assertConstructor) {
+					if (x !== "clear")
+						this.assertConstructor[x] = "";
+				}
+			}
 		}
 		this.lineContext = lineContext;
 		this.annotations = annotations;
@@ -58,6 +64,37 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			let end = ctx.stop.line;
 			this.ruleConstructor.rule = {start, end}
 		}
+	}
+
+	exitTrueIn(ctx) {
+		this.assertConstructor["@type"] = ctx.children[0].children[0].symbol.text;
+		this.testConstructor.assert.push(Object.assign({}, this.assertConstructor));
+		this.assertConstructor.clear();
+	}
+
+	exitNoAnswerSet(ctx) {
+		this.assertConstructor.clear();
+		this.assertConstructor["@type"] = "noAnswerSet";
+		this.testConstructor.assert.push(this.assertConstructor);
+	}
+
+	exitNumberEqual(ctx) {
+		this.assertConstructor.number = ctx.children[2].symbol.text;
+	}
+
+	exitAtomsEqual(ctx) {
+		let string = ""
+		for (let x = 3; x < ctx.children.length; x++) {
+			let child = ctx.children[x];
+			if (child instanceof ASPCore2_0cParser.Classical_literalContext) {
+				string += child.start.source[1].getText(child.start.start, child.stop.stop) + ". ";
+			}
+		}
+		this.assertConstructor.atoms = string;
+	}
+
+	exitTestTest(ctx) {
+		store.dispatch(addTest(this.testConstructor));
 	}
 
 	exitRuleTest(ctx) {
@@ -91,7 +128,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			this.blockConstructor.rules.push(...rules);
 		}
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.TestTestContext) {
-			
+
 		}
 	}
 

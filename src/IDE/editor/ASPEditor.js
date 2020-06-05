@@ -111,7 +111,7 @@ class ASPEditor extends React.Component {
 	render() {
 		return (
 			<span>
-				<ContextMenuTrigger id="contextMenu">
+				<ContextMenuTrigger id="contextMenu" holdToDisplay={-1}>
 					<AceEditor theme="dracula"
 					           mode="text"
 					           onChange={(val, event) => this.parse(val)}
@@ -135,7 +135,7 @@ class ASPEditor extends React.Component {
 					           }]}
 					/>
 				</ContextMenuTrigger>
-				<ContextMenu id="contextMenu">
+				<ContextMenu id="contextMenu" hideOnLeave>
 					{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}
 					                                                         handler={this.editorHandler}
 					                                                         context={this.state.lineContext[this.state.activeLine]}

@@ -1,6 +1,6 @@
 grammar ASPCore2_0c;
-inizio: program | <EOF>;
-program: statements
+inizio: program+ | <EOF>;
+program: statement
     | query
     | statements query;
 statements : statement statements?;
@@ -34,7 +34,8 @@ testDirective: DIRECTIVE_START inLineAnnotation DIRECTIVE_END
 nameEqual: 'name' EQUAL STRING;
 blockEqual: 'block' EQUAL STRING;
 listOfString: CURLY_OPEN (STRING COMMA?)+ CURLY_CLOSE;
-
+numberEqual: 'number' EQUAL NUMBER;
+atomsEqual: 'atoms' EQUAL SINGLE_QUOTE (classical_literal DOT)+ SINGLE_QUOTE;
 startBlock: DIRECTIVE_START AT 'start-block' PAREN_OPEN nameEqual PAREN_CLOSE DIRECTIVE_END;
 
 endBlock: DIRECTIVE_START AT 'end-block' DIRECTIVE_END;
@@ -45,6 +46,8 @@ ruleTest: DIRECTIVE_START AT 'rule' PAREN_OPEN nameEqual (COMMA blockEqual)? PAR
 
 blockTest: 'block' PAREN_OPEN nameEqual (COMMA 'rules' EQUAL listOfString)? PAREN_CLOSE;
 
+singleQuoteTest: SINGLE_QUOTE SINGLE_QUOTE;
+
 testTest: 'test' PAREN_OPEN nameEqual COMMA 'scope' EQUAL listOfString (COMMA programFilesTest)? (COMMA inputTest)? (COMMA inputFilesTest)? COMMA assertTest PAREN_CLOSE;
 programFilesTest: 'programFiles' EQUAL listOfString;
 inputTest: 'input' EQUAL SINGLE_QUOTE statementsForTest SINGLE_QUOTE;
@@ -52,12 +55,16 @@ inputFilesTest: 'inputFiles' EQUAL listOfString;
 
 assertTest: 'assert' EQUAL CURLY_OPEN assertions CURLY_CLOSE;
 assertions: assertion (COMMA assertions)?;
-assertion: AT ('noAnswerSet' | trueIn | constraintIn | bestModelCost);
+assertion: AT ( noAnswerSet | trueIn | constraintIn | bestModelCost);
+
+noAnswerSet: 'noAnswerSet';
+
 trueIn: (trueInAll | trueInAtLeast | trueInAtMost | trueInExactly);
-trueInAll: 'trueInAll' PAREN_OPEN 'atoms' EQUAL SINGLE_QUOTE (classical_literal DOT)+ SINGLE_QUOTE PAREN_CLOSE;
-trueInAtLeast: 'trueInAtLeast' PAREN_OPEN 'number' EQUAL NUMBER COMMA 'atoms' EQUAL SINGLE_QUOTE (classical_literal DOT)+ SINGLE_QUOTE PAREN_CLOSE;
-trueInAtMost:'trueInAtMost' PAREN_OPEN 'number' EQUAL NUMBER COMMA 'atoms' EQUAL SINGLE_QUOTE (classical_literal DOT)+ SINGLE_QUOTE PAREN_CLOSE;
-trueInExactly:'trueInExactly' PAREN_OPEN 'number' EQUAL NUMBER COMMA 'atoms' EQUAL SINGLE_QUOTE (classical_literal DOT)+ SINGLE_QUOTE PAREN_CLOSE;
+trueInAll: 'trueInAll' PAREN_OPEN atomsEqual PAREN_CLOSE;
+trueInAtLeast: 'trueInAtLeast' PAREN_OPEN numberEqual COMMA atomsEqual PAREN_CLOSE;
+trueInAtMost:'trueInAtMost' PAREN_OPEN numberEqual COMMA atomsEqual PAREN_CLOSE;
+trueInExactly:'trueInExactly' PAREN_OPEN numberEqual COMMA atomsEqual PAREN_CLOSE;
+
 constraintIn: (constraintForAll
 		| constraintInAtLeast
 		| constraintInAtMost
@@ -65,11 +72,11 @@ constraintIn: (constraintForAll
 constraintEqual: 'constraint' EQUAL SINGLE_QUOTE CONS body? DOT SINGLE_QUOTE;
 constraintForAll: 'constraintForAll' PAREN_OPEN constraintEqual PAREN_CLOSE;
 constraintInAtLeast:
-	'constraintInAtLeast' PAREN_OPEN 'number' EQUAL NUMBER COMMA constraintEqual PAREN_CLOSE;
+	'constraintInAtLeast' PAREN_OPEN numberEqual COMMA constraintEqual PAREN_CLOSE;
 constraintInAtMost:
-	'constraintInAtMost' PAREN_OPEN 'number' EQUAL NUMBER COMMA constraintEqual PAREN_CLOSE;
+	'constraintInAtMost' PAREN_OPEN numberEqual COMMA constraintEqual PAREN_CLOSE;
 constraintInExactly:
-	'constraintInExactly' PAREN_OPEN 'number' EQUAL NUMBER COMMA constraintEqual PAREN_CLOSE;
+	'constraintInExactly' PAREN_OPEN numberEqual COMMA constraintEqual PAREN_CLOSE;
 
 bestModelCost: 'bestModelCost' PAREN_OPEN 'cost' EQUAL NUMBER COMMA 'level' EQUAL NUMBER PAREN_CLOSE;
 
