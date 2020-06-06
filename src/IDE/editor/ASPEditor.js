@@ -8,11 +8,9 @@ import "ace-builds/src-min-noconflict/ext-language_tools"
 import "ace-builds/src-min-noconflict/keybinding-vscode"
 import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
-import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
-import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
+import {ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
-import {editorValue, resetRules, resetTests, setActiveFileInput} from "../../redux/actions";
-import {resetBlock} from "../../redux/actions/tests";
+import {editorValue, resetBlock, resetRules, resetTests, setActiveFileInput} from "../../redux/actions";
 
 let TextSnippets = window.ace.acequire("ace/snippets/text");
 
@@ -63,8 +61,7 @@ class ASPEditor extends React.Component {
 		}
 	}
 
-	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
-	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
+	//FIXME: This is **NOT** the way it should be. You should use workers but I didn't manage to find a way to do it.
 	//FIXME: Matteo Notaro, 28/03/2020
 	parse(val: string) {
 		this.dispatch(editorValue(val));
@@ -135,12 +132,12 @@ class ASPEditor extends React.Component {
 					           }]}
 					/>
 				</ContextMenuTrigger>
-				<ContextMenu id="contextMenu" hideOnLeave>
-					{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}
-					                                                         handler={this.editorHandler}
-					                                                         context={this.state.lineContext[this.state.activeLine]}
-					/>}
-				</ContextMenu>
+				{/*<ContextMenu id="contextMenu" hideOnLeave>*/}
+				{/*	{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}*/}
+				{/*	                                                         handler={this.editorHandler}*/}
+				{/*	                                                         context={this.state.lineContext[this.state.activeLine]}*/}
+				{/*	/>}*/}
+				{/*</ContextMenu>*/}
 			</span>
 		);
 	}

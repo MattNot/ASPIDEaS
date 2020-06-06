@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ASPSideBar from "./UI/sidebar/ASPSideBar";
 import "semantic-ui-css/semantic.min.css"
 import "../App.css"
-import {Button, Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
+import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
 import ASPNavBar from "./UI/ASPNavBar";
 import locales from "../i18n";
 import {default as pl} from "./plugins"
@@ -57,45 +57,6 @@ function Ide() {
 			setOutput(t.join("\n"))
 		});
 	}
-	const sendTest = () => {
-		fetch(`api/test`, {
-				method: "POST",
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					testCases: [
-						{
-							name: "provaTest",
-							scope: [
-								{
-									name: "ProvaBlock",
-									rules: [
-										"\n a|b.",
-										"\n c. :- not a. :- not b. :- not c."
-									]
-								}
-							],
-							programFiles: [],
-							input: "",
-							assertions: [
-								{
-									"@type": "NoAnswerSets",
-								}
-							]
-						}
-					],
-					options: {
-						test: true,
-						executor: engine
-					}
-				})
-			}
-		).then(r => r.json()).then(t => {
-			console.log(t)
-		});
-	}
 	const toggleMenu = () => {
 		setSidebarVisible(!sidebarVisible);
 		setHamburgerName(hamburgerName === "bars" ? "close" : "bars");
@@ -132,7 +93,6 @@ function Ide() {
 	}, [])
 	return (
 		<span>
-			<Button onClick={sendTest}>Cia</Button>
 			{Cookies.get("logged") && <div style={styles.MAIN}>
 				<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
 				           setLanguage={handleLanguage} sendProgram={sendProgram}

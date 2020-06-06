@@ -24,12 +24,10 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			name: "",
 			rules: []
 		}
+
 		this.ruleConstructor = {
 			name: "",
-			rule: {
-				start: 0,
-				end: 0
-			}
+			rule: ""
 		}
 
 		this.testConstructor = {
@@ -38,7 +36,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			programFiles: [],
 			input: "",
 			inputFiles: [],
-			assert: []
+			assertions: []
 		}
 
 		this.assertConstructor = {
@@ -73,7 +71,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitTrueIn(ctx) {
 		this.assertConstructor["@type"] = ctx.children[0].children[0].symbol.text;
-		this.testConstructor.assert.push(Object.assign({}, this.assertConstructor));
+		this.testConstructor.assertions.push(Object.assign({}, this.assertConstructor));
 		this.assertConstructor.clear();
 	}
 
@@ -84,14 +82,14 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitConstraintIn(ctx) {
 		this.assertConstructor["@type"] = ctx.children[0].children[0].symbol.text;
-		this.testConstructor.assert.push(Object.assign({}, this.assertConstructor));
+		this.testConstructor.assertions.push(Object.assign({}, this.assertConstructor));
 		this.assertConstructor.clear();
 	}
 
 	exitNoAnswerSet(ctx) {
 		this.assertConstructor.clear();
 		this.assertConstructor["@type"] = "noAnswerSet";
-		this.testConstructor.assert.push(this.assertConstructor);
+		this.testConstructor.assertions.push(this.assertConstructor);
 	}
 
 	exitNumberEqual(ctx) {

@@ -52,6 +52,9 @@ testTest: 'test' PAREN_OPEN nameEqual COMMA 'scope' EQUAL listOfString (COMMA pr
 programFilesTest: 'programFiles' EQUAL listOfString;
 inputTest: 'input' EQUAL SINGLE_QUOTE statementsForTest SINGLE_QUOTE;
 inputFilesTest: 'inputFiles' EQUAL listOfString;
+costEqual: 'cost' EQUAL NUMBER;
+levelEqual: 'level' EQUAL NUMBER;
+
 
 assertTest: 'assert' EQUAL CURLY_OPEN assertions CURLY_CLOSE;
 assertions: assertion (COMMA assertions)?;
@@ -78,7 +81,7 @@ constraintInAtMost:
 constraintInExactly:
 	'constraintInExactly' PAREN_OPEN numberEqual COMMA constraintEqual PAREN_CLOSE;
 
-bestModelCost: 'bestModelCost' PAREN_OPEN 'cost' EQUAL NUMBER COMMA 'level' EQUAL NUMBER PAREN_CLOSE;
+bestModelCost: 'bestModelCost' PAREN_OPEN costEqual COMMA levelEqual PAREN_CLOSE;
 
 
 head : disjunction | choice;
