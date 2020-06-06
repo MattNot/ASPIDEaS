@@ -5,7 +5,7 @@ program: statement
     | statements query;
 statements : statement statements?;
 query : classical_literal QUERY_MARK;
-statement : CONS  body? DOT
+statement : hardConstraint
           | head  (CONS  body?)? DOT
           | WCONS  body? DOT SQUARE_OPEN weight_at_level SQUARE_CLOSE
 	      | WCONS body? SQUARE_OPEN weight_at_level SQUARE_CLOSE DOT {this.notifyErrorListeners("Syntax error: DOT must be before [weight@level]");}
@@ -16,7 +16,7 @@ statementsForTest: statementForTest statementsForTest?;
 
 entireBlockTest: startBlock statementsForTest endBlock;
 
-
+hardConstraint: CONS body? DOT;
 
 statementForTest:
 	CONS body? DOT
@@ -69,7 +69,7 @@ constraintIn: (constraintForAll
 		| constraintInAtLeast
 		| constraintInAtMost
 		| constraintInExactly);
-constraintEqual: 'constraint' EQUAL SINGLE_QUOTE CONS body? DOT SINGLE_QUOTE;
+constraintEqual: 'constraint' EQUAL SINGLE_QUOTE hardConstraint SINGLE_QUOTE;
 constraintForAll: 'constraintForAll' PAREN_OPEN constraintEqual PAREN_CLOSE;
 constraintInAtLeast:
 	'constraintInAtLeast' PAREN_OPEN numberEqual COMMA constraintEqual PAREN_CLOSE;

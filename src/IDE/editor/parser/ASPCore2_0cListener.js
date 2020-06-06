@@ -74,6 +74,15 @@ ASPCore2_0cListener.prototype.exitEntireBlockTest = function (ctx) {
 };
 
 
+// Enter a parse tree produced by ASPCore2_0cParser#hardConstraint.
+ASPCore2_0cListener.prototype.enterHardConstraint = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#hardConstraint.
+ASPCore2_0cListener.prototype.exitHardConstraint = function (ctx) {
+};
+
+
 // Enter a parse tree produced by ASPCore2_0cParser#statementForTest.
 ASPCore2_0cListener.prototype.enterStatementForTest = function (ctx) {
 };
@@ -179,6 +188,15 @@ ASPCore2_0cListener.prototype.enterBlockTest = function (ctx) {
 
 // Exit a parse tree produced by ASPCore2_0cParser#blockTest.
 ASPCore2_0cListener.prototype.exitBlockTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#singleQuoteTest.
+ASPCore2_0cListener.prototype.enterSingleQuoteTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#singleQuoteTest.
+ASPCore2_0cListener.prototype.exitSingleQuoteTest = function (ctx) {
 };
 
 

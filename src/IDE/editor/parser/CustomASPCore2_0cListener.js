@@ -12,6 +12,13 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			haveBody: false,
 			negativeTerms: false,
 			set: new Set(),
+			reset: () => {
+				this.safetyHandler.negativeTerms = false;
+				this.safetyHandler.inBody = false;
+				this.safetyHandler.inHead = false;
+				this.safetyHandler.haveBody = false;
+				this.safetyHandler.set = new Set();
+			}
 		};
 		this.blockConstructor = {
 			name: "",
@@ -39,7 +46,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			clear: () => {
 				for (let x in this.assertConstructor) {
 					if (x !== "clear")
-						this.assertConstructor[x] = "";
+						delete this.assertConstructor[x]
 				}
 			}
 		}
@@ -60,13 +67,22 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitStatementForTest(ctx) {
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.RuleTestContext) {
-			let start = ctx.start.line;
-			let end = ctx.stop.line;
-			this.ruleConstructor.rule = {start, end}
+			this.ruleConstructor.rule = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
 		}
 	}
 
 	exitTrueIn(ctx) {
+		this.assertConstructor["@type"] = ctx.children[0].children[0].symbol.text;
+		this.testConstructor.assert.push(Object.assign({}, this.assertConstructor));
+		this.assertConstructor.clear();
+	}
+
+	exitHardConstraint(ctx) {
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.ConstraintEqualContext)
+			this.assertConstructor.constraint = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
+	}
+
+	exitConstraintIn(ctx) {
 		this.assertConstructor["@type"] = ctx.children[0].children[0].symbol.text;
 		this.testConstructor.assert.push(Object.assign({}, this.assertConstructor));
 		this.assertConstructor.clear();
@@ -119,16 +135,30 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitListOfString(ctx) {
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.BlockTestContext) {
-			let regExp = new RegExp('[,{}]', 'g');
-			let listOfRules = ctx.children.map(child => {
-				return child.symbol.text
-			});
-			let rules = listOfRules.join().split(",");
-			rules = rules.filter(r => !regExp.test(r)).filter(r => r !== '').map(r => r.replace(/"/g, ""))
-			this.blockConstructor.rules.push(...rules);
+			let entireString = ctx.start.source[1].getText(ctx.start.start + 1, ctx.stop.stop - 1);
+			let splitted = entireString.split(",");
+			this.blockConstructor.rules.push(...(splitted.map(r => r.replace(/"/g, "").trim())));
 		}
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.TestTestContext) {
+			let entireString = ctx.start.source[1].getText(ctx.start.start + 1, ctx.stop.stop - 1);
+			let splitted = entireString.split(",");
+			this.testConstructor.scope = splitted.map(r => r.replace(/"/g, "").trim());
+		}
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.InputFilesTestContext) {
+			let entireString = ctx.start.source[1].getText(ctx.start.start + 1, ctx.stop.stop - 1);
+			let splitted = entireString.split(",");
+			this.testConstructor.inputFiles = splitted.map(r => r.replace(/"/g, "").trim());
+		}
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.ProgramFilesTestContext) {
+			let entireString = ctx.start.source[1].getText(ctx.start.start + 1, ctx.stop.stop - 1);
+			let splitted = entireString.split(",");
+			this.testConstructor.programFiles = splitted.map(r => r.replace(/"/g, "").trim());
+		}
+	}
 
+	exitStatementsForTest(ctx) {
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.InputTestContext) {
+			this.testConstructor.input = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
 		}
 	}
 
@@ -141,13 +171,14 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	exitStatement(ctx) {
 		if (this.safetyHandler.set.size !== 0 && this.safetyHandler.haveBody) {
 			this.annotations.push({
-				row: ctx.start.line - 1,
+				row: ctx.stop.line - 1,
 				column: ctx.start.column,
 				type: "error",
 				text: `Safety error, missing '${[...this.safetyHandler.set].join(",")}' in positive body members`,
 				unsafeVariables: [...this.safetyHandler.set],
 				name: "safety"
 			})
+			this.safetyHandler.reset();
 		}
 		this.lineContext[ctx.start.line - 1] = ctx;
 	}
