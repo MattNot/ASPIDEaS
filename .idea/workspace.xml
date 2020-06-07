@@ -19,28 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca9a36b-a46e-4451-bf14-a2f6712ab13a" name="Default Changelist" comment="asserts seems ended">
-      <change afterPath="$PROJECT_DIR$/src/IDE/UI/TestSenderButton.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ide.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/ASPFileTree.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/ASPNavBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/ASPOutput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/ASPSideBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/contextMenu/ContextMenuHandler.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/plugins/errors/addDomainAtom.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/plugins/errors/addDot.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/plugins/errors/removeVariableInHead.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/plugins/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/plugins/simple/disjunction.js" afterDir="false" />
+    <list default="true" id="aca9a36b-a46e-4451-bf14-a2f6712ab13a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.g4" beforeDir="false" afterPath="$PROJECT_DIR$/parsersGrammar/ASPCore2_0c.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/Ide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/Ide.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/UI/ASPNavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/UI/ASPNavBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/editor/ASPEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/ASPEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/AceErrorListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/AceErrorListener.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/CustomASPCore2_0cListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/CustomASPCore2_0cListener.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/testReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/testReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,6 +264,8 @@
       <workItem from="1591434119130" duration="6951000" />
       <workItem from="1591447430162" duration="652000" />
       <workItem from="1591451835214" duration="13508000" />
+      <workItem from="1591484936619" duration="35000" />
+      <workItem from="1591518738309" duration="6773000" />
     </task>
     <task id="LOCAL-00001" summary="Added Editor and Mode">
       <created>1584269636796</created>
@@ -435,7 +421,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591441860749</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="asserts seems ended">
+      <created>1591484959570</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1591484959571</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,11 +529,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591280585598" />
-    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1591458135184">
+    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1591484958572">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584269635408" />
-    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1591458135184" />
+    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1591484958572" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1591434814079">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -549,38 +542,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="739" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585322113366" />
-    <state width="1899" height="348" key="GridCell.Tab.0.bottom" timestamp="1591468710384">
+    <state width="1899" height="150" key="GridCell.Tab.0.bottom" timestamp="1591522834130">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.bottom/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.bottom/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.bottom/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591468710384" />
-    <state width="1899" height="348" key="GridCell.Tab.0.center" timestamp="1591468710384">
+    <state width="1899" height="150" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591522834130" />
+    <state width="1899" height="150" key="GridCell.Tab.0.center" timestamp="1591522834130">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.center/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.center/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.center/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591468710384" />
-    <state width="1899" height="348" key="GridCell.Tab.0.left" timestamp="1591468710384">
+    <state width="1899" height="150" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591522834130" />
+    <state width="1899" height="150" key="GridCell.Tab.0.left" timestamp="1591522834130">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.left/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.left/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.left/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591468710384" />
-    <state width="1899" height="348" key="GridCell.Tab.0.right" timestamp="1591468710384">
+    <state width="1899" height="150" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591522834130" />
+    <state width="1899" height="150" key="GridCell.Tab.0.right" timestamp="1591522834130">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.right/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
     <state width="1899" height="222" key="GridCell.Tab.0.right/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
     <state width="1899" height="222" key="GridCell.Tab.0.right/-1440.278.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586780985303" />
     <state width="1515" height="174" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583746331832" />
-    <state width="1899" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591468710384" />
+    <state width="1899" height="150" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591522834130" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1591468710385">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -646,11 +639,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="747" y="236" key="VCS.ChangeListViewerDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590767065100" />
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1591441862151">
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1591484961069">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="361" y="134" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1584269673996" />
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1591441862151" />
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1591484961069" />
     <state x="715" y="364" key="cloudConfig.PluginsDialog" timestamp="1584288803953">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

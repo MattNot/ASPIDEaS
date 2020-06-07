@@ -76,8 +76,21 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	}
 
 	exitHardConstraint(ctx) {
-		if (ctx.parentCtx instanceof ASPCore2_0cParser.ConstraintEqualContext)
-			this.assertConstructor.constraint = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
+		if (ctx.parentCtx instanceof ASPCore2_0cParser.ConstraintEqualContext) {
+			const plainConstraint: string = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
+			let set = new Set();
+			let matches = plainConstraint.matchAll(/\(((\w),*)+\)/g);
+			for (let match of matches)
+				match[0].replace("(", "").replace(")", "").split(',').map(letter => set.add(letter));
+			let head;
+			if (set.size > 0)
+				head = "constraintHead(" + [...set].join(",") + ")";
+			else
+				head = "constraintHead"
+			const finalConstraint = head + plainConstraint;
+			const addedConstraint = ":- not " + head + ".";
+			this.assertConstructor.constraint = finalConstraint + "\n" + addedConstraint;
+		}
 	}
 
 	exitConstraintIn(ctx) {
