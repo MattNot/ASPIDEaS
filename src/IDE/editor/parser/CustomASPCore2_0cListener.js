@@ -20,6 +20,8 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 				this.safetyHandler.set = new Set();
 			}
 		};
+		this.rules = []
+		this.blocks = []
 		this.blockConstructor = {
 			name: "",
 			rules: []
@@ -127,6 +129,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitRuleTest(ctx) {
 		store.dispatch(addRule(this.ruleConstructor.name, this.ruleConstructor.rule));
+		this.rules.push(this.ruleConstructor)
 		if (this.blockConstructor.name)
 			this.exitBlockTest();
 		this.ruleConstructor.name = "";
@@ -176,6 +179,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitBlockTest(ctx) {
 		store.dispatch(addBlock(this.blockConstructor.name, this.blockConstructor.rules));
+		this.blocks.push(this.blockConstructor)
 		this.blockConstructor.rules = [];
 		this.blockConstructor.name = "";
 	}

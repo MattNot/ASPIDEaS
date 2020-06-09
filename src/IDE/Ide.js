@@ -85,7 +85,9 @@ function Ide() {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(children)
-		}).then(r => dispatch(reloadAsync()))
+		}).then(r => {
+			dispatch(reloadAsync())
+		})
 	}
 
 	useEffect(() => {

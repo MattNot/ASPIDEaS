@@ -10,7 +10,14 @@ import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
 import {ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
-import {editorValue, resetBlock, resetRules, resetTests, setActiveFileInput} from "../../redux/actions";
+import {
+	editorValue,
+	resetBlock,
+	resetRules,
+	resetTests,
+	setActiveFileInput,
+	setActiveProject
+} from "../../redux/actions";
 
 let TextSnippets = window.ace.acequire("ace/snippets/text");
 
@@ -52,6 +59,9 @@ class ASPEditor extends React.Component {
 			this.setState({
 				currentValue: this.props.value
 			})
+			this.activeProject = this.props.activeProject;
+			this.activeFile = this.props.activeFile;
+
 		}
 		if (prevProps.plugins !== this.props.plugins) {
 			this.editorHandler = new EditorHandler(this.aceEditor, this.props.plugins);
@@ -66,6 +76,13 @@ class ASPEditor extends React.Component {
 	parse(val: string) {
 		this.dispatch(editorValue(val));
 		this.dispatch(setActiveFileInput(val))
+		this.activeProject.children = this.activeProject.children.map(child => {
+			if (child.name === this.activeFile.name) {
+				child.inputProgram = this.activeFile.inputProgram;
+			}
+			return child;
+		})
+		this.dispatch(setActiveProject(this.activeProject));
 		this.dispatch(resetBlock())
 		this.dispatch(resetRules())
 		this.dispatch(resetTests())

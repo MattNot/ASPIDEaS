@@ -61,6 +61,9 @@ export const reloadAsync = () => {
 				});
 			});
 			dispatch(setNewProjects(newProjects))
+			if (newProjects.length > 0) {
+				dispatch(setActiveProject(newProjects[0]))
+			}
 		});
 	}
 }

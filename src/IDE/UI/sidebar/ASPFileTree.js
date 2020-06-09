@@ -11,6 +11,7 @@ const ASPFileTree = ({size, notifyTree}) => {
 	const [, reRenderMe] = useState(0)
 	useEffect(() => {
 		dispatch(reloadAsync())
+
 	}, [notifyTree])
 
 	function onSelect(node, toggled) {
