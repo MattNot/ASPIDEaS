@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, Icon, MenuItem} from "semantic-ui-react";
+import React, {useState} from 'react';
+import {Button, Icon, Label, MenuItem, Modal} from "semantic-ui-react";
 import {useDispatch, useSelector} from "react-redux";
 import antlr4 from "antlr4";
 import AceErrorListener from "../editor/parser/AceErrorListener";
@@ -17,9 +17,9 @@ const TestSenderButton = () => {
 	const engine = useSelector(state => state.engine)
 	const activeProject = useSelector(state => state.activeProject)
 	const dispatch = useDispatch();
-
+	const [open, setOpen] = useState(false);
+	const [data, setData] = useState({});
 	const explodeExternalFile = (delta, test) => {
-		console.log(delta)
 		let extBlocks = []
 		let extRules = []
 		let stream = new antlr4.InputStream(delta);
@@ -67,6 +67,7 @@ const TestSenderButton = () => {
 		test.scope = scope;
 	}
 
+
 	const explodeTest = () => {
 		tests.forEach(test => {
 			if (test.programFiles.length > 0) {
@@ -92,24 +93,22 @@ const TestSenderButton = () => {
 						rules: [rule.rule]
 					})
 				});
-				tests.forEach(test => {
-					let scope = []
-					test.scope.forEach(s => {
-						tempBlocks.forEach(block => {
-							if (s === block.name) {
-								scope.push(block);
-							}
-						})
+				let scope = []
+				test.scope.forEach(s => {
+					tempBlocks.forEach(block => {
+						if (s === block.name) {
+							scope.push(block);
+						}
 					})
-					test.inputFiles.forEach(fileName => {
-						activeProject.children.forEach(file => {
-							if (fileName === file.name) {
-								test.input += file.inputProgram;
-							}
-						})
+				})
+				test.inputFiles.forEach(fileName => {
+					activeProject.children.forEach(file => {
+						if (fileName === file.name) {
+							test.input += file.inputProgram;
+						}
 					})
-					test.scope = scope;
-				});
+				})
+				test.scope = scope;
 			}
 		})
 		console.log(tests)
@@ -132,13 +131,38 @@ const TestSenderButton = () => {
 				})
 			}
 		).then(r => r.json()).then(t => {
-			console.log(t)
+			setOpen(true);
+			setData(t);
 		});
 	}
+
+	const generateModalList = () => {
+		let list = [];
+		for (let x in data) {
+			for (let y in data[x][1]) {
+				list.push(
+					<span key={Math.random()}>
+						<Label>{y}</Label>
+						<Label>{data[x][1][y].toString()}</Label>
+					</span>
+				)
+			}
+		}
+		return list;
+	}
+
 	return (
-		<Button as={MenuItem} onClick={sendTest}>
-			<Icon name={"bolt"}/>
-		</Button>
+		<Modal
+			trigger={<Button as={MenuItem} onClick={sendTest}><Icon name={"bolt"}/></Button>}
+			open={open}
+			onClose={() => setOpen(false)}>
+			<Modal.Header>Test-Cases</Modal.Header>
+			<Modal.Content scrolling>
+				{
+					generateModalList()
+				}
+			</Modal.Content>
+		</Modal>
 	);
 };
 

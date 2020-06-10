@@ -26,7 +26,6 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			name: "",
 			rules: []
 		}
-
 		this.ruleConstructor = {
 			name: "",
 			rule: ""
@@ -38,24 +37,28 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			programFiles: [],
 			input: "",
 			inputFiles: [],
-			assertions: []
+			assertions: [],
+			clear: () => {
+				this.testConstructor.name = "";
+				this.testConstructor.scope = [];
+				this.testConstructor.programFiles = [];
+				this.testConstructor.input = "";
+				this.testConstructor.inputFiles = [];
+				this.testConstructor.assertions = [];
+			}
 		}
 
 		this.assertConstructor = {
 			"@type": "",
 			clear: () => {
 				for (let x in this.assertConstructor) {
-					if (x !== "clear")
+					if (x !== "clear" && x !== "@type")
 						delete this.assertConstructor[x]
 				}
 			}
 		}
 		this.lineContext = lineContext;
 		this.annotations = annotations;
-	}
-
-	exitInizio(ctx) {
-		console.log(this)
 	}
 
 	getLastContext() {
@@ -129,6 +132,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitTestTest(ctx) {
 		store.dispatch(addTest(this.testConstructor));
+		this.testConstructor.clear();
 	}
 
 	exitRuleTest(ctx) {
@@ -139,7 +143,6 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			name: nam,
 			rule: ru
 		});
-		console.log(this.rules)
 		if (this.blockConstructor.name)
 			this.exitBlockTest();
 		this.ruleConstructor.name = "";
@@ -188,8 +191,13 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	}
 
 	exitBlockTest(ctx) {
+		let name = this.blockConstructor.name;
+		let rules = this.blockConstructor.rules;
 		store.dispatch(addBlock(this.blockConstructor.name, this.blockConstructor.rules));
-		this.blocks.push(this.blockConstructor)
+		this.blocks.push({
+			name: name,
+			rules: rules
+		})
 		this.blockConstructor.rules = [];
 		this.blockConstructor.name = "";
 	}
