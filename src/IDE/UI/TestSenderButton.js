@@ -18,7 +18,8 @@ const TestSenderButton = () => {
 	const activeProject = useSelector(state => state.activeProject)
 	const dispatch = useDispatch();
 
-	const explodeExternalFile = (delta) => {
+	const explodeExternalFile = (delta, test) => {
+		console.log(delta)
 		let extBlocks = []
 		let extRules = []
 		let stream = new antlr4.InputStream(delta);
@@ -48,36 +49,35 @@ const TestSenderButton = () => {
 				rules: [rule.rule]
 			})
 		});
-		tests.forEach(test => {
-			let scope = []
-			test.scope.forEach(s => {
-				tempBlocks.forEach(block => {
-					if (s === block.name) {
-						scope.push(block);
-					}
-				})
+		let scope = [];
+		test.scope.forEach(s => {
+			tempBlocks.forEach(block => {
+				if (s === block.name) {
+					scope.push(block);
+				}
 			})
-			test.inputFiles.forEach(fileName => {
-				activeProject.children.forEach(file => {
-					if (fileName === file.name) {
-						test.input += file.inputProgram;
-					}
-				})
+		})
+		test.inputFiles.forEach(fileName => {
+			activeProject.children.forEach(file => {
+				if (fileName === file.name) {
+					test.input += file.inputProgram;
+				}
 			})
-			test.scope = scope;
-		});
+		})
+		test.scope = scope;
 	}
 
 	const explodeTest = () => {
 		tests.forEach(test => {
 			if (test.programFiles.length > 0) {
-				test.programFiles.map(externalFileName => {
+				test.programFiles.forEach(externalFileName => {
 					activeProject.children.forEach(child => {
 						if (externalFileName === child.name) {
-							explodeExternalFile(child.inputProgram)
+							explodeExternalFile(child.inputProgram, test)
 						}
 					})
 				})
+				console.log(test)
 			} else {
 				let tempBlocks = blocks.map(block => {
 					block.rules = block.rules.map(ruleName => {

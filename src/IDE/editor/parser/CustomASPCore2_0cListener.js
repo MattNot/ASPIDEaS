@@ -54,6 +54,10 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		this.annotations = annotations;
 	}
 
+	exitInizio(ctx) {
+		console.log(this)
+	}
+
 	getLastContext() {
 		return this.lineContext;
 	}
@@ -128,8 +132,14 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	}
 
 	exitRuleTest(ctx) {
+		let nam = this.ruleConstructor.name
+		let ru = this.ruleConstructor.rule
 		store.dispatch(addRule(this.ruleConstructor.name, this.ruleConstructor.rule));
-		this.rules.push(this.ruleConstructor)
+		this.rules.push({
+			name: nam,
+			rule: ru
+		});
+		console.log(this.rules)
 		if (this.blockConstructor.name)
 			this.exitBlockTest();
 		this.ruleConstructor.name = "";
