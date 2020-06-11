@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Icon, Label, MenuItem, Modal} from "semantic-ui-react";
+import {Button, Grid, Icon, Label, MenuItem, Modal} from "semantic-ui-react";
 import {useDispatch, useSelector} from "react-redux";
 import antlr4 from "antlr4";
 import AceErrorListener from "../editor/parser/AceErrorListener";
@@ -141,10 +141,11 @@ const TestSenderButton = () => {
 		for (let x in data) {
 			for (let y in data[x][1]) {
 				list.push(
-					<span key={Math.random()}>
+					<Grid.Row key={Math.random()}>
 						<Label>{y}</Label>
 						<Label>{data[x][1][y].toString()}</Label>
-					</span>
+						<br/>
+					</Grid.Row>
 				)
 			}
 		}
@@ -158,9 +159,11 @@ const TestSenderButton = () => {
 			onClose={() => setOpen(false)}>
 			<Modal.Header>Test-Cases</Modal.Header>
 			<Modal.Content scrolling>
-				{
-					generateModalList()
-				}
+				<Grid>
+					{
+						generateModalList()
+					}
+				</Grid>
 			</Modal.Content>
 		</Modal>
 	);
