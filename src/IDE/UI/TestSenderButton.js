@@ -142,9 +142,8 @@ const TestSenderButton = () => {
 			for (let y in data[x][1]) {
 				list.push(
 					<Grid.Row key={Math.random()}>
-						<Label>{y}</Label>
+						{x} : {y} ->
 						<Label>{data[x][1][y].toString()}</Label>
-						<br/>
 					</Grid.Row>
 				)
 			}

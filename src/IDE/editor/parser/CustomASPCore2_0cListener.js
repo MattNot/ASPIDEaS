@@ -111,8 +111,9 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	exitNoAnswerSet(ctx) {
 		this.assertConstructor.clear();
-		this.assertConstructor["@type"] = "noAnswerSet";
-		this.testConstructor.assertions.push(this.assertConstructor);
+		this.testConstructor.assertions.push({
+			"@type": "noAnswerSets"
+		});
 	}
 
 	exitNumberEqual(ctx) {
