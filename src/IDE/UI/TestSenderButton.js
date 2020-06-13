@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Grid, Icon, Label, MenuItem, Modal} from "semantic-ui-react";
+import {Button, Grid, Icon, MenuItem, Modal} from "semantic-ui-react";
 import {useDispatch, useSelector} from "react-redux";
 import antlr4 from "antlr4";
 import AceErrorListener from "../editor/parser/AceErrorListener";
@@ -136,17 +136,33 @@ const TestSenderButton = () => {
 		});
 	}
 
+	const generateTestResult = (x) => {
+		let bgColor = "white"
+		let listOfChild = []
+		for (let y in data[x][1]) {
+			if (!data[x][1][y])
+				bgColor = "yellow"
+			listOfChild.push(
+				<Grid.Row>
+					{y} : {bgColor === "white" && <Icon name={"check"} color={"green"}/>} {bgColor === "yellow" &&
+				<Icon name={"close"} color={"red"}/>}
+					<br/>
+				</Grid.Row>
+			)
+		}
+		return listOfChild
+	}
+
 	const generateModalList = () => {
 		let list = [];
 		for (let x in data) {
-			for (let y in data[x][1]) {
-				list.push(
-					<Grid.Row key={Math.random()}>
-						{x} : {y} ->
-						<Label>{data[x][1][y].toString()}</Label>
-					</Grid.Row>
-				)
-			}
+			let color = "white"
+			let test = <Grid.Row key={Math.random() + Math.random()} columns={"equal"}>
+				<Grid.Row>{x}</Grid.Row>
+				{generateTestResult(x)}
+			</Grid.Row>
+
+			list.push(test)
 		}
 		return list;
 	}
