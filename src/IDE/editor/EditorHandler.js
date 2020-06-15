@@ -29,17 +29,7 @@ export default class EditorHandler {
 		let walker = new CustomASPCore2_0cListener(annotations, lineContext);
 		antlr4.tree.ParseTreeWalker.DEFAULT.walk(walker, tree);
 		lineContext = walker.getLastContext();
-		// annotations = annotations.map(ann => {
-		// 	ann.row = actualRow;
-		// 	return ann;
-		// });
-		// if (annotations.length === 0) {
-		// 	return actualAnnotations.filter(ann => ann.row !== actualRow);
-		// } else {
-		// 	let old = actualAnnotations.filter(ann => ann.row !== actualRow);
-		// 	annotations.forEach(a => old.push(a));
-		// 	return old;
-		// }
+
 		return {annotations, lineContext};
 	}
 	copy = () => {

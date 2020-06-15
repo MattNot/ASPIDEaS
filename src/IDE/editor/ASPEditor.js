@@ -8,8 +8,9 @@ import "ace-builds/src-min-noconflict/ext-language_tools"
 import "ace-builds/src-min-noconflict/keybinding-vscode"
 import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
-import {ContextMenuTrigger} from "react-contextmenu";
+import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
+import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {
 	editorValue,
 	resetBlock,
@@ -52,6 +53,7 @@ class ASPEditor extends React.Component {
 		this.aceEditor.current.editor.getSession().setMode(new CustomAspMode());
 		this.aceEditor.current.editor.setBehavioursEnabled(true);
 		this.aceEditor.current.editor.setWrapBehavioursEnabled(true);
+		setInterval(this.parse, 2000)
 	}
 
 	componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
@@ -73,7 +75,18 @@ class ASPEditor extends React.Component {
 
 	//FIXME: This is **NOT** the way it should be. You should use workers but I didn't manage to find a way to do it.
 	//FIXME: Matteo Notaro, 28/03/2020
-	parse(val: string) {
+	parse = () => {
+		this.dispatch(resetBlock())
+		this.dispatch(resetRules())
+		this.dispatch(resetTests())
+		let {lineContext} = this.state;
+		const newObj = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext);
+		this.setState({lineContext: newObj.lineContext});
+		this.aceEditor.current.editor.getSession().setAnnotations(newObj.annotations);
+	}
+
+
+	editValue = (val) => {
 		this.dispatch(editorValue(val));
 		this.dispatch(setActiveFileInput(val))
 		this.activeProject.children = this.activeProject.children.map(child => {
@@ -83,13 +96,6 @@ class ASPEditor extends React.Component {
 			return child;
 		})
 		this.dispatch(setActiveProject(this.activeProject));
-		this.dispatch(resetBlock())
-		this.dispatch(resetRules())
-		this.dispatch(resetTests())
-		let {lineContext} = this.state;
-		const newObj = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext);
-		this.setState({lineContext: newObj.lineContext});
-		this.aceEditor.current.editor.getSession().setAnnotations(newObj.annotations);
 	}
 
 
@@ -101,6 +107,7 @@ class ASPEditor extends React.Component {
 	errorOnThisLine = () => {
 		let actualRow = this.aceEditor.current.editor.getSelection().getCursor().row;
 		let annotations = this.aceEditor.current.editor.getSession().getAnnotations();
+		console.log(actualRow)
 		let isError = [];
 		isError = annotations.filter(ann => ann.row === actualRow);
 		if (isError.length > 0) {
@@ -108,7 +115,8 @@ class ASPEditor extends React.Component {
 				errorOnThisLine: {
 					value: true,
 					name: isError[0].name,
-					unsafeVariables: isError[0].unsafeVariables
+					unsafeVariables: isError[0].unsafeVariables,
+					line: actualRow
 				}
 			});
 		} else {
@@ -128,7 +136,7 @@ class ASPEditor extends React.Component {
 				<ContextMenuTrigger id="contextMenu" holdToDisplay={-1}>
 					<AceEditor theme="dracula"
 					           mode="text"
-					           onChange={(val, event) => this.parse(val)}
+					           onChange={(val, event) => this.editValue(val)}
 					           name="unique"
 					           editorProps={{$blockScrolling: true}}
 					           ref={this.aceEditor}
@@ -149,12 +157,12 @@ class ASPEditor extends React.Component {
 					           }]}
 					/>
 				</ContextMenuTrigger>
-				{/*<ContextMenu id="contextMenu" hideOnLeave>*/}
-				{/*	{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}*/}
-				{/*	                                                         handler={this.editorHandler}*/}
-				{/*	                                                         context={this.state.lineContext[this.state.activeLine]}*/}
-				{/*	/>}*/}
-				{/*</ContextMenu>*/}
+				<ContextMenu id="contextMenu" hideOnLeave>
+					{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}
+					                                                         handler={this.editorHandler}
+					                                                         context={this.state.lineContext[this.state.activeLine]}
+					/>}
+				</ContextMenu>
 			</span>
 		);
 	}

@@ -5,7 +5,7 @@ import "../App.css"
 import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
 import ASPNavBar from "./UI/ASPNavBar";
 import locales from "../i18n";
-import {default as pl} from "./plugins"
+import {plugins as pl} from "../plugins"
 import AspOutput from "./UI/ASPOutput";
 import {useDispatch, useSelector} from "react-redux";
 import {english, italian, reloadAsync, setPlugins} from "../redux/actions";

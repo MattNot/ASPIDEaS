@@ -21,6 +21,9 @@ const ContextMenuHandler = ({errorInLine, handler, context}) => {
 			{handler.plugins && handler.plugins.length > 0 &&
 			<SubMenu title={"Apply plugin..."} hoverDelay={0.02}>
 				{handler.plugins.map(plugin => {
+					if (plugin.type === "simple") {
+						console.log(plugin.applicability(context))
+					}
 					return plugin.type === "simple" && plugin.applicability(context) &&
 						<MenuItem onClick={plugin.function} key={plugin.name} data={{
 							editor: handler.aceEditor.current,

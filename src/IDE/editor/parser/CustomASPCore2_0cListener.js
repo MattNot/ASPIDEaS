@@ -215,7 +215,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 			})
 			this.safetyHandler.reset();
 		}
-		this.lineContext[ctx.start.line - 1] = ctx;
+		this.lineContext[ctx.stop.line - 1] = ctx;
 	}
 
 	enterHead(ctx) {

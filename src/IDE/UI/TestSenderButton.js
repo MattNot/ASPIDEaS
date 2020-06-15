@@ -139,17 +139,19 @@ const TestSenderButton = () => {
 	const generateTestResult = (x) => {
 		let bgColor = "white"
 		let listOfChild = []
-		for (let y in data[x][1]) {
-			if (!data[x][1][y])
-				bgColor = "yellow"
-			listOfChild.push(
-				<Grid.Row>
-					{y} : {bgColor === "white" && <Icon name={"check"} color={"green"}/>} {bgColor === "yellow" &&
-				<Icon name={"close"} color={"red"}/>}
-					<br/>
-				</Grid.Row>
-			)
-		}
+		if (data[x][1])
+			for (let y in data[x][1]) {
+				bgColor = "white"
+				if (!data[x][1][y])
+					bgColor = "yellow"
+				listOfChild.push(
+					<Grid.Column color={bgColor}>
+						{y} : {bgColor === "white" && <Icon name={"check"} color={"green"}/>} {bgColor === "yellow" &&
+					<Icon name={"close"} color={"red"}/>}
+						<br/>
+					</Grid.Column>
+				)
+			}
 		return listOfChild
 	}
 
@@ -157,7 +159,7 @@ const TestSenderButton = () => {
 		let list = [];
 		for (let x in data) {
 			let color = "white"
-			let test = <Grid.Row key={Math.random() + Math.random()} columns={"equal"}>
+			let test = <Grid.Row key={Math.random() + Math.random()} columns={"equal"} color={color}>
 				<Grid.Row>{x}</Grid.Row>
 				{generateTestResult(x)}
 			</Grid.Row>
