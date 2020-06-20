@@ -37,9 +37,9 @@ const ASPFileTree = ({size, notifyTree}) => {
 		<Treebeard data={projects} onToggle={onSelect} style={{
 			tree: {
 				base: {
-					height: "77.6%",
+					height: "100%",
 					width: "100%",
-					position: "relative"
+					position: "absolute"
 				}
 			}
 		}}/>

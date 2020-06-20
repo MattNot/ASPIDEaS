@@ -1,7 +1,6 @@
 import React from "react";
 import {Sidebar} from "semantic-ui-react";
 import ASPFileTree from "./ASPFileTree"
-import OptionsPanel from "./OptionsPanel";
 
 function ASPSideBar({animation, direction, visible, width, notifyTree}) {
 
@@ -17,7 +16,6 @@ function ASPSideBar({animation, direction, visible, width, notifyTree}) {
 			style={{width: `${width}px`}}
 		>
 			<ASPFileTree notifyTree={notifyTree}/>
-			<OptionsPanel/>
 		</Sidebar>
 	)
 }

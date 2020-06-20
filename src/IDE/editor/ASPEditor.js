@@ -157,12 +157,22 @@ class ASPEditor extends React.Component {
 					           }]}
 					/>
 				</ContextMenuTrigger>
-				<ContextMenu id="contextMenu" hideOnLeave>
-					{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}
-					                                                         handler={this.editorHandler}
-					                                                         context={this.state.lineContext[this.state.activeLine]}
-					/>}
-				</ContextMenu>
+				<div style={{position: "fixed", top: "-{parentTop}px", left: "-{parentLeft}px"}}>
+					<ContextMenu id="contextMenu" hideOnLeave style={{
+						position: "relative !important"
+					}}
+					             onShow={event => {
+						             document.getElementsByClassName("react-contextmenu")[0].getBoundingClientRect().x = 0;
+						             document.getElementsByClassName("react-contextmenu")[0].getBoundingClientRect().y = 0;
+						             console.log(document.getElementsByClassName("react-contextmenu")[0].getBoundingClientRect());
+					             }}>
+						{this.editorHandler !== undefined &&
+						<ContextMenuHandler errorInLine={this.state.errorOnThisLine}
+						                    handler={this.editorHandler}
+						                    context={this.state.lineContext[this.state.activeLine]}
+						/>}
+					</ContextMenu>
+				</div>
 			</span>
 		);
 	}
