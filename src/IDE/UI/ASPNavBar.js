@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom"
 import ModalImportFacts from "./modals/ModalImportFacts";
 import TestSenderButton from "./TestSenderButton";
 import {engine} from "../../redux/actions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const styles = {
 	HAMBURGER: {
@@ -39,7 +39,7 @@ const dropdownStyle = {
 
 function ASPNavBar(props) {
 	const history = useHistory()
-
+	const executor = useSelector(state => state.engine)
 	const dispatch = useDispatch()
 	return (
 		<Menu inverted style={styles.MENU}>
@@ -79,6 +79,9 @@ function ASPNavBar(props) {
 			}}>Logout</Button>
 			<MenuItem as={Button} onClick={props.sendProgram} position={"right"}><Icon name="play"
 			                                                                           color="green"/></MenuItem>
+			<MenuItem as={Button} onClick={() => {
+				fetch(`/option?option="-asjkhdalkhsj"&executor=${executor}`).then(r => r.text()).then(r => console.log(r))
+			}}>R</MenuItem>
 			<TestSenderButton/>
 		</Menu>
 	);
