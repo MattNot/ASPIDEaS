@@ -66,6 +66,7 @@ function ASPNavBar(props) {
 			<Dropdown item simple text={props.locale.__("Edit")}>
 				<DropdownMenu>
 					<Button as={DropdownItem} onClick={props.setLanguage}>{props.locale.__("changeLang")}</Button>
+					<DropdownDivider/>
 				</DropdownMenu>
 			</Dropdown>
 
@@ -79,9 +80,7 @@ function ASPNavBar(props) {
 			}}>Logout</Button>
 			<MenuItem as={Button} onClick={props.sendProgram} position={"right"}><Icon name="play"
 			                                                                           color="green"/></MenuItem>
-			<MenuItem as={Button} onClick={() => {
-				fetch(`/option?option="-asjkhdalkhsj"&executor=${executor}`).then(r => r.text()).then(r => console.log(r))
-			}}>R</MenuItem>
+
 			<TestSenderButton/>
 		</Menu>
 	);
