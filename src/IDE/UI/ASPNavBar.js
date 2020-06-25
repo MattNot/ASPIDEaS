@@ -8,6 +8,7 @@ import ModalImportFacts from "./modals/ModalImportFacts";
 import TestSenderButton from "./TestSenderButton";
 import {engine} from "../../redux/actions";
 import {useDispatch, useSelector} from "react-redux";
+import ModalOption from "./modals/ModalOption";
 
 const styles = {
 	HAMBURGER: {
@@ -67,6 +68,7 @@ function ASPNavBar(props) {
 				<DropdownMenu>
 					<Button as={DropdownItem} onClick={props.setLanguage}>{props.locale.__("changeLang")}</Button>
 					<DropdownDivider/>
+					<ModalOption/>
 				</DropdownMenu>
 			</Dropdown>
 

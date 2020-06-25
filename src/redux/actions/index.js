@@ -13,5 +13,5 @@ export {
 	addNewFile,
 	addNewProject,
 } from "./projects"
-export {setModels} from "./models"
+export {addOption, removeOption} from "./cliOptions"
 export {changeExecTest, addBlock, resetBlock, addRule, resetRules, addTest, resetTests} from "./tests"
