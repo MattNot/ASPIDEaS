@@ -1,5 +1,15 @@
 import React, {useState} from 'react';
-import {Button, DropdownItem, Icon, Input, Modal, ModalActions, ModalContent, ModalHeader} from "semantic-ui-react";
+import {
+	Button,
+	DropdownItem,
+	Form,
+	Icon,
+	Message,
+	Modal,
+	ModalActions,
+	ModalContent,
+	ModalHeader
+} from "semantic-ui-react";
 import {useDispatch, useSelector} from "react-redux";
 import {addOption} from "../../../redux/actions";
 
@@ -22,7 +32,7 @@ const ModalOption = () => {
 			engine
 		}
 		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-		fetch(url).then(r => r.text()).then(value1 => {
+		fetch(url).then(r => r.json()).then(value1 => {
 			if (value1) {
 				dispatch(addOption(params.option))
 				setError(false)
@@ -40,7 +50,8 @@ const ModalOption = () => {
 			onClose={() => setOpen(false)}
 			size={"large"}
 			trigger={
-				<DropdownItem><Icon name={"terminal"}/>Executor's options</DropdownItem>
+				<Button as={DropdownItem}><Icon name={"terminal"}/>Executor's
+					options</Button>
 			}
 			basic
 		>
@@ -54,8 +65,15 @@ const ModalOption = () => {
 						})
 					}
 				</ol>
-				<Input inverted type={"text"} size={"large"} label={"Predicate Name: "}
-				       placeholder={"Option"} onChange={inputChange}/>
+				<Form error={error}>
+					<Message
+						error
+						header='Error'
+						content='This option is not supported by the selected executor'
+					/>
+					<Form.Input inverted type={"text"} size={"large"} label={"Predicate Name: "}
+					            placeholder={"Option"} onChange={inputChange}/>
+				</Form>
 			</ModalContent>
 			<ModalActions>
 				<Button inverted onClick={addCliOption}>Submit new option</Button>
