@@ -5,37 +5,7 @@ import Ide from "./IDE/Ide";
 import LoginForm from "./Auth/Login";
 import Registration from "./Auth/Registration";
 import {Provider} from "react-redux";
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
-import {
-	activeFileReducer,
-	activeProjectReducer,
-	changeEditorValueReducer,
-	changeLanguageReducer,
-	engineReducer,
-	execTestsReducer,
-	loginReducer,
-	modelsNumberReducer,
-	outputReducer,
-	pluginsReducer,
-	projectsReducer
-} from "./redux/reducers";
-import thunk from "redux-thunk";
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({trace: true, traceLimit: 15}) || compose;
-
-let store = createStore(combineReducers({
-	language: changeLanguageReducer,
-	editorValue: changeEditorValueReducer,
-	activeFile: activeFileReducer,
-	activeProject: activeProjectReducer,
-	projects: projectsReducer,
-	plugins: pluginsReducer,
-	output: outputReducer,
-	engine: engineReducer,
-	isLogged: loginReducer,
-	modelsNumber: modelsNumberReducer,
-	execTests: execTestsReducer
-}), composeEnhancers(applyMiddleware(thunk)))
+import {store} from "./redux";
 
 function App() {
 	return (

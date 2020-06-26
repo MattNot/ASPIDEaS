@@ -8,10 +8,17 @@ import "ace-builds/src-min-noconflict/ext-language_tools"
 import "ace-builds/src-min-noconflict/keybinding-vscode"
 import snippets from "./ASPSnippets";
 import CustomAspMode from "./Asp-Mode";
-import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
 import {ContextMenu, ContextMenuTrigger} from "react-contextmenu";
 import EditorHandler from "./EditorHandler";
-import {editorValue, setActiveFileInput} from "../../redux/actions";
+import ContextMenuHandler from "../UI/contextMenu/ContextMenuHandler";
+import {
+	editorValue,
+	resetBlock,
+	resetRules,
+	resetTests,
+	setActiveFileInput,
+	setActiveProject
+} from "../../redux/actions";
 
 let TextSnippets = window.ace.acequire("ace/snippets/text");
 
@@ -46,6 +53,7 @@ class ASPEditor extends React.Component {
 		this.aceEditor.current.editor.getSession().setMode(new CustomAspMode());
 		this.aceEditor.current.editor.setBehavioursEnabled(true);
 		this.aceEditor.current.editor.setWrapBehavioursEnabled(true);
+		setInterval(this.parse, 2000)
 	}
 
 	componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
@@ -53,30 +61,41 @@ class ASPEditor extends React.Component {
 			this.setState({
 				currentValue: this.props.value
 			})
+			this.activeProject = this.props.activeProject;
+			this.activeFile = this.props.activeFile;
+
 		}
 		if (prevProps.plugins !== this.props.plugins) {
 			this.editorHandler = new EditorHandler(this.aceEditor, this.props.plugins);
 		}
 		if (prevProps.activeFile.name !== this.props.activeFile.name) {
-			let splittedInput = this.props.value.split("\n");
-			splittedInput.forEach((row, index) => {
-				this.parse(row, true, index)
-			})
+			this.parse(this.props.value)
 		}
 	}
 
-	//FIXME: This is **NOT** the way it should be. You should use ace workers but I didn't manage to find a way to do it.
-	//FIXME: I spent a week looking for that, everyone uses the workers that are already in the ace-builds/src-noconflict/ folder, maybe there's a way to override one (like snippets)
+	//FIXME: This is **NOT** the way it should be. You should use workers but I didn't manage to find a way to do it.
 	//FIXME: Matteo Notaro, 28/03/2020
-	parse(val: string, global, line) {
-		if (!global) {
-			this.dispatch(editorValue(val));
-			this.dispatch(setActiveFileInput(val))
-		}
+	parse = () => {
+		this.dispatch(resetBlock())
+		this.dispatch(resetRules())
+		this.dispatch(resetTests())
 		let {lineContext} = this.state;
-		const newAnnotations = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext, line);
-		this.setState({lineContext: lineContext});
-		this.aceEditor.current.editor.getSession().setAnnotations(newAnnotations);
+		const newObj = this.editorHandler.parse(this.aceEditor.current.editor.getSession().getAnnotations(), lineContext);
+		this.setState({lineContext: newObj.lineContext});
+		this.aceEditor.current.editor.getSession().setAnnotations(newObj.annotations);
+	}
+
+
+	editValue = (val) => {
+		this.dispatch(editorValue(val));
+		this.dispatch(setActiveFileInput(val))
+		this.activeProject.children = this.activeProject.children.map(child => {
+			if (child.name === this.activeFile.name) {
+				child.inputProgram = this.activeFile.inputProgram;
+			}
+			return child;
+		})
+		this.dispatch(setActiveProject(this.activeProject));
 	}
 
 
@@ -88,6 +107,7 @@ class ASPEditor extends React.Component {
 	errorOnThisLine = () => {
 		let actualRow = this.aceEditor.current.editor.getSelection().getCursor().row;
 		let annotations = this.aceEditor.current.editor.getSession().getAnnotations();
+		console.log(actualRow)
 		let isError = [];
 		isError = annotations.filter(ann => ann.row === actualRow);
 		if (isError.length > 0) {
@@ -95,7 +115,8 @@ class ASPEditor extends React.Component {
 				errorOnThisLine: {
 					value: true,
 					name: isError[0].name,
-					unsafeVariables: isError[0].unsafeVariables
+					unsafeVariables: isError[0].unsafeVariables,
+					line: actualRow
 				}
 			});
 		} else {
@@ -112,10 +133,10 @@ class ASPEditor extends React.Component {
 	render() {
 		return (
 			<span>
-				<ContextMenuTrigger id="contextMenu">
+				<ContextMenuTrigger id="contextMenu" holdToDisplay={-1}>
 					<AceEditor theme="dracula"
 					           mode="text"
-					           onChange={(val, event) => this.parse(val, false)}
+					           onChange={(val, event) => this.editValue(val)}
 					           name="unique"
 					           editorProps={{$blockScrolling: true}}
 					           ref={this.aceEditor}
@@ -136,12 +157,22 @@ class ASPEditor extends React.Component {
 					           }]}
 					/>
 				</ContextMenuTrigger>
-				<ContextMenu id="contextMenu">
-					{this.editorHandler !== undefined && <ContextMenuHandler errorInLine={this.state.errorOnThisLine}
-					                                                         handler={this.editorHandler}
-					                                                         context={this.state.lineContext[this.state.activeLine]}
-					/>}
-				</ContextMenu>
+				<div style={{position: "fixed", top: "-{parentTop}px", left: "-{parentLeft}px"}}>
+					<ContextMenu id="contextMenu" hideOnLeave style={{
+						position: "relative !important"
+					}}
+					             onShow={event => {
+						             document.getElementsByClassName("react-contextmenu")[0].getBoundingClientRect().x = 0;
+						             document.getElementsByClassName("react-contextmenu")[0].getBoundingClientRect().y = 0;
+						             console.log(document.getElementsByClassName("react-contextmenu")[0].getBoundingClientRect());
+					             }}>
+						{this.editorHandler !== undefined &&
+						<ContextMenuHandler errorInLine={this.state.errorOnThisLine}
+						                    handler={this.editorHandler}
+						                    context={this.state.lineContext[this.state.activeLine]}
+						/>}
+					</ContextMenu>
+				</div>
 			</span>
 		);
 	}

@@ -1,4 +1,3 @@
-/* eslint-disable */
 // Generated from .\ASPCore2_0c.g4 by ANTLR 4.8
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
@@ -11,6 +10,15 @@ function ASPCore2_0cListener() {
 
 ASPCore2_0cListener.prototype = Object.create(antlr4.tree.ParseTreeListener.prototype);
 ASPCore2_0cListener.prototype.constructor = ASPCore2_0cListener;
+
+// Enter a parse tree produced by ASPCore2_0cParser#inizio.
+ASPCore2_0cListener.prototype.enterInizio = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#inizio.
+ASPCore2_0cListener.prototype.exitInizio = function (ctx) {
+};
+
 
 // Enter a parse tree produced by ASPCore2_0cParser#program.
 ASPCore2_0cListener.prototype.enterProgram = function (ctx) {
@@ -45,6 +53,330 @@ ASPCore2_0cListener.prototype.enterStatement = function (ctx) {
 
 // Exit a parse tree produced by ASPCore2_0cParser#statement.
 ASPCore2_0cListener.prototype.exitStatement = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#statementsForTest.
+ASPCore2_0cListener.prototype.enterStatementsForTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#statementsForTest.
+ASPCore2_0cListener.prototype.exitStatementsForTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#entireBlockTest.
+ASPCore2_0cListener.prototype.enterEntireBlockTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#entireBlockTest.
+ASPCore2_0cListener.prototype.exitEntireBlockTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#hardConstraint.
+ASPCore2_0cListener.prototype.enterHardConstraint = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#hardConstraint.
+ASPCore2_0cListener.prototype.exitHardConstraint = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#statementForTest.
+ASPCore2_0cListener.prototype.enterStatementForTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#statementForTest.
+ASPCore2_0cListener.prototype.exitStatementForTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#testDirective.
+ASPCore2_0cListener.prototype.enterTestDirective = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#testDirective.
+ASPCore2_0cListener.prototype.exitTestDirective = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#nameEqual.
+ASPCore2_0cListener.prototype.enterNameEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#nameEqual.
+ASPCore2_0cListener.prototype.exitNameEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#blockEqual.
+ASPCore2_0cListener.prototype.enterBlockEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#blockEqual.
+ASPCore2_0cListener.prototype.exitBlockEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#listOfString.
+ASPCore2_0cListener.prototype.enterListOfString = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#listOfString.
+ASPCore2_0cListener.prototype.exitListOfString = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#numberEqual.
+ASPCore2_0cListener.prototype.enterNumberEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#numberEqual.
+ASPCore2_0cListener.prototype.exitNumberEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#atomsEqual.
+ASPCore2_0cListener.prototype.enterAtomsEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#atomsEqual.
+ASPCore2_0cListener.prototype.exitAtomsEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#startBlock.
+ASPCore2_0cListener.prototype.enterStartBlock = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#startBlock.
+ASPCore2_0cListener.prototype.exitStartBlock = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#endBlock.
+ASPCore2_0cListener.prototype.enterEndBlock = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#endBlock.
+ASPCore2_0cListener.prototype.exitEndBlock = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#inLineAnnotation.
+ASPCore2_0cListener.prototype.enterInLineAnnotation = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#inLineAnnotation.
+ASPCore2_0cListener.prototype.exitInLineAnnotation = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#ruleTest.
+ASPCore2_0cListener.prototype.enterRuleTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#ruleTest.
+ASPCore2_0cListener.prototype.exitRuleTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#blockTest.
+ASPCore2_0cListener.prototype.enterBlockTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#blockTest.
+ASPCore2_0cListener.prototype.exitBlockTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#singleQuoteTest.
+ASPCore2_0cListener.prototype.enterSingleQuoteTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#singleQuoteTest.
+ASPCore2_0cListener.prototype.exitSingleQuoteTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#testTest.
+ASPCore2_0cListener.prototype.enterTestTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#testTest.
+ASPCore2_0cListener.prototype.exitTestTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#programFilesTest.
+ASPCore2_0cListener.prototype.enterProgramFilesTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#programFilesTest.
+ASPCore2_0cListener.prototype.exitProgramFilesTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#inputTest.
+ASPCore2_0cListener.prototype.enterInputTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#inputTest.
+ASPCore2_0cListener.prototype.exitInputTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#inputFilesTest.
+ASPCore2_0cListener.prototype.enterInputFilesTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#inputFilesTest.
+ASPCore2_0cListener.prototype.exitInputFilesTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#assertTest.
+ASPCore2_0cListener.prototype.enterAssertTest = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#assertTest.
+ASPCore2_0cListener.prototype.exitAssertTest = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#assertions.
+ASPCore2_0cListener.prototype.enterAssertions = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#assertions.
+ASPCore2_0cListener.prototype.exitAssertions = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#assertion.
+ASPCore2_0cListener.prototype.enterAssertion = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#assertion.
+ASPCore2_0cListener.prototype.exitAssertion = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#noAnswerSet.
+ASPCore2_0cListener.prototype.enterNoAnswerSet = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#noAnswerSet.
+ASPCore2_0cListener.prototype.exitNoAnswerSet = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#trueIn.
+ASPCore2_0cListener.prototype.enterTrueIn = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#trueIn.
+ASPCore2_0cListener.prototype.exitTrueIn = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#trueInAll.
+ASPCore2_0cListener.prototype.enterTrueInAll = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#trueInAll.
+ASPCore2_0cListener.prototype.exitTrueInAll = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#trueInAtLeast.
+ASPCore2_0cListener.prototype.enterTrueInAtLeast = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#trueInAtLeast.
+ASPCore2_0cListener.prototype.exitTrueInAtLeast = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#trueInAtMost.
+ASPCore2_0cListener.prototype.enterTrueInAtMost = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#trueInAtMost.
+ASPCore2_0cListener.prototype.exitTrueInAtMost = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#trueInExactly.
+ASPCore2_0cListener.prototype.enterTrueInExactly = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#trueInExactly.
+ASPCore2_0cListener.prototype.exitTrueInExactly = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#constraintIn.
+ASPCore2_0cListener.prototype.enterConstraintIn = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#constraintIn.
+ASPCore2_0cListener.prototype.exitConstraintIn = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#constraintEqual.
+ASPCore2_0cListener.prototype.enterConstraintEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#constraintEqual.
+ASPCore2_0cListener.prototype.exitConstraintEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#constraintForAll.
+ASPCore2_0cListener.prototype.enterConstraintForAll = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#constraintForAll.
+ASPCore2_0cListener.prototype.exitConstraintForAll = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#constraintInAtLeast.
+ASPCore2_0cListener.prototype.enterConstraintInAtLeast = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#constraintInAtLeast.
+ASPCore2_0cListener.prototype.exitConstraintInAtLeast = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#constraintInAtMost.
+ASPCore2_0cListener.prototype.enterConstraintInAtMost = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#constraintInAtMost.
+ASPCore2_0cListener.prototype.exitConstraintInAtMost = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#constraintInExactly.
+ASPCore2_0cListener.prototype.enterConstraintInExactly = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#constraintInExactly.
+ASPCore2_0cListener.prototype.exitConstraintInExactly = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#bestModelCost.
+ASPCore2_0cListener.prototype.enterBestModelCost = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#bestModelCost.
+ASPCore2_0cListener.prototype.exitBestModelCost = function (ctx) {
 };
 
 

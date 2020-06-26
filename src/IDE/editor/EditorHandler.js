@@ -11,9 +11,9 @@ export default class EditorHandler {
 		this.plugins = plugins;
 	}
 
-	parse = (actualAnnotations, lineContext, line) => {
-		let actualRow = line || this.aceEditor.current.editor.getCursorPosition().row;
-		let delta = this.aceEditor.current.editor.getSession().getLine(actualRow);
+	parse = (actualAnnotations, lineContext) => {
+		// let actualRow = line || this.aceEditor.current.editor.getCursorPosition().row;
+		let delta = this.aceEditor.current.editor.getSession().getValue();
 		let stream = new antlr4.InputStream(delta);
 		let lexer = new Lexer(stream);
 		let tokens = new antlr4.CommonTokenStream(lexer);
@@ -21,25 +21,16 @@ export default class EditorHandler {
 		let annotations = [];
 		let errorListener = new AceErrorListener(annotations);
 
-		lineContext[actualRow] = undefined;
+		lineContext = [];
 		parser.removeErrorListeners();
 		parser.buildParseTrees = true;
 		parser.addErrorListener(errorListener);
-		let tree = parser.program();
-		let walker = new CustomASPCore2_0cListener(annotations, lineContext[actualRow]);
+		let tree = parser.inizio();
+		let walker = new CustomASPCore2_0cListener(annotations, lineContext);
 		antlr4.tree.ParseTreeWalker.DEFAULT.walk(walker, tree);
-		lineContext[actualRow] = walker.getLastContext();
-		annotations = annotations.map(ann => {
-			ann.row = actualRow;
-			return ann;
-		});
-		if (annotations.length === 0) {
-			return actualAnnotations.filter(ann => ann.row !== actualRow);
-		} else {
-			let old = actualAnnotations.filter(ann => ann.row !== actualRow);
-			annotations.forEach(a => old.push(a));
-			return old;
-		}
+		lineContext = walker.getLastContext();
+
+		return {annotations, lineContext};
 	}
 	copy = () => {
 		let x = this.aceEditor.current.editor.getSelectedText();

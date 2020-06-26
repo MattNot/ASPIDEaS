@@ -3,8 +3,7 @@ import {default as addDot} from "./errors/addDot"
 import {default as removeHead} from "./errors/removeVariableInHead"
 import {default as addDomainAtom} from "./errors/addDomainAtom"
 
-let plugins;
-export default plugins = [
+export let plugins = [
 	disjuctionRewrite,
 	addDot,
 	removeHead,

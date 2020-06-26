@@ -5,7 +5,7 @@ import "../App.css"
 import {Segment, SidebarPushable, SidebarPusher} from "semantic-ui-react";
 import ASPNavBar from "./UI/ASPNavBar";
 import locales from "../i18n";
-import {default as pl} from "./plugins"
+import {plugins as pl} from "../plugins"
 import AspOutput from "./UI/ASPOutput";
 import {useDispatch, useSelector} from "react-redux";
 import {english, italian, reloadAsync, setPlugins} from "../redux/actions";
@@ -13,9 +13,14 @@ import EditorWrapper from "./editor/EditorWrapper";
 import Cookies from "js-cookie"
 
 const styles = {
-	MAIN: {height: "100%", width: "100vw", position: "relative"},
+	MAIN: {
+		height: "100%", width: "100vw"
+	},
 	SECONDARY: {margin: "0", padding: "0"},
-	PUSHABLE: {margin: 0},
+	PUSHABLE: {
+		position: "relative",
+		margin: 0
+	},
 };
 
 function Ide() {
@@ -45,9 +50,8 @@ function Ide() {
 						name: activeFile.name,
 						father: activeFile.father
 					},
-					testCases: ["a.", "b."],
 					options: {
-						test: execTests,
+						test: false,
 						n: modelsNumber,
 						executor: engine
 					}
@@ -86,7 +90,9 @@ function Ide() {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(children)
-		}).then(r => dispatch(reloadAsync()))
+		}).then(r => {
+			dispatch(reloadAsync())
+		})
 	}
 
 	useEffect(() => {
@@ -94,7 +100,8 @@ function Ide() {
 	}, [])
 	return (
 		<span>
-			{Cookies.get("logged") && <div style={styles.MAIN}>
+			{Cookies.get("logged") &&
+			<div style={styles.MAIN}>
 				<ASPNavBar toggleMenu={toggleMenu} hamburgerName={hamburgerName} locale={language}
 				           setLanguage={handleLanguage} sendProgram={sendProgram}
 				           notifyTree={{notifyTree, setNotifyTree}} handleSave={handleSave}/>

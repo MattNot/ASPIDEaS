@@ -27,7 +27,7 @@ const LoginForm = () => {
 		}).then(r => r.json())
 			.then(user => {
 				if (user) {
-					Cookies.set("logged", true, {expires: 1, path: "/"})
+					Cookies.set("logged", true, {path: "/"})
 					history.push("/ide")
 				} else {
 					setError(true);

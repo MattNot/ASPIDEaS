@@ -14,14 +14,14 @@ export default class AceErrorListener extends antlr4.error.ErrorListener {
 			if (!offendingSymbol.source[1].strdata.includes("."))
 				return "Missing DOT at end of statement";
 			else {
-				console.log(exceptionDetails)
+				return "Unexpected: " + offendingSymbol.text + " In column " + offendingSymbol.column;
 			}
 		return msg;
 	}
 
 	syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
 		this.annotations.push({
-			row: line - 1,
+			row: offendingSymbol.line - 1,
 			column: column,
 			text: this.setMessage(offendingSymbol, msg, e),
 			type: "error",
