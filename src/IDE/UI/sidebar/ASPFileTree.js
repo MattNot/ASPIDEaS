@@ -7,14 +7,18 @@ import {editorValue, reloadAsync, setActiveFile, setActiveProject, setNewProject
 const ASPFileTree = ({size, notifyTree}) => {
 	const projects = useSelector(state => state.projects);
 	const dispatch = useDispatch();
+	const activeProject = useSelector(state => state.activeProject)
 	const [cursor, setCursor] = useState({})
 	const [, reRenderMe] = useState(0)
 	useEffect(() => {
 		dispatch(reloadAsync())
-
+		if (activeProject.active !== undefined)
+			activeProject.active = true
+		setCursor(activeProject)
 	}, [notifyTree])
 
 	function onSelect(node, toggled) {
+		console.log(node)
 		if (cursor) {
 			cursor.active = false;
 		}

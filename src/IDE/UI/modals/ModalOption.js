@@ -11,7 +11,7 @@ import {
 	ModalHeader
 } from "semantic-ui-react";
 import {useDispatch, useSelector} from "react-redux";
-import {addOption} from "../../../redux/actions";
+import {addOption, removeOption} from "../../../redux/actions";
 
 const ModalOption = () => {
 	const [open, setOpen] = useState(false)
@@ -50,8 +50,8 @@ const ModalOption = () => {
 			onClose={() => setOpen(false)}
 			size={"large"}
 			trigger={
-				<Button as={DropdownItem}><Icon name={"terminal"}/>Executor's
-					options</Button>
+				<DropdownItem><Icon name={"terminal"}/>Executor's
+					options</DropdownItem>
 			}
 			basic
 		>
@@ -61,7 +61,13 @@ const ModalOption = () => {
 				<ol>
 					{
 						cliOptions.map((option, index) => {
-							return <li key={index}>{option}</li>
+							return <span key={index}>
+								<li>
+									{option}
+									<Icon name={"times circle"} refer={option} inverted
+									      onClick={(e, target) => dispatch(removeOption(target.refer))}/>
+								</li>
+							</span>
 						})
 					}
 				</ol>

@@ -21,7 +21,8 @@ const ModalNewFile = ({locale, notifyTree}) => {
 			onClose={() => setOpen(false)}
 			size={"large"}
 			trigger={
-				<DropdownItem><Icon name={"add"}/>{locale.__("newfile")}</DropdownItem>
+				<DropdownItem disabled={activeProject.name === undefined}><Icon name={"add"}/>{locale.__("newfile")}
+				</DropdownItem>
 			}
 			basic
 		>
