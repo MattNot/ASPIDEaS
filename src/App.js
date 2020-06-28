@@ -6,6 +6,18 @@ import LoginForm from "./Auth/Login";
 import Registration from "./Auth/Registration";
 import {Provider} from "react-redux";
 import {store} from "./redux";
+import {setLastKeyboardEvent} from "./redux/actions";
+
+window.onkeydown = ev => {
+	if (ev.ctrlKey) {
+		store.dispatch(setLastKeyboardEvent(true))
+	}
+}
+window.onkeyup = ev => {
+	if (!ev.ctrlKey) {
+		store.dispatch(setLastKeyboardEvent(false))
+	}
+}
 
 function App() {
 	return (

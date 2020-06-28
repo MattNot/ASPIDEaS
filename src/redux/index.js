@@ -5,10 +5,11 @@ import {
 	blockReducer,
 	changeEditorValueReducer,
 	changeLanguageReducer,
-	cliOptionsReducer,
 	engineReducer,
 	execTestsReducer,
+	keyboardEventReducer,
 	loginReducer,
+	multipleReducer,
 	outputReducer,
 	pluginsReducer,
 	projectsReducer,
@@ -29,9 +30,10 @@ export let store = createStore(combineReducers({
 	output: outputReducer,
 	engine: engineReducer,
 	isLogged: loginReducer,
-	cliOptions: cliOptionsReducer,
 	execTests: execTestsReducer,
 	blocks: blockReducer,
 	rules: ruleReducer,
-	tests: testReducer
+	tests: testReducer,
+	keyBoardEvent: keyboardEventReducer,
+	multiple: multipleReducer
 }), composeEnhancers(applyMiddleware(thunk)))

@@ -18,11 +18,11 @@ const ModalOption = () => {
 	const [value, setValue] = useState("");
 	const [error, setError] = useState(false)
 	const [, reRenderMe] = useState(false)
-	const cliOptions = useSelector(state => state.cliOptions)
+	const activeProject = useSelector(state => state.activeProject)
 	const dispatch = useDispatch()
 	const engine = useSelector(state => state.engine)
 	const inputChange = (event, {value}) => {
-		setValue(value);
+		setValue(value)
 	}
 
 	const addCliOption = () => {
@@ -60,12 +60,15 @@ const ModalOption = () => {
 				Actual active options:
 				<ol>
 					{
-						cliOptions.map((option, index) => {
+						activeProject.cliOptions.map((option, index) => {
 							return <span key={index}>
 								<li>
 									{option}
 									<Icon name={"times circle"} refer={option} inverted
-									      onClick={(e, target) => dispatch(removeOption(target.refer))}/>
+									      onClick={(e, target) => {
+										      dispatch(removeOption(target.refer))
+										      reRenderMe(n => !n)
+									      }}/>
 								</li>
 							</span>
 						})

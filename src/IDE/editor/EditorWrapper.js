@@ -17,7 +17,14 @@ const EditorWrapper = (props) => {
 			}
 			{!activeFile.name &&
 			<div style={{width: "100vw", height: "100vh"}}>
-				<Label style={{position: "absolute", top: "50vh", left: "50vw"}} color={"black"}>Click on a File</Label>
+				<Label style={{
+					position: "fixed",
+					top: "25%",
+					left: "50%",
+					transform: "translate(-50%, -50%)"
+				}}
+				       color={"black"}>Click on
+					a File</Label>
 			</div>
 			}
 		</div>

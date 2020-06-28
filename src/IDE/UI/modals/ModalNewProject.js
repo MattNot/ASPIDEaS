@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Button, DropdownItem, Icon, Input, Modal, ModalActions, ModalContent, ModalHeader} from "semantic-ui-react";
 import {useDispatch} from "react-redux";
-import {setActiveProject} from "../../../redux/actions";
 
 const ModalNewProject = ({locale, notifyTree}) => {
 	const dispatch = useDispatch()
@@ -12,9 +11,8 @@ const ModalNewProject = ({locale, notifyTree}) => {
 	}
 	const createProject = () => {
 		fetch("api/projects/newProject/" + value).then(r => r.text()).then(r => {
+			// dispatch(setActiveProject(r));
 			notifyTree.setNotifyTree(!notifyTree.notifyTree)
-			console.log(r)
-			dispatch(setActiveProject(r));
 		});
 		setOpen(false);
 	}

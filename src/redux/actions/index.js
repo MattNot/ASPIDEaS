@@ -15,3 +15,4 @@ export {
 } from "./projects"
 export {addOption, removeOption} from "./cliOptions"
 export {changeExecTest, addBlock, resetBlock, addRule, resetRules, addTest, resetTests} from "./tests"
+export {setLastKeyboardEvent, setMultiples} from "./ctrlKey"
