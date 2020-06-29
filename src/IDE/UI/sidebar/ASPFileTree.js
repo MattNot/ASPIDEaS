@@ -10,6 +10,7 @@ import {
 	setNewProjects
 } from "../../../redux/actions";
 import {ContextMenu, ContextMenuTrigger, MenuItem} from "react-contextmenu";
+import ModalRename from "../modals/ModalRename";
 
 class Container extends decorators.Container {
 	render() {
@@ -25,7 +26,7 @@ class Container extends decorators.Container {
 }
 
 
-const ASPFileTree = ({size, notifyTree}) => {
+const ASPFileTree = ({size, notifyTree, sendProgram}) => {
 	const projects = useSelector(state => state.projects);
 	const dispatch = useDispatch();
 	const activeProject = useSelector(state => state.activeProject)
@@ -104,11 +105,12 @@ const ASPFileTree = ({size, notifyTree}) => {
 			}} decorators={{...decorators, Container}}/>
 			<ContextMenu id={"leftContextMenu"} hideOnLeave collect={props => props}
 			             onShow={(e) => setClicked(e.detail.data.node)}>
-				<MenuItem onClick={() => onDelete()}>
-					Rename
-				</MenuItem>
+				<ModalRename clicked={clicked} projects={projects} reRender={reRenderMe}/>
 				<MenuItem onClick={() => onDelete()}>
 					Delete
+				</MenuItem>
+				<MenuItem onClick={sendProgram}>
+					Execute
 				</MenuItem>
 			</ContextMenu>
 		</span>

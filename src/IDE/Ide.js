@@ -108,7 +108,7 @@ function Ide() {
 				           notifyTree={{notifyTree, setNotifyTree}} handleSave={handleSave}/>
 				<SidebarPushable as={Segment} style={styles.PUSHABLE}>
 					<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
-					            notifyTree={notifyTree}/>
+					            notifyTree={notifyTree} sendProgram={sendProgram}/>
 					<SidebarPusher
 						style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
 						<EditorWrapper handleSave={handleSave}/>
