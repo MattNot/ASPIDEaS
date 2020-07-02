@@ -41,6 +41,7 @@ const dropdownStyle = {
 function ASPNavBar(props) {
 	const history = useHistory()
 	const executor = useSelector(state => state.engine)
+	const activeProject = useSelector(state => state.activeProject)
 	const dispatch = useDispatch()
 	return (
 		<Menu inverted style={styles.MENU}>
@@ -58,7 +59,9 @@ function ASPNavBar(props) {
 					                 setActiveProject={props.setActiveProject}/>
 					<ModalNewFile locale={props.locale} notifyTree={props.notifyTree}
 					              activeProject={props.activeProject}/>
-					<Button as={DropdownItem} onClick={props.handleSave}><Icon name={"save"}/> {props.locale.__("Save")}
+					<Button as={DropdownItem} onClick={props.handleSave}
+					        disabled={activeProject.name === undefined}><Icon
+						name={"save"}/> {props.locale.__("Save")}
 					</Button>
 					<DropdownDivider/>
 					<ModalImportFacts/>
@@ -79,6 +82,7 @@ function ASPNavBar(props) {
 			<Button as={MenuItem} onClick={() => {
 				Cookies.remove("logged");
 				history.push("/")
+				clearInterval(window.inter)
 			}}>Logout</Button>
 			<MenuItem as={Button} onClick={props.sendProgram} position={"right"}><Icon name="play"
 			                                                                           color="green"/></MenuItem>

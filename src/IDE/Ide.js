@@ -30,14 +30,16 @@ function Ide() {
 	const language = useSelector(state => state.language);
 	const dispatch = useDispatch();
 	const editorValue = useSelector(state => state.editorValue);
+	const multiple = useSelector(state => state.multiple)
 	const engine = useSelector(state => state.engine)
 	const activeProject = useSelector(state => state.activeProject)
 	const activeFile = useSelector(state => state.activeFile)
-	const execTests = useSelector(state => state.execTests)
-	const modelsNumber = useSelector(state => state.modelsNumber)
 	const [outPut, setOutput] = useState("");
 	const [notifyTree, setNotifyTree] = useState(false)
 	const sendProgram = () => {
+		let inputProgram = editorValue;
+		// console.log(multiple)
+		multiple.forEach(n => inputProgram += n.inputProgram)
 		fetch(`api/evaluate`, {
 				method: "POST",
 				headers: {
@@ -46,14 +48,13 @@ function Ide() {
 				},
 				body: JSON.stringify({
 					input: {
-						inputProgram: editorValue,
+						inputProgram: inputProgram,
 						name: activeFile.name,
 						father: activeFile.father
 					},
 					options: {
-						test: false,
-						n: modelsNumber,
-						executor: engine
+						executor: engine,
+						cliOptions: activeProject.cliOptions
 					}
 				})
 			}
@@ -107,7 +108,7 @@ function Ide() {
 				           notifyTree={{notifyTree, setNotifyTree}} handleSave={handleSave}/>
 				<SidebarPushable as={Segment} style={styles.PUSHABLE}>
 					<ASPSideBar visible={sidebarVisible} direction={"left"} animation={"push"} width={sideBarWidth}
-					            notifyTree={notifyTree}/>
+					            notifyTree={notifyTree} sendProgram={sendProgram}/>
 					<SidebarPusher
 						style={{transform: `translate3d(${sideBarWidth}px,0,0)`, backgroundColor: "#282a36"}}>
 						<EditorWrapper handleSave={handleSave}/>

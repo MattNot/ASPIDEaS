@@ -1,20 +1,36 @@
 import React, {useState} from 'react';
-import {Button, DropdownItem, Icon, Input, Modal, ModalActions, ModalContent, ModalHeader} from "semantic-ui-react";
-import {useDispatch} from "react-redux";
-import {setActiveProject} from "../../../redux/actions";
+import {
+	Button,
+	DropdownItem,
+	Form,
+	Icon,
+	Message,
+	Modal,
+	ModalActions,
+	ModalContent,
+	ModalHeader
+} from "semantic-ui-react";
+import {useDispatch, useSelector} from "react-redux";
 
 const ModalNewProject = ({locale, notifyTree}) => {
 	const dispatch = useDispatch()
+	const projects = useSelector(state => state.projects)
+	const [error, setError] = useState(false)
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("");
 	const inputChange = (event, {value}) => {
 		setValue(value);
 	}
 	const createProject = () => {
+		for (let proj of projects) {
+			if (proj.name === value) {
+				setError(true)
+				return;
+			}
+		}
 		fetch("api/projects/newProject/" + value).then(r => r.text()).then(r => {
+			// dispatch(setActiveProject(r));
 			notifyTree.setNotifyTree(!notifyTree.notifyTree)
-			console.log(r)
-			dispatch(setActiveProject(r));
 		});
 		setOpen(false);
 	}
@@ -32,8 +48,16 @@ const ModalNewProject = ({locale, notifyTree}) => {
 		>
 			<ModalHeader>{locale.__("newProj")}</ModalHeader>
 			<ModalContent>
-				<Input inverted type={"text"} size={"large"} label={locale.__("projName")}
-				       placeholder={locale.__("projName")} onChange={inputChange}/>
+				<Form error={error}>
+					<Message
+						error
+						header='Error'
+						content='The project already exists'
+					/>
+					<Form.Input inverted type={"text"} size={"large"} label={locale.__("projName")}
+					            placeholder={locale.__("projName")} onChange={inputChange}/>
+
+				</Form>
 			</ModalContent>
 			<ModalActions>
 				<Button inverted onClick={() => createProject()}>Create</Button>

@@ -53,7 +53,7 @@ class ASPEditor extends React.Component {
 		this.aceEditor.current.editor.getSession().setMode(new CustomAspMode());
 		this.aceEditor.current.editor.setBehavioursEnabled(true);
 		this.aceEditor.current.editor.setWrapBehavioursEnabled(true);
-		setInterval(this.parse, 2000)
+		window.inter = setInterval(this.parse, 2000)
 	}
 
 	componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS) {
@@ -91,7 +91,7 @@ class ASPEditor extends React.Component {
 		this.dispatch(setActiveFileInput(val))
 		this.activeProject.children = this.activeProject.children.map(child => {
 			if (child.name === this.activeFile.name) {
-				child.inputProgram = this.activeFile.inputProgram;
+				child.inputProgram = val;
 			}
 			return child;
 		})
@@ -107,9 +107,7 @@ class ASPEditor extends React.Component {
 	errorOnThisLine = () => {
 		let actualRow = this.aceEditor.current.editor.getSelection().getCursor().row;
 		let annotations = this.aceEditor.current.editor.getSession().getAnnotations();
-		console.log(actualRow)
-		let isError = [];
-		isError = annotations.filter(ann => ann.row === actualRow);
+		let isError = annotations.filter(ann => ann.row === actualRow);
 		if (isError.length > 0) {
 			this.setState({
 				errorOnThisLine: {
@@ -133,6 +131,7 @@ class ASPEditor extends React.Component {
 	render() {
 		return (
 			<span>
+
 				<ContextMenuTrigger id="contextMenu" holdToDisplay={-1}>
 					<AceEditor theme="dracula"
 					           mode="text"

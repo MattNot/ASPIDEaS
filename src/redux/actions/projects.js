@@ -1,3 +1,6 @@
+import React from "react";
+
+
 export const setNewProjects = (projects) => {
 	return {
 		type: "SET_NEW_PROJECTS",
@@ -57,13 +60,11 @@ export const reloadAsync = () => {
 					toggled: true,
 					children: p.programs,
 					active: false,
-					father: p.father
+					father: p.father,
+					cliOptions: p.cliOptions,
 				});
 			});
 			dispatch(setNewProjects(newProjects))
-			if (newProjects.length > 0) {
-				dispatch(setActiveProject(newProjects[0]))
-			}
 		});
 	}
 }

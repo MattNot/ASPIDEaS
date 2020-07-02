@@ -9,6 +9,7 @@ const ModalImportFacts = () => {
 	const [inputFile, setInputFile] = useState()
 	const [predicateName, setPredicateName] = useState("predicateName")
 	const currentEditorValue = useSelector(state => state.editorValue)
+	const activeFile = useSelector(state => state.activeFile)
 	const dispatch = useDispatch()
 	const inputRef = useRef()
 	const inputChange = (event, {value}) => {
@@ -50,7 +51,8 @@ const ModalImportFacts = () => {
 			onClose={() => setOpen(false)}
 			size={"large"}
 			trigger={
-				<DropdownItem><Icon name={"download"}/>Import facts from file</DropdownItem>
+				<DropdownItem disabled={activeFile.name === undefined}><Icon name={"download"}/>Import facts from
+					file</DropdownItem>
 			}
 			basic
 		>

@@ -11,18 +11,18 @@ import {
 	ModalHeader
 } from "semantic-ui-react";
 import {useDispatch, useSelector} from "react-redux";
-import {addOption} from "../../../redux/actions";
+import {addOption, removeOption} from "../../../redux/actions";
 
 const ModalOption = () => {
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("");
 	const [error, setError] = useState(false)
 	const [, reRenderMe] = useState(false)
-	const cliOptions = useSelector(state => state.cliOptions)
+	const activeProject = useSelector(state => state.activeProject)
 	const dispatch = useDispatch()
 	const engine = useSelector(state => state.engine)
 	const inputChange = (event, {value}) => {
-		setValue(value);
+		setValue(value)
 	}
 
 	const addCliOption = () => {
@@ -50,8 +50,8 @@ const ModalOption = () => {
 			onClose={() => setOpen(false)}
 			size={"large"}
 			trigger={
-				<Button as={DropdownItem}><Icon name={"terminal"}/>Executor's
-					options</Button>
+				<DropdownItem><Icon name={"terminal"}/>Executor's
+					options</DropdownItem>
 			}
 			basic
 		>
@@ -60,8 +60,17 @@ const ModalOption = () => {
 				Actual active options:
 				<ol>
 					{
-						cliOptions.map((option, index) => {
-							return <li key={index}>{option}</li>
+						activeProject.cliOptions.map((option, index) => {
+							return <span key={index}>
+								<li>
+									{option}
+									<Icon name={"times circle"} refer={option} inverted
+									      onClick={(e, target) => {
+										      dispatch(removeOption(target.refer))
+										      reRenderMe(n => !n)
+									      }}/>
+								</li>
+							</span>
 						})
 					}
 				</ol>
