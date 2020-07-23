@@ -59,8 +59,8 @@ function Ide() {
 				})
 			}
 		).then(r => r.json()).then(t => {
-			t = t.map((f, index) => `MODEL N. ${index + 1} \n` + f)
-			setOutput(t.join("\n"))
+			t = t.map((f, index) => `MODEL N. ${index + 1} \n` + f.replace(/\n/g, " "))
+			setOutput(t.join("\n\n"))
 		});
 	}
 	const toggleMenu = () => {

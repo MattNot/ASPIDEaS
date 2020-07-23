@@ -87,18 +87,26 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	exitHardConstraint(ctx) {
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.ConstraintEqualContext) {
 			const plainConstraint: string = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
-			const onlyAtoms = plainConstraint.replace(/#\w{3}{.*},*/g, "");
+			const onlyAtoms = plainConstraint.replace(/#\w+{.*}.*,*[^.]/g, "");
+			let listOfAtoms = onlyAtoms.replace(/not (\w+\(.*?\))/g, "");
+			listOfAtoms = listOfAtoms.matchAll(/(\w+\(.*?\))/g)
+			let positiveMembers = ":-";
+			for (let l of listOfAtoms)
+				positiveMembers += l[0] + ",";
 			let set = new Set();
-			let matches = onlyAtoms.matchAll(/\(((\w),*)+\)/g);
-			for (let match of matches)
+			let matches = positiveMembers.matchAll(/\(((\w),*)+\)/g);
+			for (let match of matches) {
 				match[0].replace("(", "").replace(")", "").split(',').forEach(letter => set.add(letter));
+			}
 			let head;
 			if (set.size > 0)
 				head = "constraintHead(" + [...set].join(",") + ")";
 			else
 				head = "constraintHead"
 			const finalConstraint = head + plainConstraint;
-			const addedConstraint = ":- not " + head + ".";
+
+			let addedConstraint = positiveMembers + " " + head + ".";
+
 			this.assertConstructor.constraint = finalConstraint + "\n" + addedConstraint;
 		}
 	}
@@ -135,6 +143,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		store.dispatch(addTest(this.testConstructor));
 		this.testConstructor.clear();
 	}
+
 
 	exitRuleTest(ctx) {
 		let nam = this.ruleConstructor.name
@@ -189,6 +198,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.InputTestContext) {
 			this.testConstructor.input = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
 		}
+		this.exitStatement(ctx)
 	}
 
 	exitBlockTest(ctx) {

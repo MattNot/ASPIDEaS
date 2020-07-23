@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Form, Grid, Header, Image, Message, Segment} from 'semantic-ui-react'
+import {Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react'
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Cookies from "js-cookie"
@@ -49,7 +49,7 @@ const LoginForm = () => {
 		<Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
 			<Grid.Column style={{maxWidth: 450}}>
 				<Header as='h2' color='teal' textAlign='center'>
-					<Image src='/logo.png'/> Log-in to your account
+					Log-in to your account
 				</Header>
 				<Form size='large' onSubmit={handleLogin} error={error}>
 					<Message
