@@ -8,7 +8,8 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		console.log(setA)
 		console.log(setB)
 		for (let a of setA) {
-			setB.delete(a)
+			if (a !== "_")
+				setB.delete(a)
 		}
 		console.log(setB)
 		return setB;
@@ -256,17 +257,17 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 
 	enterTerm(ctx) {
 		if (this.safetyHandler.check) {
-			console.log("TERM CHECK")
+			// console.log("TERM CHECK")
 			let x: string = ctx.children[0].symbol.text
 			if ((x.charAt(0) >= "A" && x.charAt(0) <= "Z") || x.charAt(0) === "_") {
-				console.log("NEGATIVE ADD")
+				// console.log("NEGATIVE ADD")
 				this.safetyHandler.negativeSet.add(ctx.children[0].symbol.text);
-				console.log(this.safetyHandler)
+				// console.log(this.safetyHandler)
 			}
 		} else {
-			console.log("POSITIVE SET")
+			// console.log("POSITIVE SET")
 			this.safetyHandler.positiveSet.add(ctx.children[0].symbol.text);
-			console.log(this.safetyHandler)
+			// console.log(this.safetyHandler)
 		}
 	}
 
