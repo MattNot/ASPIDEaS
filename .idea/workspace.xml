@@ -21,7 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="aca9a36b-a46e-4451-bf14-a2f6712ab13a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IDE/editor/parser/CustomASPCore2_0cListener.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/editor/parser/CustomASPCore2_0cListener.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/UI/modals/ModalImportFacts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/UI/modals/ModalImportFacts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/UI/modals/ModalOption.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/UI/modals/ModalOption.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IDE/UI/sidebar/ASPFileTree.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/IDE/UI/sidebar/ASPFileTree.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,17 +88,17 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\parsersGrammar" />
+      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\editor\parser" />
+      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\public\parser" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE\editor\parser" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE\UI" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE\editor\parser\oldParser" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE\UI\modals" />
       <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\IDE" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\parsersGrammar" />
-      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\src\editor\parser" />
-      <recent name="C:\Users\matte\WebstormProjects\ASPIDEaS\public\parser" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
@@ -311,7 +313,8 @@
       <workItem from="1595489588823" duration="731000" />
       <workItem from="1595494364953" duration="2318000" />
       <workItem from="1595512078706" duration="6730000" />
-      <workItem from="1595681007399" duration="1380000" />
+      <workItem from="1595681007399" duration="1984000" />
+      <workItem from="1595750097441" duration="1167000" />
     </task>
     <task id="LOCAL-00001" summary="Added Editor and Mode">
       <created>1584269636796</created>
@@ -586,7 +589,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595539828306</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="fixes">
+      <created>1595686279096</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1595686279096</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -687,38 +697,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593353829452" />
-    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1595539827430">
+    <state x="491" y="8" key="CommitChangelistDialog2" timestamp="1595686278295">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1595539827430" />
+    <state x="491" y="8" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1595686278295" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1595496790206">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595496790206" />
-    <state width="1899" height="150" key="GridCell.Tab.0.bottom" timestamp="1595539840596">
+    <state width="1899" height="150" key="GridCell.Tab.0.bottom" timestamp="1595693490206">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.bottom/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
-    <state width="1899" height="222" key="GridCell.Tab.0.bottom/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
-    <state width="1899" height="150" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1595539840596" />
-    <state width="1899" height="150" key="GridCell.Tab.0.center" timestamp="1595539840596">
+    <state width="1899" height="150" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1595693490206" />
+    <state width="1899" height="150" key="GridCell.Tab.0.center" timestamp="1595693490205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.center/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
-    <state width="1899" height="222" key="GridCell.Tab.0.center/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
-    <state width="1899" height="150" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1595539840596" />
-    <state width="1899" height="150" key="GridCell.Tab.0.left" timestamp="1595539840596">
+    <state width="1899" height="150" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1595693490205" />
+    <state width="1899" height="150" key="GridCell.Tab.0.left" timestamp="1595693490205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.left/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
-    <state width="1899" height="222" key="GridCell.Tab.0.left/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
-    <state width="1899" height="150" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1595539840596" />
-    <state width="1899" height="150" key="GridCell.Tab.0.right" timestamp="1595539840596">
+    <state width="1899" height="150" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1595693490205" />
+    <state width="1899" height="150" key="GridCell.Tab.0.right" timestamp="1595693490205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.right/-1440.173.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1587128229628" />
-    <state width="1899" height="222" key="GridCell.Tab.0.right/-1440.174.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1586954421037" />
-    <state width="1899" height="150" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595539840596" />
+    <state width="1899" height="150" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595693490205" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1591468710385">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -791,10 +797,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="747" y="236" key="VCS.ChangeListViewerDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593153178428" />
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1595539829759">
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2" timestamp="1595686280387">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1595539829759" />
+    <state x="451" y="169" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1595686280387" />
     <state x="769" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590767134821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

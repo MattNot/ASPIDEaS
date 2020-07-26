@@ -80,7 +80,7 @@ const ModalOption = () => {
 						header='Error'
 						content='This option is not supported by the selected executor'
 					/>
-					<Form.Input inverted type={"text"} size={"large"} label={"Predicate Name: "}
+					<Form.Input inverted type={"text"} size={"large"} label={"Option value: "}
 					            placeholder={"Option"} onChange={inputChange}/>
 				</Form>
 			</ModalContent>
