@@ -18,7 +18,7 @@ const ModalImportFacts = () => {
 	const onFileChange = e => {
 		setInputFile(e.target.files[0])
 	}
-	// If we want we can import also from a url
+	// TODO: If we want we can import also from a uri, next feature
 	const importFromCSV = () => {
 		Papa.parse(inputFile, {
 			header: true,

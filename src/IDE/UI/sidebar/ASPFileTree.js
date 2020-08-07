@@ -109,9 +109,9 @@ const ASPFileTree = ({size, notifyTree, sendProgram}) => {
 				<MenuItem onClick={() => onDelete()}>
 					Delete
 				</MenuItem>
-				<MenuItem onClick={sendProgram}>
+				{clicked.children === undefined && <MenuItem onClick={sendProgram}>
 					Execute
-				</MenuItem>
+				</MenuItem>}
 			</ContextMenu>
 		</span>
 	)

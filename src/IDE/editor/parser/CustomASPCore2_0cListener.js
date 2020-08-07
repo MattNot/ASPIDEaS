@@ -4,20 +4,26 @@ import {store} from "../../../redux";
 import {addBlock, addRule, addTest} from "../../../redux/actions";
 
 export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
+	difference(setA, setB) {
+		console.log(setA)
+		console.log(setB)
+		for (let a of setA) {
+			if (a !== "_")
+				setB.delete(a)
+		}
+		console.log(setB)
+		return setB;
+	}
+
 	constructor(annotations, lineContext) {
 		super();
 		this.safetyHandler = {
-			inHead: false,
-			inBody: false,
-			haveBody: false,
-			negativeTerms: false,
-			set: new Set(),
+			check: false,
+			negativeSet: new Set(),
+			positiveSet: new Set(),
 			reset: () => {
-				this.safetyHandler.negativeTerms = false;
-				this.safetyHandler.inBody = false;
-				this.safetyHandler.inHead = false;
-				this.safetyHandler.haveBody = false;
-				this.safetyHandler.set = new Set();
+				this.safetyHandler.negativeSet = new Set();
+				this.safetyHandler.positiveSet = new Set();
 			}
 		};
 		this.rules = []
@@ -87,18 +93,26 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	exitHardConstraint(ctx) {
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.ConstraintEqualContext) {
 			const plainConstraint: string = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
-			const onlyAtoms = plainConstraint.replace(/#\w{3}{.*},*/g, "");
+			const onlyAtoms = plainConstraint.replace(/#\w+{.*}.*,*[^.]/g, "");
+			let listOfAtoms = onlyAtoms.replace(/not (\w+\(.*?\))/g, "");
+			listOfAtoms = listOfAtoms.matchAll(/(\w+\(.*?\))/g)
+			let positiveMembers = ":-";
+			for (let l of listOfAtoms)
+				positiveMembers += l[0] + ",";
 			let set = new Set();
-			let matches = onlyAtoms.matchAll(/\(((\w),*)+\)/g);
-			for (let match of matches)
+			let matches = positiveMembers.matchAll(/\(((\w),*)+\)/g);
+			for (let match of matches) {
 				match[0].replace("(", "").replace(")", "").split(',').forEach(letter => set.add(letter));
+			}
 			let head;
 			if (set.size > 0)
 				head = "constraintHead(" + [...set].join(",") + ")";
 			else
 				head = "constraintHead"
 			const finalConstraint = head + plainConstraint;
-			const addedConstraint = ":- not " + head + ".";
+
+			let addedConstraint = positiveMembers + " " + head + ".";
+
 			this.assertConstructor.constraint = finalConstraint + "\n" + addedConstraint;
 		}
 	}
@@ -135,6 +149,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		store.dispatch(addTest(this.testConstructor));
 		this.testConstructor.clear();
 	}
+
 
 	exitRuleTest(ctx) {
 		let nam = this.ruleConstructor.name
@@ -189,6 +204,7 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 		if (ctx.parentCtx instanceof ASPCore2_0cParser.InputTestContext) {
 			this.testConstructor.input = ctx.start.source[1].getText(ctx.start.start, ctx.stop.stop);
 		}
+		this.exitStatement(ctx)
 	}
 
 	exitBlockTest(ctx) {
@@ -204,56 +220,54 @@ export default class CustomASPCore2_0cListener extends ASPCore2_0cListener {
 	}
 
 	exitStatement(ctx) {
-		if (this.safetyHandler.set.size !== 0 && this.safetyHandler.haveBody) {
+		let diff = this.difference(this.safetyHandler.positiveSet, this.safetyHandler.negativeSet)
+		console.log(diff)
+		if (diff.size !== 0) {
 			this.annotations.push({
 				row: ctx.stop.line - 1,
 				column: ctx.start.column,
 				type: "error",
-				text: `Safety error, missing '${[...this.safetyHandler.set].join(",")}' in positive body members`,
-				unsafeVariables: [...this.safetyHandler.set],
+				text: `Safety error, missing '${[...diff].join(",")}' in positive body members`,
+				unsafeVariables: [...diff],
 				name: "safety"
 			})
 			this.safetyHandler.reset();
 		}
 		this.lineContext[ctx.stop.line - 1] = ctx;
+		debugger;
 	}
 
 	enterHead(ctx) {
-		this.safetyHandler.inHead = true;
+		this.safetyHandler.check = true;
+		console.log("HEAD")
 	}
 
 	exitHead(ctx) {
-		this.safetyHandler.inHead = false;
+		this.safetyHandler.check = false;
+		console.log("EXIT HEAD")
 	}
 
-	enterBody(ctx) {
-		this.safetyHandler.inBody = true;
-		this.safetyHandler.haveBody = true;
+	enterNaf_not_literal(ctx) {
+		this.safetyHandler.check = true;
 	}
 
-	exitBody(ctx) {
-		this.safetyHandler.inBody = false;
+	exitNaf_not_literal(ctx) {
+		this.safetyHandler.check = false;
 	}
 
-	enterNaf_literal(ctx) {
-		if (ctx.children[0].children === undefined) {
-			if (ctx.children[0].symbol.text === "not") {
-				this.safetyHandler.inBody = false;
-				this.safetyHandler.negativeTerms = true;
+	enterTerm(ctx) {
+		if (this.safetyHandler.check) {
+			// console.log("TERM CHECK")
+			let x: string = ctx.children[0].symbol.text
+			if ((x.charAt(0) >= "A" && x.charAt(0) <= "Z") || x.charAt(0) === "_") {
+				// console.log("NEGATIVE ADD")
+				this.safetyHandler.negativeSet.add(ctx.children[0].symbol.text);
+				// console.log(this.safetyHandler)
 			}
-		}
-	}
-
-	exitNaf_literal(ctx) {
-		this.safetyHandler.negativeTerms = false;
-	}
-
-	exitTerm(ctx) {
-		if (this.safetyHandler.inHead || this.safetyHandler.negativeTerms) {
-			if (ctx.children[0].symbol.text.charAt(0).match("[A-Z]"))
-				this.safetyHandler.set.add(ctx.children[0].symbol.text);
-		} else if (this.safetyHandler.inBody) {
-			this.safetyHandler.set.delete(ctx.children[0].symbol.text);// no-effect if symbol isn't in the set
+		} else {
+			// console.log("POSITIVE SET")
+			this.safetyHandler.positiveSet.add(ctx.children[0].symbol.text);
+			// console.log(this.safetyHandler)
 		}
 	}
 

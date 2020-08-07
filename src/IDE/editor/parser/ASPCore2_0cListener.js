@@ -236,6 +236,24 @@ ASPCore2_0cListener.prototype.exitInputFilesTest = function (ctx) {
 };
 
 
+// Enter a parse tree produced by ASPCore2_0cParser#costEqual.
+ASPCore2_0cListener.prototype.enterCostEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#costEqual.
+ASPCore2_0cListener.prototype.exitCostEqual = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#levelEqual.
+ASPCore2_0cListener.prototype.enterLevelEqual = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#levelEqual.
+ASPCore2_0cListener.prototype.exitLevelEqual = function (ctx) {
+};
+
+
 // Enter a parse tree produced by ASPCore2_0cParser#assertTest.
 ASPCore2_0cListener.prototype.enterAssertTest = function (ctx) {
 };
@@ -530,6 +548,15 @@ ASPCore2_0cListener.prototype.enterNaf_literal = function (ctx) {
 
 // Exit a parse tree produced by ASPCore2_0cParser#naf_literal.
 ASPCore2_0cListener.prototype.exitNaf_literal = function (ctx) {
+};
+
+
+// Enter a parse tree produced by ASPCore2_0cParser#naf_not_literal.
+ASPCore2_0cListener.prototype.enterNaf_not_literal = function (ctx) {
+};
+
+// Exit a parse tree produced by ASPCore2_0cParser#naf_not_literal.
+ASPCore2_0cListener.prototype.exitNaf_not_literal = function (ctx) {
 };
 
 
